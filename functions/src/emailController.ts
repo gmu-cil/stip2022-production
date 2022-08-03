@@ -11,7 +11,7 @@ import {contactUsTemplate, modifyRequestTemplate} from './email templates/reques
 const sendGrid_api_key = functions.config().sendgrid.key;
 sdmail.setApiKey(sendGrid_api_key);
 
-const sender = "mlee@heeyaa.net";
+const sender = 'mlee@heeyaa.net';
 
 // Fetch admin emails that want notification from firestore.
 const adminEmails = async () => {
