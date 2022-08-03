@@ -1,0 +1,42 @@
+{
+  "rules": {
+    "persons": {
+        "publics": {
+        ".read": true,
+        ".write": "auth.token.admin === true"
+      	},
+      "requestArchieve": {
+        ".read": "auth.token.admin === true",
+      	".write": "auth.token.admin === true",
+         "contributions": {
+           	".read": "auth.token.admin === true",
+      			".write": "auth.token.admin === true",
+            "$user_id": {
+              "$uid": {
+                "publish":{
+                  	".write": "auth.token.admin === true",
+                    ".read": "auth.uid === $user_id || auth.token.admin === true"
+                }
+              },
+            ".write": "(auth.uid === $user_id && auth.token.email_verified === true) || auth.token.admin === true",
+            ".read": "auth.uid === $user_id || auth.token.admin === true"
+          }
+         },
+          "persons": {
+            ".read": true
+          },
+          "images": {
+            ".read": true
+          }
+      }
+    },
+    "announcement": {
+      ".read": "auth.token.admin === true",
+      ".write": "auth.token.admin === true",
+        "announce": {
+          ".read": true,
+          ".write": "auth.token.admin === true"
+        }
+    }
+  }
+}
