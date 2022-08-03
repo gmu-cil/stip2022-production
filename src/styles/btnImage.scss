@@ -1,0 +1,50 @@
+@import "~bootstrap/scss/bootstrap";
+.main-canvas {
+  // border: 0;
+  position: relative;
+  display: block;
+  border-radius: 1rem;
+  margin: 1rem;
+  &:hover {
+    @extend .shadow-lg;
+    background-position: center;
+    background-image: url('^assets/icons/profile/camera.svg');
+    background-repeat: no-repeat;
+  }
+}
+.main-canvas-no-hover {
+  // border: 0;
+  position: relative;
+  display: block;
+  border-radius: 1rem;
+}
+
+.image {
+  width: inherit;
+  height: inherit;
+  opacity: 1;
+  border-radius: 1rem;
+  display: block;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.main-canvas:hover {
+  .image {
+    opacity: 0.3;
+  }
+  .middle {
+    opacity: 1;
+  }
+}

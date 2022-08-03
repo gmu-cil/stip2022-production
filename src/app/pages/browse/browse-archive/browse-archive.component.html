@@ -1,0 +1,326 @@
+<div class="container-fluid p-0 profile-bg-image-blue">
+  <div class="profile-bg-colors">
+    <div class="d-flex profile-bg-image-blue-inner">
+      <div class="d-flex flex-column align-items-center flex-shrink-1 my-5">
+        <img
+          alt ='Image not Found'
+          [src]="src"
+          width="200"
+          height="200"
+          class="img-fluid rounded-circle mx-5 align-self-center"
+        />
+        <div class="text-light mx-auto">ID: {{ id || "-" }}</div>
+      </div>
+      <div
+        class="d-flex flex-column align-self-center text-light flex-fill"
+        style="height: 100%"
+      >
+        <div class="fs-1">{{ profile?.fullName || "-" }}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-2">
+        <div class="col align-self-end">
+          <ul class="list-group">
+            <li
+              class="list-group-item border-0"
+              style="background-color: #e8e8e8"
+            >
+              <label class="border-bottom border-dark fw-bold">
+                Gallery&emsp;</label
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-7 border-start m-3">
+        <div
+          class="d-flex justify-content-end align-items-center align-items-center"
+        >
+          <div *ngIf="isAdmin; else elseBlock">
+            <button
+              class="btn rounded-pill shadow border-green m-2"
+              style="background-color: white"
+              type="button"
+            >
+              {{ "archive.profile_admin_delete_button" | translate }}
+            </button>
+            <button
+              class="btn rounded-pill shadow m-2 border-green"
+              style="background-color: white"
+              type="button"
+            >
+              <img
+                src="assets/browsepage/request-to-modify.svg"
+                alt=""
+                width="20"
+              />{{ "archive.profile_admin_modify_button" | translate }}
+            </button>
+          </div>
+          <ng-template #elseBlock>
+            <app-request-modify class="m-2"></app-request-modify>
+
+            <a
+              type="button"
+              tooltip="{{ 'archive.profile_tooltip' | translate }}"
+              data-bs-toggle="tooltip"
+              data-bs-placement="right"
+              class="m-2"
+            >
+              <img
+                src="assets/browsepage/question-mark.svg"
+                alt=""
+                width="20"
+              />
+            </a>
+          </ng-template>
+          <button
+            class="share m-2 btn rounded-circle border-success"
+            data-bs-toggle="modal"
+            data-bs-target="#shareModal"
+          >
+            <img src="/assets/browsepage/share.svg" />
+          </button>
+
+          <!-- Modal -->
+          <div
+            class="modal fade"
+            id="shareModal"
+            tabindex="-1"
+            aria-labelledby="shareModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">
+                    {{ "archive.profile_share_file_title" | translate }}
+                  </h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <div>
+                    <p>{{ "archive.profile_copy_link_title" | translate }}</p>
+                    <div class="input-group mb-3">
+                      <span class="input-group-text" id="basic-addon1">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          fill="currentColor"
+                          class="bi bi-link-45deg"
+                          viewBox="0 0 16 16"
+                        >
+                          <path
+                            d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"
+                          />
+                          <path
+                            d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"
+                          />
+                        </svg>
+                      </span>
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="URL"
+                        aria-label="URL"
+                        aria-describedby="basic-addon1"
+                        value="{{ url }}"
+                        readonly
+                        #inputTarget
+                      />
+                      <button
+                        class="btn btn-outline-secondary"
+                        type="button"
+                        [ngxClipboard]="inputTarget"
+                        (click)="copyURL()"
+                      >
+                        {{ "archive.profile_copy_button" | translate }}
+                      </button>
+                    </div>
+                    <br />
+                    <div style="padding-bottom: 10px"></div>
+                    <a
+                      (click)="SavePDF('infoContent')"
+                      class="btn btn-light border-khaki"
+                      >{{ "archive.profile_download_button" | translate }}</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="" id="infoContent" #infoContent>
+          <div class="row py-2 h6 ms-2 mt-2 mb-3">
+            <div class="col-12">
+              <h5 class="fw-bold">
+                {{ "archive.profile_detail_title" | translate }}:&emsp;
+              </h5>
+            </div>
+            <div class="col-12 col-md-6 row mt-2">
+              <div class="col-12 py-2">
+                {{ "archive.profile_detail_name" | translate }}:
+                {{ profile?.fullName || "-" }}
+              </div>
+              <div class="col-12 py-2">
+                {{ "archive.gender_title" | translate }}:
+                {{ profile.gender || "-" | titlecase}}
+              </div>
+              <div class="col-12 py-2">
+                {{ "archive.ethnic_title" | translate }}:{{
+                  profile.ethnicity || "-"
+                }}
+              </div>
+              <div class="col-12 py-2">
+                {{ "archive.profession" | translate }}:
+                {{ profile.workplaceCombined || "-" | titlecase }}
+              </div>
+            </div>
+            <div class="col-12 col-md-6 row mt-2">
+              <div class="col-12 py-2">
+                {{ "archive.rightist_year_title" | translate }}:
+                {{ profile.righttistYear | date: "yyyy" }}
+              </div>
+              <div class="col-12 py-2">
+                {{ "archive.profile_birth_year" | translate }}:
+                {{ profile.birthYear | date: "yyyy" }}
+              </div>
+              <div class="col-12 py-2">
+                {{ "archive.status_title" | translate }}:
+                {{ profile.status || "-"  | titlecase }}
+              </div>
+              <div class="col-12 py-2">
+                {{ "archive.profile_death_year" | translate }}:
+                {{ profile.deathYear || "-" }}
+              </div>
+            </div>
+          </div>
+
+          <div class="row border-bottom border-top mb-4">
+            <h5 class="col-12 py-2 fw-bold ms-3 mt-2">
+              {{ "archive.description" | translate }}:
+            </h5>
+            <div class="col-12 py-2 ms-3">
+              {{ profile.description || "-" }}
+            </div>
+          </div>
+          <div class="row border-bottom">
+            <h5 class="col-12 py-2 fw-bold ms-3 mt-2">
+              {{ "archive.profile_biography" | translate }}:
+            </h5>
+            <div class="col-12 ms-3" *ngFor="let event of (profile?.events || [])">
+              In {{ (event.startYear | date: "yyyy") || "unknown" }} --
+              {{ (event.endYear | date: "yyyy")|| "unknown" }},
+              {{ event.event[0].toUpperCase() + event.event.substr(1) || "-" }}
+            </div>
+          </div>
+        </div>
+
+        <div class="row ms-2 my-3">
+          <div class="d-flex">
+            <div class="fs-5 fw-bold text-capitalize flex-grow-1">
+              {{ "archive.profile_additional_files" | translate }}
+            </div>
+            <!-- <button type="button" class="btn btn-white ms-auto text-green">
+              {{ "archive.profile_expand" | translate }}
+            </button> -->
+          </div>
+
+          <div
+            class="col-12 border px-0 rounded w-100 m-2"
+            id="memContent"
+            #memContent
+            *ngFor="let memoir of profile.memoirs; let i = index"
+          >
+            <div class="d-flex ps-2">
+              <h6 class="flex-grow-1 bd-highlight pt-2 fw-bold">
+                {{ "archive.additional_title" | translate }}
+                <div ng-if="memoir.memoirTitle">{{ memoir.memoirTitle }}</div>
+                <div ng-if="!memoir.memoirTitle">
+                  {{ "common.unknown" | translate }}
+                </div>
+              </h6>
+              <h6 class="flex-grow-1 bd-highlight pt-2 fw-bold">
+                {{ "archive.additional_author" | translate }}
+                <div ng-if="memoir.memoirAuthor">{{ memoir.memoirAuthor }}</div>
+                <div ng-if="!memoir.memoirAuthor">
+                  {{ "common.unknown" | translate }}
+                </div>
+              </h6>
+              <button
+                class="btn"
+                type="button"
+                [attr.aria-expanded]="!drop[i]"
+                aria-controls="{{ 'collapseBasic' + i }}"
+                (click)="updateCollapse(i)"
+              >
+                <img
+                  src="/assets/browsepage/Arrow-{{ drop ? 'Down' : 'Up' }}.svg"
+                  alt="filter"
+                  width="20"
+                />
+              </button>
+            </div>
+
+            <div
+              class="bg-white"
+              id="{{ 'collapseBasic' + i }}"
+              [collapse]="drop[i]"
+              [isAnimated]="true"
+            >
+              <div class="card scrollable">
+                <div class="card-body">
+                  <p>{{ memoir.memoirTitle }}</p>
+                  <div>by: {{ memoir.memoirAuthor }}</div>
+                  <div>{{ memoir.memoirContent }}</div>
+                  <!-- <div
+                    class="card-text limit-content"
+                    *ngFor="let d of memoir.memoirContent; let i = index"
+                  >
+                    <div *ngIf="i < 10">{{ d || "-" }}</div>
+                  </div> -->
+                </div>
+              </div>
+              <div
+                class="card-body my-3 fw-bold border border-dark"
+                style="background-color: rgba(245, 245, 245, 255)"
+              >
+                {{ "archive.profile_pdf_message" | translate }}
+              </div>
+              <div class="text-green ms-3" style="display: inline-block">
+                <button
+                  type="button"
+                  (click)="SavePDF('memoirContent')"
+                  class="btn btn-sm"
+                >
+                  <img
+                    src="/assets/browsepage/pdf-icon.svg"
+                    alt="filter"
+                    width="20"
+                  />
+                </button>
+                PDF {{ "archive.profile_full_text" | translate }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <span class="ms-2 my-3"
+          >{{ "archive.profile_last_modify" | translate }}:
+          {{ profile.lastUpdatedAt }}</span
+        >
+      </div>
+    </div>
+  </div>
+</div>
+<!-- {{profile.memoirs[0].memoirContent}} -->

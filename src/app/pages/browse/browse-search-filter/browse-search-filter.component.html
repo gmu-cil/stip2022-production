@@ -1,0 +1,206 @@
+<div
+  class="container border px-0 rounded w-100"
+  style="background-color: #e0e0e0"
+>
+  <div
+    class="d-flex bd-highlight ps-2 border-bottom border-secondary border-opacity-25"
+  >
+    <h6 class="flex-grow-1 bd-highlight pt-2 fw-bold">
+      {{ "archive.archive_filter_title" | translate }}
+    </h6>
+    <div class="bd-highlight">
+      <button
+        class="btn"
+        type="button"
+        [attr.aria-expanded]="!drop"
+        aria-controls="collapseBasic"
+        (click)="updateCollapse()"
+      >
+        <img
+          src="/assets/filters/collapse-{{ drop ? 'minus' : 'plus' }}.svg"
+          alt="filter"
+          width="20"
+        />
+        <span class="visually-hidden"
+          >click to {{ drop ? "collapse" : "expand" }}</span
+        >
+      </button>
+    </div>
+  </div>
+  <div id="collapseBasic" [collapse]="drop" [isAnimated]="true">
+    <form class="row p-2" [formGroup]="formValues">
+      <fieldset class="col-12 col-md-2">
+        <legend class="h6 fw-bold">
+          {{ "archive.gender_title" | translate }}
+        </legend>
+        <div class="form-check ms-3">
+          <input
+            class="form-check-input"
+            formControlName="gender"
+            value="male"
+            type="radio"
+            name="gender"
+            id="gender-male"
+          />
+          <label class="form-check-label" for="gender-male">
+            {{ "archive.gender_male" | translate }}
+          </label>
+        </div>
+        <div class="form-check ms-3">
+          <input
+            class="form-check-input"
+            value="female"
+            type="radio"
+            formControlName="gender"
+            name="gender"
+            id="gender-female"
+          />
+          <label class="form-check-label" for="gender-female">
+            {{ "archive.gender_female" | translate }}
+          </label>
+        </div>
+        <div class="form-check ms-3">
+          <input
+            class="form-check-input"
+            formControlName="gender"
+            value="unknown"
+            type="radio"
+            name="gender"
+            id="gender-unknown"
+          />
+          <label class="form-check-label" for="gender-unknown">
+            {{ "archive.unknown" | translate }}
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset class="col-12 col-md-2">
+        <legend class="h6 fw-bold">
+          {{ "archive.status_title" | translate }}
+        </legend>
+
+        <div class="form-check ms-3">
+          <input
+            class="form-check-input"
+            value="Alive"
+            type="radio"
+            formControlName="status"
+            name="status"
+            id="alive"
+          />
+          <label class="form-check-label" for="alive">
+            {{ "archive.status_alive" | translate }}
+          </label>
+        </div>
+
+        <div class="form-check ms-3">
+          <input
+            class="form-check-input"
+            type="radio"
+            value="Deceased"
+            formControlName="status"
+            name="status"
+            id="deceased"
+          />
+          <label class="form-check-label" for="deceased">
+            {{ "archive.status_death" | translate }}
+          </label>
+        </div>
+
+        <div class="form-check ms-3">
+          <input
+            class="form-check-input"
+            value="Unknown"
+            type="radio"
+            formControlName="status"
+            name="status"
+            id="unknown"
+          />
+          <label class="form-check-label" for="unknown">
+            {{ "archive.archive_filter_cat_two_checkbox_three" | translate }}
+          </label>
+        </div>
+      </fieldset>
+
+      <div class="col-12 col-md-2">
+        <label for="chinese-ethic-group" class="form-label col fw-bold">{{
+          "archive.ethnic_title" | translate
+        }}</label>
+        <div class="col-auto">
+          <input
+            class="form-control form-control-sm"
+            formControlName="ethnicity"
+            id="chinese-ethic-group"
+            [typeahead]="groups"
+            typeaheadOptionField="viewValue"
+            [typeaheadOptionsLimit]="5"
+            placeholder="{{
+              'archive.archive_filter_cat_three_textbox_placeholder' | translate
+            }}"
+          />
+        </div>
+      </div>
+      <div class="col-12 col-md-3">
+        <label
+          for="chinese-ethic-group fw-bold"
+          class="form-label col fw-bold"
+          >{{ "archive.profession" | translate }}</label
+        >
+        <div class="col-auto">
+          <select
+            class="form-select form-select-sm mb-3"
+            formControlName="job"
+            aria-label=".form-select-lg example"
+          >
+            <option *ngFor="let job of occupations" [value]="job.viewValue">
+              {{ job.viewValue }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-12 col-md-3">
+        <div class="form-group">
+          <label
+            for="year-of-becoming-rightest"
+            class="form-label col fw-bold"
+            >{{ "archive.rightist_year_title" | translate }}</label
+          >
+          <a
+            class="align-self-center mx-2 float-end"
+            tooltip="{{ 'archive.archive_tooltip_year' | translate }}"
+            placement="top"
+          >
+            <img src="assets/browsepage/question-mark.svg" alt="" width="20" />
+          </a>
+          <input
+            type="text"
+            id="year-of-becoming-rightest"
+            formControlName="date"
+            placeholder="YYYY-YYYY"
+            class="form-control form-control-sm"
+            bsDaterangepicker
+            [minDate]="minDate"
+            [maxDate]="maxDate"
+            [bsConfig]="{
+              containerClass: 'theme-red',
+              minMode: 'year',
+              rangeInputFormat: 'YYYY'
+            }"
+          />
+        </div>
+      </div>
+      <div class="col-12 d-flex">
+        <div class="ms-auto mb-2">
+          <button
+            class="btn mx-3 rounded-pill shadow"
+            style="background-color: white"
+            type="button"
+            (click)="clear()"
+          >
+            {{ "archive.archive_filter_reset_button" | translate }}
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

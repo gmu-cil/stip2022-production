@@ -1,0 +1,44 @@
+.main {
+  background-color: #09363c;
+}
+
+.contact {
+  background-color: #09363c;
+}
+
+.contact_us {
+  background: #ffffff;
+}
+
+.image-container {
+  position: relative;
+  width: 90%;
+}
+
+.image {
+  opacity: 1;
+  display: block;
+  width: 90%;
+  height: auto;
+  transition: 0.5s ease;
+  backface-visibility: hidden;
+}
+
+.middle {
+  transition: 0.5s ease;
+  opacity: 0.4;
+  position: absolute;
+  top: 50%;
+  left: 45%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.image-container:hover .image {
+  opacity: 0.1;
+}
+
+.image-container:hover .middle {
+  opacity: 1;
+}

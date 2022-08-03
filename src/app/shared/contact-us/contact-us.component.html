@@ -1,0 +1,88 @@
+<button
+  type="button"
+  class="btn p-0 rounded-circle position-fixed bottom-0 end-0 m-3 border-success"
+  (click)="openContactUsModal()"
+>
+  <img
+    src="/assets/contact-us/chat-bubble.png"
+    class="m-2"
+    alt="Contact Us"
+    width="40"
+  />
+</button>
+
+<ng-template #contactUsTemplate>
+  <div class="modal-header">
+    <h4 class="modal-title text-center">{{
+      "contact_us.contact_us" | translate
+    }}</h4>
+    <button type="button" class="btn-close close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body" [formGroup]="contactForm">
+    <div class="mb-3">
+      <label for="name" class="form-label">{{
+        "contact_us.name" | translate
+      }}</label>
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        formControlName="name"
+        placeholder="{{ 'contact_us.name_placeholder' | translate }}"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="contactMessage" class="form-label">{{
+        "contact_us.email" | translate
+      }}</label>
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        formControlName="email"
+        placeholder="{{ 'contact_us.email_placeholder' | translate }}"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="contactMessage" class="form-label">{{
+        "contact_us.message" | translate
+      }}</label>
+      <textarea
+        class="form-control"
+        id="contactMessage"
+        formControlName="message"
+        rows="3"
+        placeholder= "{{ 'contact_us.message_placeholder' | translate }}"
+      ></textarea>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modalRef?.hide()">
+      {{ 'contact_us.close' | translate }}
+    </button>
+    <button
+      type="button"
+      (click)="ngSubmit()"
+      class="btn btn-primary"
+      [disabled]="contactForm.invalid"
+    >
+    {{ 'contact_us.submit' | translate }}
+    </button>
+  </div>
+</ng-template>
+<ng-template #exitTemplate>
+  <div class="modal-header">
+    <h4 class="modal-title text-center">{{ "contact_us_submit.submitted" | translate }}</h4>
+    <button type="button" class="btn-close close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>
+      {{ "contact_us_submit.submit_message" | translate }}
+    </p>
+  </div>
+</ng-template>

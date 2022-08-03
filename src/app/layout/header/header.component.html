@@ -1,0 +1,191 @@
+<app-login #login></app-login>
+<app-modal-template #modalTemplates></app-modal-template>
+<header class="sticky-top">
+  <nav
+    class="navbar p-0 m-0 navbar-expand-lg navbar-light bg-dark-blue mw-100 row"
+  >
+    <div class="container-fluid">
+      <a
+        class="navbar-brand h2 text-white px-4"
+        routerLink="/home"
+        (click)="collapseNavbar()"
+      >
+        <img src="assets/homepage/logo.svg" />
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarMobile"
+        aria-controls="navbarMobile"
+        [attr.aria-expanded]="!isCollapsed"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarMobile">
+        <div class="row w-100">
+          <div class="col-12 my-1 d-flex row">
+            <h5 class="m-0 py-0 col-12 col-md-6">
+              {{ "common.chinese_anti_rightist_archives" | translate }}
+            </h5>
+            <div class="col-12 col-md-2 ms-auto">
+              <div class="input-group input-group-sm">
+                <input
+                  type="search"
+                  class="form-control rounded-end rounded-pill"
+                  placeholder='{{ "header.component.search_placeholder" | translate }}'
+                  aria-label="Search for Archives"
+                  aria-describedby="searh_btn"
+                />
+                <button
+                  class="btn border border-start-0 bg-white rounded-start rounded-pill"
+                  type="button"
+                  id="searh_btn"
+                >
+                  <img
+                    src="assets/homepage/search.png"
+                    alt="globe"
+                    width="15"
+                  />
+                </button>
+              </div>
+            </div>
+          </div>
+          <ul class="nav nav-underline nav-fill me-auto my-0 py-0 col-auto">
+            <li
+              class="nav-item"
+              *ngFor="let item of navbars"
+              [ngClass]="{ dropdown: item.dropdown }"
+            >
+              <a
+                *ngIf="!item?.dropdown"
+                class="nav-link text-white rounded-top"
+                routerLinkActive="active"
+                [routerLink]="item.url"
+                (click)="collapseNavbar()"
+                >{{ transPath + item.title | translate }}</a
+              >
+              <a
+                *ngIf="item?.dropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                class="nav-link text-white rounded-top dropdown-toggle"
+                [id]="item.icon"
+                >{{ transPath + item.title | translate }}</a
+              >
+              <ul class="dropdown-menu" [attr.aria-labelledby]="item.icon">
+                <li *ngFor="let drop of item.dropdown">
+                  <a
+                    class="dropdown-item"
+                    [routerLink]="drop.url"
+                    (click)="collapseNavbar()"
+                    >{{ transPath + drop.title | translate }}</a
+                  >
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <div class="col-auto my-0">
+            <div class="d-flex flex-row m-2">
+              <button
+                class="mx-4 mt-2 btn text-white p-0"
+                (click)="changeLanguage('en')"
+                [ngClass]="{ 'btn-link': lang === 'en' }"
+              >
+                <img
+                  src="assets/homepage/united-states.png"
+                  alt="globe"
+                  width="30"
+                />
+                English
+              </button>
+              <button
+                class="mx-4 mt-2 btn text-white p-0 btn-link"
+                [ngClass]="{ 'btn-link': lang === 'cn' }"
+                (click)="changeLanguage('cn')"
+              >
+                <img src="assets/homepage/china.png" alt="globe" width="30" />
+                中文
+              </button>
+              <div class="mx-3" *ngIf="!isLoggedIn">
+                <button
+                  type="button"
+                  class="btn text-white"
+                  (click)="loginLogin()"
+                >
+                  {{ transPath + "login_signup" | translate }}
+                </button>
+              </div>
+              <div
+                class="nav nav-underline nav-fill dropdown mx-3"
+                *ngIf="isLoggedIn"
+              >
+                <a
+                  aria-expanded="false"
+                  class="nav-link text-white rounded-top dropdown-toggle"
+                  data-bs-toggle="dropdown"
+                  id="account_btn"
+                  role="button"
+                  >{{ "header.component.account2" | translate }}</a
+                >
+                <ul class="dropdown-menu" aria-labelledby="account_btn">
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      routerLink="account"
+                      (click)="collapseNavbar()"
+                      >{{ "header.component.account" | translate }}</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      routerLink="upload"
+                      (click)="collapseNavbar()"
+                      >{{ "header.component.upload" | translate }}</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      href="javascript:void(0)"
+                      (click)="
+                        modalTemplates?.openLogoutModal(); collapseNavbar()
+                      "
+                      >{{ "header.component.log_out" | translate }}</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <alert
+    type="info mb-0"
+    [dismissible]="true"
+    [hidden]="count <= 0 || !message"
+    (onClose)="count = 0"
+  >
+    <div class="d-flex">
+      <div class="flex-grow-1 message ml-4">{{ message }}</div>
+      <div>{{ count }}</div>
+    </div>
+  </alert>
+  <alert
+    *ngFor="let alert of globalErrorMessage"
+    type="danger pb-5 m-0"
+    [dismissible]="true"
+    [hidden]="!globalErrorMessage.length"
+  >
+    <div class="d-flex">
+      <div class="flex-grow-1 message ml-4">
+        <p>{{ alert }}</p>
+      </div>
+    </div>
+  </alert>
+</header>

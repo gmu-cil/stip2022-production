@@ -1,0 +1,133 @@
+<div class="container">
+  <h2 class="text-center my-4 fw-bold">
+    {{ "repository.repository_top_title" | translate }}
+  </h2>
+
+  <div class="d-flex justify-content-center flex-wrap">
+    <div
+      class="btn-group"
+      role="group"
+      aria-label="Basic example"
+      *ngFor="
+        let title of 'repository.repository_tabs' | translate;
+        let i = index
+      "
+    >
+      <button
+        #image
+        [ngClass]="{
+          'border-3 btn-bg-color-grey-green ': selectedCategory == i,
+          btn: selectedCategory != i
+        }"
+        class="fw-bold btn-lg"
+        (click)="setActive(i)"
+      >
+        <b> {{ title[0] }} </b>
+      </button>
+    </div>
+  </div>
+  <br />
+  <br />
+  <div>
+    <div
+      *ngFor="
+        let title of 'repository.repository_tabs' | translate;
+        let i = index
+      "
+    >
+      <div *ngIf="selectedCategory == i" class="row justify-content-evenly">
+        <b class="col-7">{{ title[1] }}</b>
+        <b class="col-5">{{ title[2] }}</b>
+
+        <div *ngIf="selectedCategory == 1 && currentLanguage == 'en'">
+          <h6>Imprint</h6>
+          <br />
+          <p>
+            1. "1957 Victim Names Dictionary" since 2000 began to collect, edit,
+            due to the continuous evolution of editing ideas, tailoring methods,
+            but also due to the lack of time and resources, so more than ten
+            years of style, format, arrangement, inevitably there are
+            inconsistent situations, errors, omissions, and even irregularities,
+            these readers are more critical and corrected, and gradually
+            corrected and overcome.
+          </p>
+          <p>
+            2. The project has received the care and guidance of experts and
+            scholars such as Professor Ding Shu; the help of teachers of the
+            China Research Service Center of the University of Chinese of Hong
+            Kong and colleagues of the Wuqi Society; and the support of the
+            victims and their descendants in providing historical materials and
+            memoirs in 1957.
+          </p>
+          <p>
+            3. Professor Song Yongyi's "Database of China's Rightist
+            Movement 1957-" , the "Internal Reference" collected by the China
+            Research Service Center of the University of Chinese of Hong Kong,
+            the relevant newspaper books, the "Traces of the Past" edited and
+            published by Tieliu and the Old Man of Beijing May 7, and Professor
+            Guo Dehong's "Chronicle of the "Anti-Rightist Movement" (book
+            manuscript), etc., are of great help to this project. The China
+            Research Service Center also provides technical support.
+          </p>
+          <p>
+            4. In 2019, the 1957 Great Dictionary of Victim Names was funded by
+            the American Labor Reform Research Foundation to publish a database
+            version. I would like to express my heartfelt thanks to the Laogai
+            Research Foundation and colleagues, all relevant scholars, teachers,
+            friends and volunteers! And please continue to help, support!
+          </p>
+
+          <p>
+            Editor's Note
+            <br />
+            2020.8.11
+          </p>
+        </div>
+        <div *ngIf="selectedCategory == 1 && currentLanguage == 'cn'">
+          <h6>版本说明</h6>
+          <br />
+          <p>
+            1.《1957年受難者姓名大辭典》自2000年开始收集、编辑，由于编辑思路、剪裁方法的不断演进，也由于时间、资源之不足，所以十多年间的体例、格式、编排，难免有前后不统一的情况，错误、遗漏、甚至不规范，这些请读者多多批评指正，逐渐纠正、克服。
+          </p>
+          <p>
+            2.本项目得到丁抒教授等专家学者的关心、指导；得到香港中文大学中国研究服务中心老师、五七学社同仁的帮助；得到1957年受难者及其后人在提供史料、回忆录等方面的支持。
+          </p>
+          <p>
+            3.宋永毅教授主编之《中国反右运动数据库1957-》、香港中文大学中国研究服务中心收藏的《内部参考》及有关报刊书籍、铁流和北京五七老人编辑出版的《往事微痕》、郭德宏教授《“反右运动”编年史》（书稿）等，对本项目帮助尤大。中国研究服务中心还提供有关技术支援。
+          </p>
+          <p>
+            4.2019年《1957年受難者姓名大辭典》得到美国劳改研究基金会资助，出版数据库版。向劳改研究基金会及同仁，各有关学者、老师、朋友、义工表示衷心感谢！并请继续帮助、支持！
+          </p>
+
+          <p>
+            编者谨识
+            <br />
+            2020.8.11
+          </p>
+        </div>
+
+        <div *ngIf="selectedCategory != 1">
+          <div
+            class="row justify-content-evenly my-2"
+            *ngFor="let filename of title[3]; let j = index"
+          >
+            <div
+              class="row"
+              [ngClass]="{ 'bg-color-light-grey-green': j % 2 === 0 }"
+            >
+              <span class="col-7">{{ filename }}</span>
+              <div class="col-5">
+                <button
+                  class="btn btn-outline-secondary btn-sm"
+                  (click)="downloadFromAsset(filename, title[0])"
+                >
+                  <img src="/assets/repositoryData/icons/download.svg" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

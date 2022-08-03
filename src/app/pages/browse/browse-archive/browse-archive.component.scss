@@ -1,0 +1,29 @@
+
+
+.sticky {
+  position: sticky;
+  top: 4rem;
+}
+
+.scrollable {
+  max-height: 20rem;
+  overflow-y: hidden;
+}
+
+
+.limit-content {
+    display: -webkit-box;
+    -webkit-line-clamp: 100;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+  
+}
+
+.formatted {
+  white-space: pre-wrap;
+}
+
+.memoir{
+  overflow:hidden
+}
+

@@ -1,0 +1,29 @@
+.container-fluid {
+  margin: 0rem;
+  padding: 0rem;
+}
+.container {
+  width: 100%;
+  height: 100%;
+  padding: 0rem;
+  margin: 0rem;
+  overflow-x: hidden;
+}
+
+@media (min-width: 62.5rem) {
+  #firstbg {
+    clip-path: polygon(100% 0%, 100% 70%, 50% 90%, 50% 90%, 0 70%, 0 0);
+  }
+
+  .outerdiv {
+    background-color: #61AF87;
+    padding-bottom: 1.25rem;
+    clip-path: polygon(100% 0%, 100% 70%, 50% 90%, 50% 90%, 0 70%, 0 0);
+  }
+  /* CSS that should be displayed if width is equal to or less than 880px goes here */
+}
+
+.view_source {
+  background-color: #09363C;
+  border-color: #D34238;
+}

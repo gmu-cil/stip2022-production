@@ -1,0 +1,93 @@
+.button-no-outline:focus {
+    outline: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+
+.movem {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 2;
+    right: 2;
+}
+
+
+
+
+
+    @media only screen and (max-width: 700px), (max-height: 600px){
+      div.list-searchprofile {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+    }
+    @media only screen and (max-width: 1750px), (max-height: 700px){
+      div.grid-searchprofile {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+
+    @media only screen and (max-width: 950px){
+      div.arrow {
+        color: transparent;
+        display: none;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+      img.arrow {
+        color: transparent;
+        display: none;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+    }
+
+
+  .image{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 1000;
+    background-position: right top;
+    opacity:.5;
+    z-index: 1;
+    background-repeat: no-repeat;
+    background-color:transparent;
+    background-image:url('/assets/browsepage/Flower_Half.svg');
+
+  }
+
+
+
+  .my-pagination::ng-deep a.page-link {
+    background-color: #266461;
+    color: white;
+    font-size: 14px;
+    border-style: none;
+  
+  
+  }
+  .my-pagination::ng-deep li.active ::ng-deep a.page-link{
+    background-color:#d5e0df;
+    color:#d0a474;
+    font-size: 14px;
+    border-style: none;
+  }
+
+
+//   .page:ng-deep .active {
+//     background-color: white;
+//     color: black;
+//     font-size: 14px;
+//     border-style: none;
+// }
+
+
+

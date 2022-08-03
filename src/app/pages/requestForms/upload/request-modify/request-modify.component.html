@@ -1,0 +1,86 @@
+<!-- Button trigger modal -->
+<button
+  type="button"
+  class="btn rounded-pill shadow border-green"
+  (click)="openModModal()"
+>
+  <img src="assets/browsepage/request-to-modify.svg" alt="" width="20" />
+  {{ "archive.profile_user_modify_button" | translate }}
+</button>
+
+<ng-template #modTemplate>
+  <div class="modal-header">
+    <h4 class="modal-title text-center">
+      {{ "request-modify.request_to_modify" | translate }}
+    </h4>
+    <button type="button" class="btn-close close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body" [formGroup]="modForm">
+    <div class="mb-3">
+      <label for="request" class="form-label">{{
+        "request-modify.Request" | translate
+      }}</label>
+      <textarea
+        class="form-control"
+        id="reason"
+        formControlName="request"
+        rows="5"
+        placeholder="{{ 'request-modify.request_placeholder' | translate }}"
+      ></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="reason" class="form-label">{{
+        "request-modify.Reason" | translate
+      }}</label>
+      <textarea
+        class="form-control"
+        id="reason"
+        formControlName="reason"
+        rows="5"
+        placeholder="{{ 'request-modify.reason_placeholder' | translate }}"
+      ></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">{{
+        "request-modify.Email" | translate
+      }}</label>
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        formControlName="email"
+        placeholder="{{ 'request-modify.email_placeholder' | translate }}"
+      />
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modalRef?.hide()">
+      {{ "request-modify.close" | translate }}
+    </button>
+    <button
+      type="button"
+      (click)="sendRequestForm()"
+      (click)="openExitModal()"
+      class="btn btn-primary"
+      [disabled]="modForm.invalid"
+    >
+      {{ "request-modify.submit" | translate }}
+    </button>
+  </div>
+</ng-template>
+<ng-template #exitTemplate>
+  <div class="modal-header">
+    <h4 class="modal-title text-center">{{ "modify_submitted.submitted" | translate }}</h4>
+    <button type="button" class="btn-close close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>
+      {{ "modify_submitted.submit_message" | translate }}
+    </p>
+  </div>
+</ng-template>

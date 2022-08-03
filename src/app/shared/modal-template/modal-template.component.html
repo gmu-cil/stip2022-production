@@ -1,0 +1,206 @@
+<ng-template #logoutModal>
+  <div class="modal-body text-center">
+    <p>{{ "log.log_out" | translate }}</p>
+    <button
+      type="button"
+      class="btn btn-outline-dark px-3 me-3"
+      (click)="logout()"
+    >
+      {{ "common.yes" | translate }}
+    </button>
+    <button type="button" class="btn btn-dark px-3" (click)="modalRef?.hide()">
+      {{ "common.no" | translate }}
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #announceModal>
+  <div class="modal-body text-center">
+    <h1>{{ "log.edit_announcemen" | translate }}</h1>
+    <div class="form-floating mb-2">
+      <textarea
+        class="form-control"
+        placeholder="make changes here"
+        id="announcement"
+        [(ngModel)]="announceText"
+      ></textarea>
+      <label for="announcement">{{ "log.announcemen" | translate }}</label>
+    </div>
+    <button
+      type="button"
+      class="btn btn-outline-dark px-3 me-3"
+      (click)="modalRef?.hide()"
+    >
+    {{ "common.cancel" | translate }}
+    </button>
+    <button
+      type="button"
+      class="btn btn-dark px-3"
+      (click)="updateAnnouncement()"
+    >
+    {{ "log.save" | translate }}
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #deleteConfirmation>
+  <div class="modal-header">
+    <h4 class="modal-title text-center">{{ "log.delete_account" | translate }}</h4>
+    <button type="button" class="btn-close close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>
+      {{ "log.delete_warning" | translate }}
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-danger rounded-pill"
+      (click)="deleteAccount()"
+    >
+    {{ "log.delete_account" | translate }}
+    </button>
+    <button
+      type="button"
+      class="btn btn-outline-secondary rounded-pill"
+      (click)="modalRef?.hide()"
+    >
+    {{ "common.cancel" | translate }}
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #saveAccountChanges>
+  <div class="modal-header">
+    <h4 class="modal-title text-center">{{ "log.save_account_changes" | translate }}</h4>
+    <button type="button" class="btn-close close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>
+      {{ "log.save_account_warning" | translate }}
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-success rounded-pill"
+      (click)="saveAllAccountChanges()"
+    >
+    {{ "log.save_account_changes" | translate }}
+    </button>
+    <button
+      type="button"
+      class="btn btn-outline-secondary rounded-pill"
+      (click)="modalRef?.hide()"
+    >
+    {{ "common.cancel" | translate }}
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #saveAccountChanges>
+  <div class="modal-header">
+    <h4 class="modal-title text-center">{{ "log.save_account_changes" | translate }}</h4>
+    <button type="button" class="btn-close close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>
+      {{ "log.save_account_warning" | translate }}
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-success rounded-pill"
+      (click)="saveAllAccountChanges()"
+    >
+    {{ "log.save_account_changes" | translate }}
+    </button>
+    <button
+      type="button"
+      class="btn btn-outline-secondary rounded-pill"
+      (click)="modalRef?.hide()"
+    >
+    {{ "common.cancel" | translate }}
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #sentEmailResetPassword>
+  <div class="modal-header">
+    <h4 class="modal-title text-center">{{ "log.change_password" | translate }}</h4>
+    <button type="button" class="btn-close close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>
+      {{ "log.pass_change_msg" | translate }}
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-success rounded-pill"
+      (click)="sendEmailResetPassword()"
+    >
+    {{ "log.email_veri" | translate }}
+    </button>
+    <button
+      type="button"
+      class="btn btn-outline-secondary rounded-pill"
+      (click)="modalRef?.hide()"
+    >
+    {{ "common.cancel" | translate }}
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #changeEmailTemplate>
+  <div class="modal-header">
+    <h4 class="modal-title text-center">{{ "log.change_email" | translate }}</h4>
+    <button type="button" class="btn-close close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="changeEmailForm">
+      <div class="form-floating mb-2">
+        <input
+          class="form-control"
+          type="email"
+          placeholder="Enter new email"
+          id="newEmail"
+          formControlName="newEmail"
+        />
+        <label for="newEmail"
+          >{{ "log.new_email" | translate }} <span class="text-danger">*</span></label
+        >
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-success rounded-pill"
+      [disabled]="!changeEmailForm.valid"
+      (click)="changeEmail()"
+    >
+    {{ "log.change_account" | translate }}
+    </button>
+    <button
+      type="button"
+      class="btn btn-outline-secondary rounded-pill"
+      (click)="modalRef?.hide()"
+    >
+    {{ "common.cancel" | translate }}
+    </button>
+  </div>
+</ng-template>

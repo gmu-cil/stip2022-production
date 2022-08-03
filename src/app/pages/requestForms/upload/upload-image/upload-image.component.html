@@ -1,0 +1,108 @@
+<h4>{{ "upload.upload_photo" | translate }}</h4>
+
+  <form [formGroup]="imageForm">
+    <img alt="" [src]="url" height="200" width="200" />
+    <!-- select photo section -->
+    <input
+      *ngIf="!imageDisabled"
+      class="form-control w-75"
+      type="file"
+      (change)="onselectFile($event)"
+      formControlName="image"
+    />
+    <br /><br />
+    <button *ngIf="!imageDisabled" class="btn btn-dark" (click)="clearImage()">
+      {{ "upload.clear_photo" | translate }}
+    </button>
+    <br /><br />
+
+    <div class="my-2">
+      <label for="imageTitle" class="form-label">{{
+        "upload.title" | translate
+      }}</label>
+      <input
+        type="text"
+        class="form-control w-75"
+        id="imageTitle"
+        placeholder="{{ 'upload.what_tooltip' | translate }}"
+        formControlName="imageTitle"
+      />
+    </div>
+    
+    <div class="my-2">
+      <label for="imageDetails" class="form-label">{{
+        "upload.detail" | translate
+      }}</label>
+      <textarea
+        class="form-control w-75"
+        id="imageDetails"
+        rows="3"
+        placeholder="{{ 'upload.add_description' | translate }}"
+        formControlName="imageDes"
+      ></textarea>
+    </div>
+
+    <div class="my-2">
+      <label for="imageSource" class="form-label">{{
+        "upload.source" | translate
+      }}</label>
+      <textarea
+        class="form-control w-75"
+        id="imageSource"
+        rows="3"
+        placeholder="{{ 'upload.add_description' | translate }}"
+        formControlName="imageSource"
+      ></textarea>
+    </div>
+
+    <div class="my-2">
+      <label for="cars">{{ "upload.image_cat" | translate }}</label>
+      <select name="imageCategory" id="imageCategory" formControlName="imageCategory">
+        <option value="People">{{ "upload.people" | translate }}</option>
+        <option value="Media">{{ "upload.media" | translate }}</option>
+        <option value="Camps">{{ "upload.Camps" | translate }}</option>
+        <option value="Other">{{ "upload.other" | translate }}</option>
+      </select>
+    </div>
+
+    <!-- radio buttons for choosing if user wants to include photo in gallery -->
+    <br />
+    <p>
+      {{ "upload.include" | translate }}
+      <img
+        src="assets/upload/icons-question.png"
+        tooltip="Choose to include the photo in website gallery"
+        placement="auto"
+        class="mx-2 shadow rounded-circle p-1"
+        width="30"
+      />
+    </p>
+    <div class="form-check form-check-inline">
+      <input
+        class="form-check-input"
+        type="radio"
+        name="galleryNo"
+        id="galleryYes"
+        value="yes"
+        formControlName="imageUpload"
+      />
+      <!-- yes button -->
+      <label class="form-check-label" for="inlineRadio1">{{
+        "upload.yes" | translate
+      }}</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input
+        class="form-check-input"
+        type="radio"
+        name="galleryNo"
+        id="galleryNo"
+        value="no"
+        formControlName="imageUpload"
+      />
+      <!-- no button -->
+      <label class="form-check-label" for="inlineRadio2">{{
+        "upload.no" | translate
+      }}</label>
+    </div>
+  </form>

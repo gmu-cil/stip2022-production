@@ -1,0 +1,266 @@
+@import "~bootstrap/scss/bootstrap"; // Import Bootstrap
+@import "./styles/animation.scss";
+@import "./styles/btnImage.scss";
+
+/* You can add global styles to this file, and also import other style files */
+$khaki: #cea374;
+$khaki-dark: #a76724;
+$medium-blue: #266461;
+$dark-blue: #09363c;
+$black: #000000;
+$orange-red: #df4028;
+$white: white;
+$light-grey: #f5f5f5;
+$jade: #61af87;
+$grey-green: #e0e2b8;
+$light-grey-green: #e0e2b8;
+
+.bg-image-blue {
+  .bg-colors {
+    background-color: $jade;
+    padding-bottom: 0.5rem;
+    clip-path: polygon(100% 0%, 100% 70%, 50% 90%, 50% 90%, 0 70%, 0 0);
+    .bg-image-blue-inner {
+      clip-path: polygon(100% 0%, 100% 70%, 50% 90%, 50% 90%, 0 70%, 0 0);
+      background-color: $dark-blue;
+      &-pb-10 {
+        padding-bottom: 10rem;
+      }
+      &-pb-15 {
+        padding-bottom: 15rem;
+      }
+    }
+  }
+  background-color: $medium-blue;
+}
+
+.profile-bg-image-blue {
+  .profile-bg-colors {
+    background-color: $medium-blue;
+    padding-bottom: 0.5rem;
+    clip-path: polygon(100% 0%, 100% 70%, 50% 80%, 40% 90%, 0 100%, 0 0);
+    .profile-bg-image-blue-inner {
+      clip-path: polygon(100% 0%, 100% 60%, 50% 80%, 40% 90%, 0 100%, 0 0);
+      background-color: $dark-blue;
+      &-pb-10 {
+        padding-bottom: 10rem;
+      }
+      &-pb-15 {
+        padding-bottom: 15rem;
+      }
+    }
+  }
+  background-color: white;
+}
+
+.text-orange-red {
+  color: $orange-red;
+}
+
+.text-green {
+  color: $medium-blue;
+}
+
+.text-dark-green {
+  color: $dark-blue;
+}
+
+.display-select {
+  padding: 5px;
+  color: #000;
+  font-size: 12px;
+  background: transparent;
+  background-color: $medium-blue;
+}
+
+.border-green {
+  border-color: $jade !important;
+}
+
+dl {
+  @extend .row;
+  dt,
+  dd {
+    @extend .col-12, .col-md-6;
+  }
+}
+
+body {
+  font-family: "Times New Roman", Times, serif !important;
+}
+.outer-bg {
+  position: relative;
+  background-color: $dark-blue !important;
+}
+
+.inner-bg {
+  position: relative;
+  background-color: $medium-blue !important;
+}
+
+.filter {
+  position: relative;
+  z-index: 2;
+}
+
+.bg-right-slash {
+  background-color: $medium-blue;
+  padding-bottom: 12rem;
+  @extend .bg-image-blue;
+  height: min-content;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 90%, 0 0);
+}
+
+.card-border {
+  border-radius: 3rem;
+}
+
+// border color
+.border-khaki {
+  border-color: $khaki !important;
+  border: 2px solid $khaki !important;
+}
+
+.border-orange-red {
+  border-color: $orange-red;
+  border: 2px solid $orange-red;
+}
+
+.btn-bg-color-grey-green {
+  @extend .btn;
+  background-color: $grey-green;
+}
+
+.bg-color-light-grey-green {
+  background-color: $light-grey-green;
+}
+
+// btn color
+.btn,
+.btn-close {
+  &:hover {
+    @extend .shadow-lg;
+    animation: shake-left-right 0.8s;
+  }
+}
+
+.btn-khali {
+  @extend .btn;
+  border: 2px solid $khaki;
+  background-color: white;
+  color: $khaki-dark;
+
+  &:hover {
+    background-color: $khaki;
+    color: white;
+  }
+}
+
+.btn-orange-red {
+  @extend .btn;
+  border: 2px solid $orange-red;
+  background-color: white;
+  color: $orange-red;
+
+  &:hover {
+    background-color: $orange-red;
+    color: white;
+  }
+}
+
+.btn-secondary:hover {
+  animation: shake-left-right 0.8s;
+}
+
+// rounded border
+.rounded-bottom {
+  &-left {
+    border-bottom-left-radius: 6rem;
+  }
+
+  &-right {
+    border-bottom-right-radius: 6rem;
+  }
+}
+
+// nav bar
+.nav-underline .nav-link.active {
+  border-bottom: 1px solid white;
+  padding-bottom: 5px;
+}
+
+.nav-underline .nav-link.active:hover {
+  background-color: white !important;
+  color: $medium-blue !important;
+}
+
+.nav-underline .nav-link {
+  color: white;
+}
+
+.nav-underline .nav-link:hover {
+  border-bottom: 1px dashed white;
+  padding-bottom: 5px;
+  animation: shake-up-down 0.8s;
+}
+
+// center div in container
+.center-div {
+  display: grid;
+  place-items: center;
+}
+
+// background color
+.bg {
+  &-orangish-red {
+    color: white !important;
+    background-color: $orange-red;
+  }
+
+  &-khaki {
+    color: white !important;
+    background-color: $khaki;
+  }
+
+  &-dark-blue {
+    color: white !important;
+    background-color: $dark-blue;
+  }
+
+  &-medium-blue {
+    color: white !important;
+    background-color: $medium-blue;
+  }
+}
+
+// word between lines
+.linebtntext {
+  display: flex;
+  flex-direction: row;
+}
+
+.linebtntext:before,
+.linebtntext:after {
+  content: "";
+  flex: 1 1;
+  border-bottom: 1px solid #000;
+  margin: auto 0.5em;
+}
+
+// date design
+.form-control,
+.form-control-sm {
+  transition: none !important;
+
+  &[bsDatepicker],
+  &[bsDaterangepicker] {
+    background-image: url("/assets/filters/date.svg");
+    background-repeat: no-repeat;
+    background-position: right 0rem center;
+  }
+}
+
+// resources ul li
+.li {
+  style:none;
+}

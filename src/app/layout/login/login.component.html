@@ -1,0 +1,258 @@
+<ng-template #template>
+  <div class="modal-header">
+    <button
+      type="button"
+      class="btn-close close pull-right"
+      aria-label="Close"
+      (click)="modalRef?.hide()"
+    >
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div
+    class="modal-body"
+    *ngIf="isSignIn === 'signup' || isSignIn === 'signin'"
+  >
+    <h3 class="modal-title text-center my-3">
+      {{
+        isSignIn === ("login.component.signup" | translate)
+          ? "Create an account"
+          : ("login.component.login" | translate)
+      }}
+    </h3>
+    <form [formGroup]="loginForm" (ngSubmit)="signUpwithEmail()">
+      <div class="form-floating mb-3" *ngIf="isSignIn === 'signup'">
+        <input
+          type="text"
+          class="form-control"
+          id="firstName"
+          formControlName="firstName"
+          [ngClass]="{
+            'is-invalid':
+              loginControls['firstName'].invalid &&
+              loginControls['firstName'].touched
+          }"
+          placeholder="First name"
+        />
+        <label for="firstName"
+          >{{ "login.component.first_name" | translate }}
+          <span class="text-danger">*</span></label
+        >
+      </div>
+      <div class="form-floating mb-3" *ngIf="isSignIn === 'signup'">
+        <input
+          type="text"
+          class="form-control"
+          id="lastname"
+          formControlName="lastName"
+          placeholder="Last name"
+          [ngClass]="{
+            'is-invalid':
+              loginControls['lastName'].invalid &&
+              loginControls['lastName'].touched
+          }"
+        />
+        <label for="lastname"
+          >{{ "login.component.last_name" | translate
+          }}<span class="text-danger">*</span></label
+        >
+      </div>
+
+      <div class="form-floating mb-3">
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          formControlName="email"
+          placeholder="name@example.com"
+          [ngClass]="{
+            'is-invalid':
+              loginControls['email'].invalid && loginControls['email'].touched
+          }"
+        />
+        <label for="email"
+          >{{ "login.component.email_address" | translate }}
+          <span class="text-danger">*</span></label
+        >
+      </div>
+      <div class="form-floating mb-3" *ngIf="isSignIn === 'signup'">
+        <input
+          type="email"
+          class="form-control"
+          id="confirmEmail"
+          formControlName="confirmEmail"
+          placeholder="name@example.com"
+          [ngClass]="{
+            'is-invalid':
+              loginControls['confirmEmail'].invalid &&
+              loginControls['confirmEmail'].touched
+          }"
+        />
+        <label for="confirmEmail"
+          >{{ "login.component.comfirm_email" | translate }}
+          <span class="text-danger">*</span></label
+        >
+      </div>
+      <div class="form-floating mb-3">
+        <input
+          type="password"
+          class="form-control"
+          formControlName="password"
+          id="password"
+          placeholder="Password"
+          [ngClass]="{
+            'is-invalid':
+              loginControls['password'].invalid &&
+              loginControls['password'].touched
+          }"
+        />
+        <label for="password"
+          >{{ "login.component.password" | translate }}
+          <span class="text-danger">*</span></label
+        >
+      </div>
+      <button
+        type="button"
+        class="btn btn-link link-dark p-0 my-2"
+        (click)="isSignIn = 'forgetpassword'; errorMessage = ''"
+      >
+        {{ "login.component.forgot_password" | translate }}
+      </button>
+
+      <div class="d-grid gap-2 col-12">
+        <ng-container *ngTemplateOutlet="errorBanner"></ng-container>
+        <button
+          class="btn btn-dark rounded-pill my-2"
+          [disabled]="loginForm.invalid"
+          type="submit"
+        >
+          {{ "login.component.login" | translate }}
+        </button>
+        <div class="linebtntext w-100">
+          {{ "login.component.or" | translate }}
+        </div>
+        <button
+          class="btn btn-light rounded-pill border"
+          type="button"
+          (click)="userFacebookLogin()"
+        >
+          <img
+            src="assets/login/facebook1.png"
+            alt="facebook"
+            class="img-fluid"
+            width="25"
+          />
+          {{
+            isSignIn === "signup"
+              ? ("login.component.signup_facebook" | translate)
+              : ("login.component.login_facebook" | translate)
+          }}
+        </button>
+        <button
+          class="btn btn-light rounded-pill border"
+          type="button"
+          (click)="userGoogleLogin()"
+        >
+          <img
+            src="assets/login/google.png"
+            alt="google"
+            class="img-fluid"
+            width="20"
+          />
+          {{
+            isSignIn === "signup"
+              ? ("login.component.signup_google" | translate)
+              : ("login.component.login_google" | translate)
+          }}
+        </button>
+        <div class="text-center">
+          {{
+            isSignIn === "signin"
+              ? ("login.component.no_account" | translate)
+              : ("login.component.already_account" | translate)
+          }}
+          <button
+            class="btn btn-link p-0"
+            type="button"
+            (click)="switchState()"
+          >
+            {{
+              isSignIn === "signup"
+                ? ("login.component.login" | translate)
+                : ("login.component.signup" | translate)
+            }}
+          </button>
+        </div>
+        <div class="text-center col-6 mx-auto">
+          {{ "login.component.continue" | translate }}
+          <a routerLink="/" class="link-dark fw-bold">{{
+            "login.component.term_service" | translate
+          }}</a>
+          {{ "login.component.acknowledge" | translate }}
+          <a routerLink="/" class="link-dark fw-bold">{{
+            "login.component.privacy_police" | translate
+          }}</a
+          >{{ "login.component.period" | translate }}
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-body" *ngIf="isSignIn === 'forgetpassword'">
+    <h3 class="modal-title text-center my-3">
+      {{ "login.component.forgot_password" | translate }}
+    </h3>
+    <form [formGroup]="forgetForm" (ngSubmit)="forgetPassword()">
+      <div class="form-floating mb-3">
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          formControlName="email"
+          placeholder="Enter your email..."
+          [ngClass]="{
+            'is-invalid':
+              forgetForm.controls['email'].invalid &&
+              forgetForm.controls['email'].touched
+          }"
+        />
+
+        <label for="email"
+          >{{ "login.component.email_address" | translate
+          }}<span class="text-danger">*</span></label
+        >
+        <small class="text-small text-muted">
+          {{ "login.component.enter_msg" | translate }}
+        </small>
+      </div>
+
+      <div class="d-grid gap-2 col-12">
+        <ng-container *ngTemplateOutlet="errorBanner"></ng-container>
+        <button
+          class="btn btn-dark rounded-pill my-2"
+          [disabled]="forgetForm.invalid"
+          type="submit"
+        >
+          {{ "login.component.send" | translate }}
+        </button>
+        <button
+          type="button"
+          class="btn btn-link link-dark p-0 my-2"
+          (click)="isSignIn = 'signin'; errorMessage = ''"
+        >
+          {{ "login.component.back_login" | translate }}
+        </button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #errorBanner>
+  <alert
+    type="danger"
+    *ngIf="errorMessage"
+    [dismissible]="true"
+    (close)="errorMessage = ''"
+  >
+    {{ errorMessage }}
+  </alert>
+</ng-template>

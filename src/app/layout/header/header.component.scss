@@ -1,0 +1,40 @@
+.nav-underline .nav-link.active {
+  border-bottom: 1px solid white;
+  padding-bottom: 5px;
+
+}
+
+.nav-underline .nav-link.active:hover {
+  background-color: white !important;
+  color: #1c90f5 !important;
+}
+
+.nav-underline .nav-link {
+  color: white;
+}
+
+.nav-underline .nav-link:hover {
+  border-bottom: 1px dashed white;
+  padding-bottom: 5px;
+}
+
+.message {
+  position: absolute;
+  white-space: nowrap;
+  padding-left: 1rem;
+  animation: floatText 10s alternate-reverse ease-in-out;
+}
+header {
+  margin-bottom: 0.033rem;
+}
+
+@keyframes floatText {
+  from {
+    left: 2%;
+  }
+
+  to {
+    /* left: auto; */
+    left: 80%;
+  }
+}

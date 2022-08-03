@@ -1,0 +1,136 @@
+<app-modal-template #modalTemplates></app-modal-template>
+<div class="container-fluid p-0">
+  <div class="bg-image-blue bg-white">
+    <div class="bg-colors">
+      <div class="bg-image-blue-inner bg-image-blue-inner-pb-15">
+        <div class="col-11 mx-auto">
+          <div class="row p-5 text-white">
+            <div class="col row" *ngIf="profile">
+              <div class="col row mb-2">
+                <div class="main-canvas-no-hover border col-12">
+                  <img
+                    *ngIf="imageUrl"
+                    src="{{ imageUrl }}"
+                    alt="profile image"
+                    class="image"
+                  />
+                  <img
+                    *ngIf="!imageUrl"
+                    src="/assets/homepage/default-profile.png"
+                    alt="user"
+                    class="image"
+                  />
+                </div>
+                <div class="col-12 pt-4">
+                  <small>ID: {{ profile?.uid }}</small>
+                </div>
+              </div>
+              <div class="col">
+                <h4 class="text-white mt-5">
+                  {{ profile?.firstName || "-" }} {{ profile?.lastName || "-" }}
+                </h4>
+                <hr />
+                <p class="text-white mt-2">
+                  {{ "account.username" | translate }}: {{ profile?.nickname }}
+                </p>
+                <p class="text-white mt-2">
+                  {{ "account.email" | translate }}: {{ profile?.email }}
+                </p>
+                <p class="text-white mt-2">
+                  {{ "account.ethnicity" | translate }}: {{ profile?.ethnic }}
+                </p>
+                <p class="text-white mt-2">
+                  {{ "account.gender" | translate }}: {{ profile?.gender }}
+                </p>
+              </div>
+            </div>
+            <div class="col-12 col-sm-7 row">
+              <div class="col-12 col-sm-8">
+                <h2>{{ "account.account_info" | translate }}</h2>
+                <p>
+                  {{ "account.about" | translate }}:
+                  {{ profile?.desc || "No description" }}
+                </p>
+              </div>
+              <div class="col d-flex flex-column">
+                <div class="my-2 ms-auto">
+                  <a class="rounded-pill btn-khali" routerLink="/edit-account">
+                    {{ "account.edit_account" | translate }}
+                  </a>
+                </div>
+                <div class="my-2 ms-auto">
+                  <button
+                    (click)="navigateTo('/upload')"
+                    class="rounded-pill my-2 btn-khali"
+                    [attr.aria-disabled]="!auth.hasVerifiedEmail"
+                    [disabled]="!auth.hasVerifiedEmail"
+                  >
+                    {{ "account.upload" | translate }}
+                  </button>
+                </div>
+                <div class="my-2 ms-auto">
+                  <button
+                    type="button"
+                    class="rounded-pill btn-khali"
+                    (click)="modalTemplates?.openLogoutModal()"
+                  >
+                    {{ "account.logout" | translate }}
+                  </button>
+                </div>
+                <div class="my-2 ms-auto" *ngIf="isAdmin">
+                  <a
+                    class="rounded-pill my-2 btn-orange-red"
+                    routerLink="/admin/approval"
+                    >{{ "account.view_contributions" | translate }}
+                  </a>
+                </div>
+                <div class="my-2 ms-auto" *ngIf="isAdmin">
+                  <button
+                    type="button"
+                    class="rounded-pill btn-khali"
+                    (click)="modalTemplates?.openAnnounceModal()"
+                  >
+                    {{ "account.edit_announcement" | translate }}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="text-dark my-4">
+    <h3 class="text-center">{{ "account.your_contributions" | translate }}</h3>
+    <div class="col-11 mx-auto">
+      <div
+        *ngIf="userContribution.length > 0"
+        class="overflow-auto shadow p-3 rounded-lg contribution-scroller"
+      >
+        <ng-container *ngFor="let data of userContribution">
+          <app-View-card [data]="data"></app-View-card>
+        </ng-container>
+      </div>
+      <ng-container *ngIf="!userContribution?.length && auth.hasVerifiedEmail">
+        <div class="text-center py-4 shadow bg-opacity-10 bg-info">
+          {{ "account.no_contribution" | translate }}
+        </div>
+      </ng-container>
+      <ng-container *ngIf="!userContribution?.length && !auth.hasVerifiedEmail">
+        <div class="text-center py-4 shadow bg-opacity-10 bg-danger">
+          {{ "account.verify_account_msg" | translate }}
+
+          <button
+            type="button"
+            class="rounded-pill btn-khali"
+            tooltip="Refresh page after veryfying account"
+            [ngClass]="{ 'btn-success': isVeryBtnClicked }"
+            (click)="sendverifyEmail()"
+          >
+            {{ "account.verify_account" | translate }}
+          </button>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,51 @@
+$upper-large: 1200px;
+$lower-large: 979px;
+$upper-medium: 768px;
+$lower-medium: 767px;
+$small: 480px;
+
+.title{
+    text-align: center;
+    padding-left: 250px;
+    padding-right: 250px;
+    padding-top: 40px;
+    padding-bottom: 50px;
+}
+
+.hovered-img {
+    transition: 1s;
+    cursor: pointer;
+}
+
+.hovered-button {
+    transition: 1s;
+    position: absolute;
+    background-color: #0c1330;
+    color: white;
+    padding: 10px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    opacity: 0;
+}
+
+.responsive-columns {
+    @media screen and (min-width: $upper-large) {
+        width: 31%;    
+    }
+
+    @media screen and (min-width: $lower-medium) and (max-width: $lower-large) {
+        width: 45%;
+    }
+
+    @media screen and (max-width: $small) {
+        width: 95%;
+    }
+}
+
+.images:focus {
+    border: 4px solid #cea374;
+}
+
+

@@ -1,0 +1,107 @@
+<div class="container">
+  <!-- Title -->
+  <h2 class="text-center my-4 fw-bold">{{ title }}</h2>
+
+  <!-- Categories -->
+  <div class="d-flex justify-content-center flex-wrap">
+    <div *ngFor="let gallery of galleries" class="p-2 mx-4">
+      <button
+        #image
+        [ngClass]="{
+          'border-start-0 border-end-0 border-top-0 border-4 border-warning': selectedCategory == gallery
+        }"
+        class="fw-bold btn btn-transparent"
+        (click)="setActive(gallery)"
+      >
+        <b>{{ gallery }}</b>
+      </button>
+    </div>
+  </div>
+  <div class="text-end" *ngIf="isAdmin">
+    <button class="btn btn-primary" (click)="addImage(galleryModal)">Add Image</button>
+  </div>
+  <hr class="divider border-orange-red" />
+</div>
+
+<!-- Masonry Columns -->
+<div class="container my-4">
+  <ngx-masonry
+    [ordered]="true"
+    [options]="masonryOptions"
+    [ngStyle]="{ width: '100%' }"
+    *ngIf="loaded"
+  >
+    <div
+      ngxMasonryItem
+      class="masonry-item my-2 responsive-columns"
+      *ngFor="let image of display; let i = index"
+    >
+      <div class="images">
+        <img
+          [src]="image.imagePath"
+          width="100%"
+          class="hovered-img"
+          (mouseleave)="onLeave()"
+          (mouseover)="onEnter(i)"
+          [ngStyle]="{ opacity: currentImageIndex == i ? '0.4' : '1' }"
+        />
+        <button
+          (focus)="onEnter(i)"
+          class="hovered-button"
+          (mouseover)="onEnter(i)"
+          [ngStyle]="{ opacity: currentImageIndex == i ? '1.0' : '0.0' }"
+          (blur)="onLeave()"
+          (click)="onLearnMore(galleryModal, image)"
+        >
+          {{ imageButton }}
+        </button>
+      </div>
+    </div>
+  </ngx-masonry>
+</div>
+
+<!-- Pagination -->
+<div
+  *ngIf="categoryImages.length > itemsPerPage"
+  class="container d-flex justify-content-center my-4"
+>
+  <pagination
+    [boundaryLinks]="showBoundaryLinks"
+    [itemsPerPage]="itemsPerPage"
+    [totalItems]="categoryImages.length"
+    [(ngModel)]="currentPage"
+    (pageChanged)="pageChanged($event)"
+    previousText="&lsaquo;"
+    nextText="&rsaquo;"
+    firstText="&laquo;"
+    lastText="&raquo;"
+  ></pagination>
+</div>
+
+<!--No Record Indicator-->
+<div
+  class="container text-center my-4"
+  *ngIf="categoryImages.length == 0 && loaded"
+>
+  <span class="display-1">No Records Found</span>
+</div>
+
+<!--Modal-->
+<ng-template #galleryModal>
+  <app-overlay
+    [type]="type"
+    [status]="status"
+    [isAdmin]="isAdmin"
+    [image]="selectedImage"
+    [otherImage]="otherImage"
+    [language]="language"
+    [otherLanguage]="otherLanguage"
+    (add)="onAdd($event)"
+    (close)="onClose($event)"
+    (submit)="onSubmit($event, galleryModal)"
+    (remove)="onRemove($event, galleryModal)"
+    (update)="onUpdate($event)"
+    (delete)="onDelete($event)"
+    (cancel)="onCancel($event)"
+  ></app-overlay>
+</ng-template>

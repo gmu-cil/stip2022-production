@@ -1,0 +1,130 @@
+<div class="container-fluid main">
+  <div class="container-fluid" style="padding-top: 80px; padding-bottom: 80px">
+    <h2 class="text-center text-light">
+      {{
+        "projects_overview.projects_overview_meet_the_team_title" | translate
+      }}
+    </h2>
+  </div>
+  <div class="container-fluid">
+    <div class="row text-center" style="padding-left: 25%; padding-right: 25%">
+      <div
+        class="col-lg-4 col-md-6 my-3"
+        *ngFor="let profile of team_profile"
+      >
+      <div class="image-container">
+        <div class="rounded-circle">
+          <img
+            src="assets/homepage/{{ profile.picture }}"
+            class="rounded-circle image"
+          />
+          <div class="middle">
+            <div class="text-white">
+              <h3>{{ profile.name }}</h3>
+              <p>{{ profile.team }}</p>
+              <p>{{ profile.study }}</p>
+
+              <!-- <p class="my-auto name">{{ profile.name }}</p>
+              <p class="team">{{ profile.team }}</p>
+              <p class="study">{{ profile.study }}</p> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <div
+    class="container-fluid contact"
+    style="padding-top: 80px; padding-bottom: 80px"
+  >
+    <div class="text-center">
+      <button
+        type="button"
+        class="btn btn-primary contact_us text-dark"
+        (click)="openContactUsModal()"
+      >
+      {{
+        "contact_us.contact_us" | translate
+      }}
+      </button>
+    </div>
+  </div>
+</div>
+<ng-template #contactUsTemplate>
+  <div class="modal-header">
+    <h4 class="modal-title text-center">{{
+      "contact_us.contact_us" | translate
+    }}</h4>
+    <button type="button" class="btn-close close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body" [formGroup]="contactForm">
+    <div class="mb-3">
+      <label for="name" class="form-label">{{
+        "contact_us.name" | translate
+      }}</label>
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        formControlName="name"
+        placeholder="{{ 'contact_us.name_placeholder' | translate }}"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="contactMessage" class="form-label">{{
+        "contact_us.email" | translate
+      }}</label>
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        formControlName="email"
+        placeholder="{{ 'contact_us.email_placeholder' | translate }}"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="contactMessage" class="form-label">{{
+        "contact_us.message" | translate
+      }}</label>
+      <textarea
+        class="form-control"
+        id="contactMessage"
+        formControlName="message"
+        rows="3"
+        placeholder= "{{ 'contact_us.message_placeholder' | translate }}"
+      ></textarea>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modalRef?.hide()">
+      {{ 'contact_us.close' | translate }}
+    </button>
+    <button
+      type="button"
+      (click)="ngSubmit()"
+      class="btn btn-primary"
+      [disabled]="contactForm.invalid"
+    >
+    {{ 'contact_us.submit' | translate }}
+    </button>
+  </div>
+</ng-template>
+<ng-template #exitTemplate>
+  <div class="modal-header">
+    <h4 class="modal-title text-center">{{ "contact_us_submit.submitted" | translate }}</h4>
+    <button type="button" class="btn-close close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>
+      {{ "contact_us_submit.submit_message" | translate }}
+    </p>
+  </div>
+</ng-template>

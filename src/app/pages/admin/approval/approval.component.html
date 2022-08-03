@@ -1,0 +1,122 @@
+<div class="container-fluid px-0">
+  <div class="display-1 text-center my-4">Public Contributions</div>
+
+  <div class="container">
+    <div class="d-flex flex-md-row flex-column justify-content-center">
+      <button
+        [disabled]="disabled"
+        *ngFor="let category of categoriesList"
+        class="my-2 mx-4 p-2 category-button bg-warning fw-bold position-relative"
+        (click)="setActiveCategory(category)"
+        [ngClass]="{ 'bg-warning': category == activeCategory }"
+      >
+        {{ category }}
+        <span
+          *ngIf="categories[category].length != 0"
+          [ngClass]="{
+            'bg-danger': category == 'New Contributions',
+            'bg-success': category == 'Approved Contributions',
+            'bg-warning': category == 'Rejected Contributions'
+          }"
+          class="position-absolute top-0 start-100 translate-middle badge rounded-pill"
+          >{{ categories[category].length }}</span
+        >
+      </button>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="container my-4" *ngIf="selectedContributions.length == 0">
+      <div class="card">
+        <div class="card-header text-center p-4">
+          {{ this.emptyContributionMessage }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Categorized Contributions -->
+    <div class="container">
+      <div
+        *ngIf="selectedContributions.length > 0"
+        class="overflow-auto shadow p-3 rounded-lg contribution-scroller my-4"
+      >
+        <div
+          class="row my-3 contribution-container border border-2 bg-opacity-10 bg-success"
+          *ngFor="let contribution of selectedContributions"
+          [ngClass]="{
+            'border-danger': activeCategory == 'New Contributions',
+            'border-success': activeCategory == 'Approved Contributions',
+            'border-warning': activeCategory == 'Rejected Contributions'
+          }"
+          [@contributionAnimation]="contribution.state"
+          (@contributionAnimation.start)="animationStart($event)"
+          (@contributionAnimation.done)="animationDone($event)"
+        >
+          <app-contribution
+          [contribution]="contribution"
+          [activeCategory]="activeCategory"
+          [loaded]='loaded'
+          (readMore)="onReadMore(readMoreTemplate, $event)"
+        ></app-contribution>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #readMoreTemplate>
+  <app-upload
+    [contribution]="selectedContribution"
+    page="contribution"
+    (formChange)="onFormChange($event)"
+    (eventChange)="onEventChange($event)"
+    (memoirChange)="onMemoirChange($event)"
+    (imageChange)="onImageChange($event)"
+  ></app-upload>
+  <div
+    class="col-12 mx-auto mb-5 text-center display-1"
+    *ngIf="selectedContribution?.publish == 'new'"
+  >
+    <button
+      type="button"
+      (click)="onApprove()"
+      class="btn btn-transparent btn-lg mx-2 display-4 check-icon"
+    >
+      <span class="check-icon">&checkmark;</span>
+    </button>
+
+    <button
+      type="button"
+      (click)="onReject()"
+      class="btn btn-transparent btn-lg mx-2 cross-icon"
+    >
+      <span class="cross-icon">&cross;</span>
+    </button>
+  </div>
+
+  <div
+    class="col-12 mx-auto mb-5 text-center display-1"
+    *ngIf="selectedContribution?.publish == 'approved'"
+  >
+    <button
+      (click)="onEdit()"
+      type="button"
+      class="btn btn-transparent btn-lg mx-2 pencil-icon"
+    >
+      <span class="pencil-icon text-warning">Edit</span>
+    </button>
+  </div>
+
+  <div
+    class="col-12 mx-auto mb-5 text-center display-1"
+    *ngIf="selectedContribution?.publish == 'rejected'"
+  >
+    <button
+      (click)="onReconsider()"
+      type="button"
+      class="btn btn-transparent btn-lg mx-2 pencil-icon"
+    >
+      <span class="pencil-icon text-warning">&#8634;</span>
+    </button>
+  </div>
+</ng-template>
