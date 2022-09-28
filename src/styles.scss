@@ -1,19 +1,27 @@
 @import "~bootstrap/scss/bootstrap"; // Import Bootstrap
 @import "./styles/animation.scss";
 @import "./styles/btnImage.scss";
+@import "./styles/colors.scss";
 
 /* You can add global styles to this file, and also import other style files */
-$khaki: #cea374;
-$khaki-dark: #a76724;
-$medium-blue: #266461;
-$dark-blue: #09363c;
-$black: #000000;
-$orange-red: #df4028;
-$white: white;
-$light-grey: #f5f5f5;
-$jade: #61af87;
-$grey-green: #e0e2b8;
-$light-grey-green: #e0e2b8;
+
+
+.browse-list-box {
+  height: 150px;
+  border-radius: 28px;
+  color: black;
+  text-decoration: none;
+  background-color: #d4e0df;
+}
+.browse-text-color {
+  color: $dark-green
+}
+.browse-text-color-two {
+  color: grey
+}
+.bg-light-white{
+  background-color:$light-white
+}
 
 .bg-image-blue {
   .bg-colors {
@@ -156,6 +164,22 @@ body {
   }
 }
 
+.btn-jade {
+  // @extend .btn;
+  border: 2px solid $jade;
+  background-color: $dark-blue;
+  color: white !important;
+
+  &:hover,
+  &:focus,
+  &:active,
+  &:checked {
+    @extend .btn;
+    background-color: $jade;
+    color: $dark-blue;
+  }
+}
+
 .btn-orange-red {
   @extend .btn;
   border: 2px solid $orange-red;
@@ -262,5 +286,5 @@ body {
 
 // resources ul li
 .li {
-  style:none;
+  list-style: none;
 }

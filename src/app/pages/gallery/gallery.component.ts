@@ -7,9 +7,7 @@ import {
   TemplateRef,
 } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import {
-  PageChangedEvent,
-} from 'ngx-bootstrap/pagination';
+import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { NgxMasonryComponent, NgxMasonryOptions } from 'ngx-masonry';
 import { Subscription } from 'rxjs';
 
@@ -20,6 +18,7 @@ import { ImagesService } from 'src/app/core/services/images.service';
 import { StorageApIService } from 'src/app/core/services/storage-api.service';
 import { UUID } from 'src/app/core/utils/uuid';
 import { AuthServiceService } from 'src/app/core/services/auth-service.service';
+import { ArchieveApiService } from 'src/app/core/services/archives-api-service';
 
 @Component({
   selector: 'app-gallery',
@@ -73,7 +72,8 @@ export class GalleryComponent implements OnInit, OnDestroy {
     private storageAPI: StorageApIService,
     private imagesAPI: ImagesService,
     private modalService: BsModalService,
-    private auth: AuthServiceService
+    private auth: AuthServiceService,
+    private archiveAPI: ArchieveApiService
   ) {}
 
   ngAfterViewInit(): void {}
@@ -112,34 +112,36 @@ export class GalleryComponent implements OnInit, OnDestroy {
           this.imagesAPI
             .getGalleryImages(this.language!)
             .subscribe((imagesList: any) => {
-              console.log("qwe")
               this.categoryImages.length = 0;
               this.display.length = 0;
               this.images.length = 0;
               this.images = imagesList;
 
-              for (const image of this.images) {
-                this.categoryImages.push(image);
-                if (this.display.length < this.itemsPerPage) {
-                  this.display.push(image);
-                }
-                
-                if (imagesList.length === this.categoryImages.length) {
-                  this.loaded = true
-                  setTimeout(() => {
-                    this.reloadMasonryLayout()
-                  }, 300)
+              if (this.images.length == 0) {
+                this.loaded = true;
+              } else {
+                for (const image of this.images) {
+                  this.categoryImages.push(image);
+                  if (this.display.length < this.itemsPerPage) {
+                    this.display.push(image);
+                  }
+
+                  if (imagesList.length === this.categoryImages.length) {
+                    this.loaded = true;
+                    setTimeout(() => {
+                      this.reloadMasonryLayout();
+                    }, 300);
+                  }
                 }
               }
             })
-        )
-      
+        );
+
         this.selectedCategory = this.galleries[0];
         this.currentImageIndex = -1;
       })
-    )
+    );
   }
-
 
   reloadMasonryLayout() {
     if (this.masonry !== undefined) {
@@ -175,7 +177,7 @@ export class GalleryComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.categoryImages = result;
       this.display = this.categoryImages.slice(0, this.itemsPerPage);
-      this.reloadMasonryLayout()
+      this.reloadMasonryLayout();
       // this.display = this.searchImages.slice(0, this.itemsPerPage)
     }, 100);
   }
@@ -290,6 +292,7 @@ export class GalleryComponent implements OnInit, OnDestroy {
     if (data.status == 'delete') {
       this.modalService.hide();
       Promise.all([
+        this.archiveAPI.updateRightistImageId(this.language!, image.rightistId, ''),
         this.imagesAPI.deleteImage(this.language!, image.imageId),
         this.imagesAPI.deleteImage(this.otherLanguage!, image.imageId),
         this.storageAPI.removeGalleryImage(image.imageId),

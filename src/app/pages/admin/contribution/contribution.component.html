@@ -7,7 +7,7 @@
       <p class="card-text m-0">
         Occupation:
         <span class="fw-bold text-capitalize">{{
-          contribution.rightist.workplaceCombined ? contribution.rightist.workplaceCombined : "-"
+          contribution.rightist.job ? contribution.rightist.job : "-"
         }}</span>
       </p>
       <p class="card-text m-0">
@@ -30,32 +30,52 @@
   <div
     class="col-6 d-flex flex-column align-items-start justify-content-center my-4"
   >
-    <div *ngIf="contribution.rightist.events; else template">
-      <div *ngFor="let event of contribution.rightist.events | slice: 0:limit">
+    <div *ngIf="contribution.rightist.description; else template">
+      <div>
+        {{ contribution.rightist.description | slice: 0:limit
+        }}<span *ngIf="contribution.rightist.description.length > limit"
+          >...</span
+        >
+      </div>
+      <!-- <div *ngFor="let event of contribution.rightist.events | slice: 0:limit">
         <span
           >In {{ event.startYear | date: "yyyy" }},
           {{ event.event.substring(0, 49)
           }}<span *ngIf="event.event.length > 50">...</span></span
         >
       </div>
-      <div *ngIf="contribution.rightist.events.length > limit">...</div>
+      <div *ngIf="contribution.rightist.events.length > limit">...</div> -->
     </div>
   </div>
 
   <div
     class="col-lg-2 col-12 d-flex align-items-center flex-column justify-content-center"
   >
-    <div class="my-2 text-center" *ngIf="loaded">
+    <div class="my-2 text-center">
       <p>
         <i>
-          {{ contribution.rightist.lastUpdatedAt | date : "short" }}
+          {{ contribution.rightist.lastUpdatedAt | date: "short" }}
         </i>
       </p>
     </div>
 
-    <div class="d-flex justify-content-center my-2">
+    <div
+      class="d-flex justify-content-center my-2"
+      *ngIf="contribution.publish != 'approved'"
+    >
       <button class="btn btn-transparent" (click)="onReadMore()">
         <span class="h2">&#8594;</span>
+      </button>
+    </div>
+
+    <div
+      class="d-flex justify-content-center my-2"
+      *ngIf="contribution.publish === 'approved'"
+    >
+      <button class="btn btn-transparent">
+        <a routerLink="/browse/main/memoir/{{ contribution.rightistId }}"
+          >>> Profile
+        </a>
       </button>
     </div>
   </div>

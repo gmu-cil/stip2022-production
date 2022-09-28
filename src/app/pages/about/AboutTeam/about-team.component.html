@@ -1,13 +1,13 @@
-<div class="container-fluid main">
-  <div class="container-fluid" style="padding-top: 80px; padding-bottom: 80px">
+<div class="container-fluid main minaDiv">
+  <div class="container-fluid">
     <h2 class="text-center text-light">
       {{
         "projects_overview.projects_overview_meet_the_team_title" | translate
       }}
     </h2>
   </div>
-  <div class="container-fluid">
-    <div class="row text-center" style="padding-left: 25%; padding-right: 25%">
+  <div class="container-fluid secondaryDiv">
+    <div class="row text-center">
       <div
         class="col-lg-4 col-md-6 my-3"
         *ngFor="let profile of team_profile"
@@ -16,7 +16,7 @@
         <div class="rounded-circle">
           <img
             src="assets/homepage/{{ profile.picture }}"
-            class="rounded-circle image"
+            class="rounded-circle image img-fluid"
           />
           <div class="middle">
             <div class="text-white">
@@ -38,7 +38,6 @@
 <div>
   <div
     class="container-fluid contact"
-    style="padding-top: 80px; padding-bottom: 80px"
   >
     <div class="text-center">
       <button

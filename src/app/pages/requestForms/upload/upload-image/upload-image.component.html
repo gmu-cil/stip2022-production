@@ -1,72 +1,114 @@
 <h4>{{ "upload.upload_photo" | translate }}</h4>
 
-  <form [formGroup]="imageForm">
-    <img alt="" [src]="url" height="200" width="200" />
-    <!-- select photo section -->
+<form [formGroup]="imageForm">
+  <img alt="" [src]="url" height="200" width="200" />
+  <!-- select photo section -->
+  <input
+    id="files"
+    *ngIf="!imageDisabled"
+    class="form-control w-75"
+    type="file"
+    (change)="onselectFile($event)"
+    formControlName="image"
+  />
+  
+  <br /><br />
+  <button *ngIf="!imageDisabled" class="btn btn-dark" (click)="clearImage()">
+    {{ "upload.clear_photo" | translate }}
+  </button>
+  <br /><br />
+
+  <div class="my-2">
+    <label for="imageTitle" class="form-label">{{
+      "upload.title" | translate
+    }}</label>
     <input
-      *ngIf="!imageDisabled"
-      class="form-control w-75"
-      type="file"
-      (change)="onselectFile($event)"
-      formControlName="image"
+      type="text"
+      class="form-control w-75 my-1"
+      id="imageTitle"
+      placeholder="{{ 'upload.placeholder.image_title_placeholder' | translate }}"
+      formControlName="imageTitle"
     />
-    <br /><br />
-    <button *ngIf="!imageDisabled" class="btn btn-dark" (click)="clearImage()">
-      {{ "upload.clear_photo" | translate }}
-    </button>
-    <br /><br />
+    <input
+      *ngIf="page == 'contribution'"
+      type="text"
+      class="form-control w-75 my-1"
+      id="otherImageTitle"
+      placeholder="{{ 'upload.placeholder.other_image_title_placeholder' | translate }}"
+      formControlName="otherImageTitle"
+    />
+  </div>
 
-    <div class="my-2">
-      <label for="imageTitle" class="form-label">{{
-        "upload.title" | translate
-      }}</label>
-      <input
-        type="text"
-        class="form-control w-75"
-        id="imageTitle"
-        placeholder="{{ 'upload.what_tooltip' | translate }}"
-        formControlName="imageTitle"
-      />
-    </div>
-    
-    <div class="my-2">
-      <label for="imageDetails" class="form-label">{{
-        "upload.detail" | translate
-      }}</label>
-      <textarea
-        class="form-control w-75"
-        id="imageDetails"
-        rows="3"
-        placeholder="{{ 'upload.add_description' | translate }}"
-        formControlName="imageDes"
-      ></textarea>
-    </div>
+  <div class="my-2">
+    <label for="imageDetails" class="form-label">{{
+      "upload.detail" | translate
+    }}</label>
+    <textarea
+      class="form-control w-75 my-1"
+      id="imageDetails"
+      rows="3"
+      placeholder="{{ 'upload.placeholder.image_detail_placeholder' | translate }}"
+      formControlName="imageDes"
+    ></textarea>
+    <textarea
+     *ngIf="page == 'contribution'"
+      class="form-control w-75 my-1"
+      id="otherImageDes"
+      rows="3"
+      placeholder="{{ 'upload.placeholder.other_image_detail_placeholder' | translate }}"
+      formControlName="otherImageDes"
+    ></textarea>
+  </div>
 
-    <div class="my-2">
-      <label for="imageSource" class="form-label">{{
-        "upload.source" | translate
-      }}</label>
-      <textarea
-        class="form-control w-75"
-        id="imageSource"
-        rows="3"
-        placeholder="{{ 'upload.add_description' | translate }}"
-        formControlName="imageSource"
-      ></textarea>
-    </div>
+  <div class="my-2">
+    <label for="imageSource" class="form-label">{{
+      "upload.source" | translate
+    }}</label>
+    <textarea
+      class="form-control w-75 my-1"
+      id="imageSource"
+      rows="3"
+      placeholder="{{ 'upload.placeholder.image_source_placeholder' | translate }}"
+      formControlName="imageSource"
+    ></textarea>
+    <textarea
+      *ngIf="page == 'contribution'"
+      class="form-control w-75 my-1"
+      id="otherImageSource"
+      rows="3"
+      placeholder="{{ 'upload.placeholder.other_image_source_placeholder' | translate }}"
+      formControlName="otherImageSource"
+    ></textarea>
+  </div>
 
-    <div class="my-2">
-      <label for="cars">{{ "upload.image_cat" | translate }}</label>
-      <select name="imageCategory" id="imageCategory" formControlName="imageCategory">
-        <option value="People">{{ "upload.people" | translate }}</option>
-        <option value="Media">{{ "upload.media" | translate }}</option>
-        <option value="Camps">{{ "upload.Camps" | translate }}</option>
-        <option value="Other">{{ "upload.other" | translate }}</option>
-      </select>
-    </div>
+  <div class="my-2">
+    <label class="form-label" for="imageCategory">{{
+      "upload.image_cat" | translate
+    }}</label>
 
-    <!-- radio buttons for choosing if user wants to include photo in gallery -->
-    <br />
+    <select
+      class="form-select w-75"
+      name="imageCategory"
+      id="imageCategory"
+      formControlName="imageCategory"
+    >
+      <option disabled selected value>{{ "upload.dropdown_default" | translate }}</option>
+      <option [value]="category" *ngFor="let category of imageCategories">
+        {{ category }}
+      </option>
+    </select>
+    <input
+      *ngIf="page == 'contribution'"
+      readonly
+      class="form-control w-75"
+      formControlName="otherImageCategory"
+    />
+  </div>
+
+  <!-- radio buttons for choosing if user wants to include photo in gallery -->
+  <br />
+
+  <div *ngIf="page == 'contribution'">
     <p>
       {{ "upload.include" | translate }}
       <img
@@ -105,4 +147,5 @@
         "upload.no" | translate
       }}</label>
     </div>
-  </form>
+  </div>
+</form>

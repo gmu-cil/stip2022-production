@@ -108,7 +108,7 @@
         class="overflow-auto shadow p-3 rounded-lg contribution-scroller"
       >
         <ng-container *ngFor="let data of userContribution">
-          <app-View-card [data]="data"></app-View-card>
+          <app-View-card [data]="data" [language]="language"></app-View-card>
         </ng-container>
       </div>
       <ng-container *ngIf="!userContribution?.length && auth.hasVerifiedEmail">

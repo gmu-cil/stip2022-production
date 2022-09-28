@@ -48,7 +48,39 @@
       }
     }
 
+.list-box {
+  display: inline-block; 
+  white-space: nowrap;
+}
 
+.list-box-inner-layout {
+  
+  display: inline-block;
+  white-space: nowrap;
+  justify-content: flex-end;
+                      
+}
+.box-height {
+  height: 5cm
+}
+.style {
+  border-radius: 28px;
+  background-color: #d8e4dc;
+  width: 30%;
+  opacity: 0;
+}
+
+.link-decor {
+  color: black; 
+  text-decoration: none
+}
+.grid-box {
+
+  border-radius: 28px;
+  background-color: #d8e4dc;
+  width: 30%;
+                  
+}
   .image{
     position: absolute;
     top: 0;
@@ -82,12 +114,6 @@
   }
 
 
-//   .page:ng-deep .active {
-//     background-color: white;
-//     color: black;
-//     font-size: 14px;
-//     border-style: none;
-// }
 
 
 

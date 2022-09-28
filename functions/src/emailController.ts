@@ -11,8 +11,6 @@ import {contactUsTemplate, modifyRequestTemplate} from './email templates/reques
 const sendGrid_api_key = functions.config().sendgrid.key;
 sdmail.setApiKey(sendGrid_api_key);
 
-const sender = 'mlee@heeyaa.net';
-
 // Fetch admin emails that want notification from firestore.
 const adminEmails = async () => {
   const admins = (await fireStore.collection('adminEmailsNotification').get()).docs;
@@ -35,7 +33,7 @@ export const contactUs = functions.https.onCall( async (data: ContactUs, context
   const to = await adminEmails();
   const msg = {
     to,
-    from: sender,
+    from: 'joeladeniji123@gmail.com',
     subject: `${name || 'User'} Contact Us (${email || 'User'})`,
     html: contactUsTemplate(data),
 
@@ -65,7 +63,7 @@ export const modifyRightistRequest = functions.https.onCall( async (data: Reques
   const to = await adminEmails();
   const msg = {
     to,
-    from: sender,
+    from: 'joelAdeniji123@gmail.com',
     subject: `New Request to Modify Rightist ${email || 'User'} (${
       rightistId || 'User'
     })`,
@@ -95,7 +93,7 @@ export const sendMailApprovedRejectNotificationContribution = functions.database
   if (['approved', 'rejected'].includes(change.after.val().publish) && context.auth.token?.admin === true && contributorDetails.get('emailVerified') === true) {
     try {
       const result = await sdmail.send({
-        from: sender,
+        from: 'joeladeniji123@gmail.com',
         to: [context.auth.email, contributorDetails.get('email')],
         subject: `You have a notification from STIP ${contributorDetails.get('uid')} (${contributorDetails.get('email')}) ${context.auth.email}`,
         text: `Hello ${contributorDetails.get('nickName') || contributorDetails.get('email')}, Your contribution was ${change.after.val().publish} - ContributionId: ${context.params.contribution_id} - UserId: ${context.params.user_id}`,

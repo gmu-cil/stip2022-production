@@ -165,7 +165,7 @@
       </div>
     </div>
   </nav>
-  <alert
+  <!-- <alert
     type="info mb-0"
     [dismissible]="true"
     [hidden]="count <= 0 || !message"
@@ -175,7 +175,7 @@
       <div class="flex-grow-1 message ml-4">{{ message }}</div>
       <div>{{ count }}</div>
     </div>
-  </alert>
+  </alert> -->
   <alert
     *ngFor="let alert of globalErrorMessage"
     type="danger pb-5 m-0"

@@ -114,7 +114,7 @@ export class OverlayComponent implements OnInit, OnDestroy {
     // Fetch the image in other language
     this.sub.push(
       this.imageAPI
-        .getImageUpdate(this.otherLanguage!, this.image!.imageId)
+        .getImage(this.otherLanguage!, this.image!.imageId)
         .subscribe((data: any) => {
           this.otherImage = {
             ...this.image!,

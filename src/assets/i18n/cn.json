@@ -11,13 +11,13 @@
     "resources_page": "更多资源",
     "research_page": "研究",
     "browser_page": "浏览",
-    "archive_page": "“案卷集",
+    "archive_page": "案卷集",
     "gallery_page": "图片",
     "repository_page": "资源库",
     "login_signup": "登录或注册",
     "account": "帐户",
     "upload": "上载",
-    "log_out": "登出",
+    "log_out": "退出",
     "account2": "帐户",
     "search_placeholder": "搜索档案"
   },
@@ -74,15 +74,15 @@
   },
 
   "request-modify": {
-    "request_to_modify": "请求修改",
-    "Request": "要求",
+    "request_to_modify": "申请修改",
+    "Request": "申请要求",
     "Reason": "原因",
     "Email": "电子邮件",
-    "request_placeholder": "请输入相应的修改",
+    "request_placeholder": "请输入相应修改要求",
     "reason_placeholder": "请输入您修改的原因",
     "email_placeholder": "姓名@例子.com",
     "close": "关闭",
-    "submit": "提交请求"
+    "submit": "提交申请"
   },
 
   "navbar": {
@@ -122,18 +122,21 @@
     "research": "研究",
     "contact": "联系我们",
     "address": "4400 University Dr, Fairfax, VA 22030",
-    "email": "stip@gmu.com"
+    "email": "stip@gmu.com",
+    "repository": "知识库",
+    "upload": "上载"
   },
 
   "home": {
     "home_introduction_title": "中国“右派”档案",
-    "home_introduction_body": "中国“右派”档案馆是一个数据库，其中包含可追溯到 1950 年代中期的历史文献、见证和图像。该档案允许公众搜索、学习和探索关于中国从1957年至1959年“反右派运动”的历史和40,000 多个“右派”的档案",
+    "home_introduction_body": "中国“右派”档案馆收藏了关于中国1957年至1959年“反右派运动”的历史文献和图像。用户可搜索相关兴趣文档， 从而学习和探索其中历史和40,000 多个“右派”的档案。",
     "home_searchbar_placeholder": "搜索相关档案",
     "home_featured_title": "“右派”代表",
     "home_history_title": "历史摘要",
-    "home_history_body": "反右运动“是中国共产党 (1957-1959) 对知识分子进行再教育、羞辱、监禁和处决的两年时期。这场运动的许多受害者是“自由市场改革的早期倡导者”, 而且许多人是根据在该运动之前的竞选 动中的参与而被选中的; 百花运动 (factsanddetails.com, 2016 年)。在百花运动 (1956-1957) 期间, 共产党主席毛泽东鼓励中国公民以有争议的方式为中共发声, 并允许“批评政府” (factsanddetails.com, 2016)。毛泽东提出了“艺术'百花盛开', 科学'百家争鸣'”(factsanddetails.com, 2016)。毛泽东在收到对中共的大量批评后, 转身以惩罚那些说是因为他们对中共不忠而在他们的国家造成不团结的人，从而开始了反“右”运动。虽然反“右”运动本身只持续了两年，但人数死亡事件从未完全得到证实，许多幸存者在运动结束后被关进劳改营。该数据库致力于通过展示受害的“右翼分子”来向公众宣传这场运动并促进人权和社会正义.",
-    "home_timeline": "中国反“右倾”事件的时间轴。",
-    "home_learn_movement": "了解有关历史事件的更多信息"
+    "home_history_body": "中国\"反右\"运动发生在1957到1959年之间，中国共产党对反革命分子进行再教育、侮辱、监禁和处决。这场运动中的许多 \"右派\"人员是 \"自由主义改革的早期倡导者\"。其中，有许多人因为参与百花运动而被判作“右派分子”（factanddetails.com, 2016）。在百花运动（1956-1957年）期间，共产党主席毛泽东提倡中国人民在中国共产党的工作中，“有独立思考的自由，有辩论的自由，有创作和批评的自由，有发表自己的意见、坚持自己的意见和保留自己的意见的自由“，并允许 \"批评政府\"（factanddetails.com，2016）。毛泽东提出 \"对艺术工作主张百花齐放，对学术工作主张百家争鸣\"（factanddetails.com, 2016）。在收到对中国共产党的大量批评后，对于政权不稳固的担忧，毛泽东转而惩罚那些发表意见的人，声称这是由于他们对中国共产党的不忠诚造成了国家的不团结，从而开始了“反右 \"运动。尽管“反右\"运动本身只持续了两年，但死亡人数从未得到完全证实，许多幸存的人在该运动结束多年后被关押在劳改营。我们的档案馆致力于教育公众了解该运动和参与该运动的 \"右派 \"来促进人权和社会公义。参考资料：（2016) 百花运动和反右派运动，收录于2022年，https://factsanddetails.com/china/cat2/sub6/item1153.html。",
+
+    "home_timeline": "中国“反右”运动时间轴。",
+    "home_learn_movement": "了解更多“反右”运动信息"
   },
   "contact_us": {
     "contact_us": "联系我们",
@@ -148,15 +151,15 @@
   },
   "research": {
     "overview": "存档项目概述",
-    "overview_body": "...",
+    "overview_body": "该项目的目的是基于收集 1957 年至 1959 年中国反右运动期间被指控反政府的中国知识分子的文件、证言、传记和图像，建立一个基于网络的数字档案。虽然我们的研究项目包含超过 40,000 个结构化和非结构化的中国数据文件，但它只是受此活动影响的数百万人生命中的一小部分。此外，该档案馆藏的重点是通过利用计算机档案科学 (CAS) 方法和人机交互 (HCI) 领域的设计方法，使“右派”馆藏可供公众访问和搜索。",
     "research_found": "我们的研究发现",
-    "research_body": "...",
-    "data1": "数据",
-    "data2": "数据",
-    "data1_body": "...",
-    "data2_body": "...",
+    "research_body": "开发团队翻译和数据提取了 40,000 多份“右派”文件的中文数据后，我们的团队发现数据集中在被标记为右派人士的人口统计数据上。尽管这些文件共同揭示了“未知”字段，但包含最多信息的值得注意的变量是在“性别”和“成为右派的年份”属性下，生成了 39,949 条记录。",
+    "data1": "某年有人成为“右派”",
+    "data2": "性别",
+    "data1_body": "根据提取的数据，此条形图显示了 1957 年至 1959 年反右运动期间标记为“右派”的人数。还有一个额外的字段用于那些没有信息标记为未知的人。 1121人中，有27.84%的价值不详，而1957年运动开始时，中国知识分子被贴上“右派”的标签，占26823人的67.14%。与1959年相比，76人中只有0.19%被标记为右派。这些数据将与帐户用户在未来无限期制作的新贡献文件的实时更新相结合。",
+    "data2_body": "根据我们为 Gender 属性获取的 39,949 条记录，11,595 人中有 29.02% 是男性，而 1,329 人中有 3.33% 是女性。未确定的 27,025 个人有 67.65% 的未知值。从饼图来看，由于男性的价值高于女性，许多“不知名”的右派很可能是男性。这些数据将与帐户用户在未来无限期制作的新贡献文件的实时更新相结合。",
     "summary": "概括",
-    "summary_body": "...",
+    "summary_body": "总体而言，来自大规模策展和档案收集的数据仍在进行中。然而，目前完成的数据表明，在运动中记录的男性比被中国共产党认定为“右派”的女性多。此外，我们的数据集在运动开始时比结束时包含更多关于中国知识分子的输出信息。",
     "team_button": "我们的研究团队成员"
   },
   "resources": {
@@ -164,14 +167,15 @@
   },
   "about_movement": {
     "about_movement_introduction_title": "1950年-中国反右运动",
-    "about_movement_introduction_body": "反右运动“是中国共产党 (1957-1959) 对知识分子进行再教育、羞辱、监禁和处决的两年时期。这场运动的许多受害者是“自由市场改革的早期倡导者”，而且许多人是因为参与了“双百方针”的政治运动而被划为“右派”的; 百花运动 (factsanddetails.com, 2016 年) 。在百花运动 (1956-1957) 期间, 共产党主席毛泽东鼓励中国公民以有争议的方式为中国共产党提意见, 并允许“批评政府” (factsanddetails.com, 2016) 。毛泽东提出了“艺术'百花齐放'和科学'百家争鸣'的理念” (factsanddetails.com, 2016) 。在受到对中共的大量批评之后，毛泽东转而惩罚那些声称是由于对中共不忠，而在国内造成不团结的人，从而开始了反“右”运动。虽然反“右”运动本身只持续了两年，但死亡人数从未完全确定，许多幸存者在运动结束后被关进劳教所。该数据库致力于向公众宣传这场运动，并通过展示成为该运动的受害者 - “右派”来促进人权和社会正义。",
+    "about_movement_introduction_body": "百花运动期间（1956-1957），中国共产党（CCP）主席毛泽东鼓励中国公民以有争议的方式为中共发声，并允许任何人“批评政府”（事实和细节） .com，2016 年）。毛泽东提出“艺术‘百花争鸣’，科学‘百家争鸣’”（factsanddetails.com，2016）。尽管鼓励中国人撰写和表达他们对政府的看法，但他们几个月来都不愿发表意见。最终，人们开始给出反馈。然而，这种反馈在很大程度上被视为对毛泽东和中共的批评。事实上，中共对中共的批评越来越多，毛泽东转而惩罚那些发声的人，声称这是由于他们对中共的不忠，造成了他们国家的不团结。这种接受反馈的逆转因此开始了反“右派”运动。",
+    "about_movement_introduction_body2": "那些在1956-1957年的百花运动中发声的人，被贴上了知识分子或“右派”的标签，被中共称为反革命分子。一些知识分子包括教师、教授、记者、艺术家、作家，甚至医生。在 1957 年至 1959 年的反“右”运动中，这些人中的许多人在被贴上右派的标签后，被再教育、羞辱、监禁或处决。 1959 年运动结束后，许多“右派”在多年后仍然受到影响，其中一些人在运动结束后长达 22 年仍在劳改营（factsanddeatils.com，2016）。",
     "about_movement_introduction_button": "查看来源",
-    "about_movement_map_title": "地图",
-    "about_movement_map_body": "地图",
+    "about_movement_timeline_title": "《中国反“右”历史时期》",
     "about_movement_learn_more_button": "了解更多此研究项目"
   },
-  "projects_overview": {
-    "projects_overview_meet_the_team_title": "认识研究背后的团队"
+  "project_overview": {
+    "first_title": "存档项目概述",
+    "project_overview_meet_the_team_title": "认识研究背后的团队"
   },
   "other_resources": {
     "other_resources_title": "未知"
@@ -270,7 +274,8 @@
     "archive_filter_title": "高级检索",
     "archive_filter_cat_two_checkbox_three": "未知",
 
-    "archive_filter_cat_three_textbox_placeholder": "搜索少数民族",
+    "archive_filter_cat_three_textbox_placeholder": "输入搜索少数民族",
+    "archive_filter_profession":"输入搜索职业",
     "archive_filter_cat_four_title": "未知",
 
     "archive_filter_reset_button": "清除高级检索",
@@ -295,7 +300,7 @@
     "archive_tooltip_searchbar": "如何搜索?\n - 以名和/或者姓氏 \n- 出生年份 \n- 亡故年份 \n- \"右派\" 年份 \n- 中华少数名族 \n- 职业 \n- 性别",
     "archive_all_button": "所有",
 
-    "profile_tooltip": "用户可以向管理者申请修改更新任何不正确的档案。在3-5个工作日内, 您将会收到关于此修改是否通过的后续邮件。",
+    "profile_tooltip": "用户可以向管理者申请修改任何不正确的档案。在3-5个工作日内, 您将会收到该申请是否通过的后续邮件。",
     "profile_detail_title": "详情",
     "profile_detail_name": "姓名",
     "profile_birth_year": "出生年份",
@@ -319,9 +324,9 @@
   "gallery": {
     "gallery_top_title": "图片",
     "gallery_top_cat_one_button": "全部",
-    "gallery_top_cat_two_button": "媒体宣传",
-    "gallery_top_cat_three_button": "劳改营",
-    "gallery_top_cat_four_button": "人物",
+    "gallery_top_cat_two_button": "人物",
+    "gallery_top_cat_three_button": "媒体宣传",
+    "gallery_top_cat_four_button": "劳改营",
     "gallery_top_cat_five_button": "其它",
     "gallery_image_button": "学到更多",
     "placeholder": "搜索图片",
@@ -451,13 +456,13 @@
     "content": "内容",
     "upload_photo": "上传照片",
     "clear_photo": "清除照片",
+    "choose_file": "选择文件",
+    "no_file_chosen": "没有选中任何文件",
+    "dropdown_default": "-- 选择一个选项 --",
     "title": "标题",
     "detail": "详细信息",
+    "source": "资源",
     "image_cat": "图片种类",
-    "people": "人物",
-    "media": "媒体宣传",
-    "camps": "劳改营",
-    "other": "其他",
     "include": "将这张图片加入图库",
     "add": "上传更多照片",
     "remove": "移除",
@@ -471,19 +476,17 @@
 
     "request_form": "申请表",
     "upload": "上传",
-    "detail_edit": "Detailed/Edit Contribution",
+    "detail_edit": "编辑贡献",
     "name": "姓名",
     "occupation": "职业",
+    "workplace": "工作场所",
     "birth_year": "出生年份",
+    "death_year": "死亡年份",
     "rightist_year": "\"右派党与\" 年份",
     "ethnicity": "少数民族",
     "gender": "性别",
+    "status": "地位",
 
-    "gender_male": "男性",
-    "gender_female": "女性",
-    "status": "现状",
-    "status_alive": "在世",
-    "status_death": "亡故",
     "clear": "清除",
     "add_content": "添加内容",
     "event_content": "重要事件年份和其内容",
@@ -496,11 +499,72 @@
     "content_description": "内容/详情",
     "add_memoir": "添加个人自传",
 
-    "name_placeholder": "姓名",
-    "add_content_placeholder": "请添加内容、详细简介...",
-    "event_content_description_placeholder": "请添加重要事件的详细信息...",
-    "title_placeholder": "请添加标题...",
-    "author_placeholder": "请添加作者..",
-    "content_description_placeholder": "请添加个人自传..."
-  }
+    "placeholder": {
+      "name_placeholder": "姓名",
+      "other_name_placeholder": "英文全名",
+      "profession_placeholder": "职业",
+      "other_profession_placeholder": "英语专业",
+      "workplace_placeholder": "工作场所",
+      "other_workplace_placeholder": "英语工作场所",
+
+      "add_content_placeholder": "请添加内容、详细简介...",
+      "other_add_content_placeholder": "英文内容",
+
+      "event_content_description_placeholder": "请添加重要事件的详细信息...",
+      "other_event_content_description_placeholder": "英文活动详情",
+
+      "memoir_title_placeholder": "请添加标题...",
+      "other_memoir_title_placeholder": "英文回忆录标题",
+
+      "memoir_author_placeholder": "请添加作者...",
+      "other_memoir_author_placeholder": "英文回忆录作者",
+
+      "memoir_content_placeholder": "请添加个人自传...",
+      "other_memoir_content_placeholder": "英文回忆录内容",
+
+      "image_title_placeholder": "图片标题",
+      "other_image_title_placeholder": "中文图片标题",
+
+      "image_detail_placeholder": "图像细节",
+      "other_image_detail_placeholder": "英文图像细节",
+
+      "image_source_placeholder": "图片来源",
+      "other_image_source_placeholder": "英文图片来源"
+    }
+  }, 
+  "terms":{
+    "privacy":"隐私政策",
+    "terms":"使用条款",
+    "questions":"常见问题解答", 
+    "overview":"概览", 
+    "privacy_para_one":"本隐私政策适用于该中国“反右”运动档案库网站 - https://stip-demo.web.app/home.我们深知个人信息对您的重要性，您的信赖对我们非常重要，我们将严格遵守法律法规要求采取相应的安全保护措施，致力于保护您的个人信息安全可控。 该政策我们会如何收集、使用、共享、存储和保护您的个人信息以及您可以如何管理您的个人信息，以便您更好地作出适当的选择。通过使用我们的网站， 代表您同意隐私政策表示您已了解应用提供的功能，以及功能运行所需的必要个人信息，并给予相应的收集使用授权。在您使用我们的网站时，我们需要/可能需要通过第三方，例如 Facebook 或者其他社交媒体， 收集和使用的您的个人信息。", 
+    "privacy_para_two":"我们的信息收集及使用", 
+    "privacy_para_three":"我们只会收集必要您的信息以便方便您使用我们的网站 https://stip-demo.web.app/home, 例如您的IP地址和浏览器类型。通过点击使用 https://stip-demo.web.app/home， 我们也将会收集您的浏览记录、搜索查询记录， 但您将会保持匿名状态。 我们可能、需要使用您的IP地址来识别不同的地区地域信息， 但您的IP地址不会设计您的个人信息。",
+    "privacy_para_four":"请您注意，您开始创建您的个人用户账号即代表您授权我们可以收集和使用相关个人信息来为您提供对应服务。例如，您的姓名，用户名，出生时间和邮箱地址。我们将从您那里收集到的信息用于系统管理，防止任何不正当方式使用本网站，以及跟踪用户使用网站用途。 您可以通过客服联系我们，您提供的电子邮件地址可能会被用来向您发送信息、回复查询和/或其他请求或问题。未经您的许可，我们不会分享、出售或授权任何第三方将您的电子邮件地址用于商业目的。此外，我们也可能使用第三方供应商（如谷歌分析）来评估用户信息，以改善网络服务或其他与用户的使用体验。",
+    "privacy_para_five":"有更多疑问吗?", 
+    "privacy_para_six":"如果您对在本网页上看到的任何内容持有有任何意见、或者疑问，或者您担心泄露您的个人信息，您可以通过与客服联系向我们提出相关的请求，请联系stip@gmu.com。",
+    "privacy_note":"注: ", 
+    "privacy_note_para":"该隐私政策可在任何时候进行修改和变更。", 
+    "questions_one":"使用、收集“右派”档案的常见问题与回答", 
+    "questions_two":"我可以在我的网站、博客或任何社交媒体上分享任何 \"右派 \"档案文件吗？",
+    "questions_three":"是的，只要你遵守我们的使用条款", 
+    "questions_four":"我可以在我的网站上使用中国“右派”档案馆的商标、标识吗？", 
+    "questions_five":"不，未经中国右派档案馆网站负责人的书面许可，您不得使用我们网站的标志或其他商标。如果标志已印入到中国右派档案馆网站的文件和其他相关内容中，并通过分享链接，则可作为例外情况。", 
+    "questions_six":"我可以在研究论文、课程/讲义或其他教育相关的工作中使用 \"右派 \"档案文件吗？", 
+    "questions_seven":"是的，只要你遵守这些使用条款，就能够引用、描述和分享 \"右派 \"档案文件而用于您的研究或其他教育相关的项目中。请您提前确认你的使用是否构成合理使用，中国\"右派\"档案馆不会为此提供帮助不能帮助。 另外，将该网站以及相关文档信息用于教育用途可被认为是版权法中的合理使用/正当使用。", 
+    "questions_eight":"我能够向中国“”右派“”档案馆提供有关中国“”右派”人员的信息吗？", 
+    "questions_nine":"请在该网站创建您的个人用户，然后您可以通过您的账户主页下的 \"新右派投稿\"上传新的投稿内容。", 
+    "questions_ten":"有更多疑问吗?", 
+    "questions_evelen":"如有对本网页使用条款的疑问，请联系 stip@gmu.com。", 
+    "terms_one":"中国\"右派\"档案馆网站的建立是为了纪念因反右运动事件而影响的人士，从而促进个人人权和社会正义。我们的档案馆收藏了被影响的人士及其后代提供的历史文件和相关材料。我们鼓励并提倡访问者将本网站用于教育和研究目的，并合理合法地投稿贡献数字文件归档领域。", 
+    "terms_two":"版权和许可", 
+    "terms_three":"该中国“”右派“”档案馆网站目前收录了40,000多份文档文件。该文档文件将会用于非商业性的教学和研究用途。请您不要复制、出版、张贴、分发或以其他方式向他人提供或出售该文档文件。如果您需要用于非教育性用途，请获得中国“右派”档案馆版权持有人的许可。",
+    "terms_four":"为了更深刻地了解中国或反右事件，该档案馆含有的一部分文本、图像和其他内容并没有得到版权所有者的授权（您可在 \"关于运动 \"和 \"图片 \"页面中查看）。根据《美国法典》第17章第107节，在版权法的 \"合理使用\"规定中，该网站用于以上资料作为教育用途。如您需要将文献资料用于其他用途，请你提前获得版权所有者的许可。如您是版权所有者， 您可选择从我们的网站上 https://stip-demo.web.app/home 移除您的资料，请通过 stip@gmu.edu ，联系我们。",
+    "terms_five":"使用条款", 
+    "terms_six":"通过使用该网站及相关收藏档案文件，您同意：", 
+    "terms_seven":"所有被引用的文档需注明“中国右派档案”以及文档本身所列的贡献人。", 
+    "terms_eight":"被引用文档中提供到“中国右派档案”的链接.",
+    "terms_nine":"确保没有声明或暗示“中国右派档案馆”认可您, 任何第三方，或任何产品、服务或观点。", 
+    "terms_ten":"政策条款有效日期：2022年8月1日"
+}
 }

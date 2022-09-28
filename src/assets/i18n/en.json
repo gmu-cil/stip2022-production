@@ -71,15 +71,15 @@
   },
   "research": {
     "overview": "Archive Project Overview",
-    "overview_body": "...",
+    "overview_body": "The purpose of this project was to build a web-based digital archive based on the collection of documents, testimonials, biography, and images of Chinese intellectuals who were accused of being against the government during the Chinese Anti-Rightist Movement from 1957 to 1959. While our research project contains over 40,000 files of structured and unstructured Chinese data, it’s only a small portion of the millions of lives that were affected by this campaign. Furthermore, this archival collection focuses on making the “Rightist” collection accessible and searchable to the public by utilizing computational archival science (CAS) methods and design methodology from the field of Human-Computer Interaction (HCI).",
     "research_found": "Research and what we found",
-    "research_body": "...",
-    "data1": "Data",
-    "data2": "Data",
-    "data1_body": "...",
-    "data2_body": "...",
+    "research_body": "After the development team translated and data fetch the Chinese data of more than 40,000 “Rightist” documents, our team found that the data focuses on the demographics of the people that were labeled as Rightists. Although the documents collectively reveal “unknown” fields, the notable variables that contain the most information are under the 'Gender' and 'Year of becoming a Rightist' attributes with 39,949 records generated.",
+    "data1": "Year someone became a “Rightist”",
+    "data2": "Gender",
+    "data1_body": "Based on the data extracted, this bar graph illustrates the number of labeled “Rightists” during the Anti-Rightist Movement between the years 1957 and 1959. There is also an additional field for those with no information labeled as unknown. While there are 27.84% of unknown values of 1,121 individuals, most Chinese intellectuals were labeled as “Rightists” at the start of the movement in 1957 with 67.14% of 26,823 individuals. In comparison to1959, only 0.19% of 76 individuals were marked as Rightists. This data will be combined with real-time updates of new contributed files made by account users in the indefinite future.",
+    "data2_body": "According to the 39,949 records we have data fetched for the Gender attribute, 29.02% of 11,595 individuals were male while 3.33% of 1,329 individuals were female. There are 67.65% unknown values for the 27,025 individuals that were left undetermined. From the pie chart, it is likely that many of the 'unknown' Rightists could potentially be male due to the high value of males compared to females. This data will be combined with real-time updates of new contributed files made by account users in the indefinite future.",
     "summary": "Summary",
-    "summary_body": "...",
+    "summary_body": "Overall, the data from the large-scale curation and archival collection is still a work in progress. The current completed data, however, demonstrates that there are more males documented during the movement than females who were identified as “Rightists” by the Chinese Communist Party. Moreover, our dataset contains more output information about Chinese intellectuals at the start of the movement than at the end.",
     "team_button": "Meet the team behind the research"
   },
   "resources": {
@@ -143,22 +143,24 @@
     "navbar_account_button_subbutton_six": "Log Out"
   },
   "footer": {
+    "upload": "Upload",
     "copyright": "© Copyright 2022 STIP",
     "GMU": "George Mason University",
     "nav": "NAVIGATION",
     "faq": "FAQ",
-    "about": "About",
+    "about": "About the Movement",
     "archive": "Archive",
     "gallery": "Gallery",
     "proj_overview": "Project Overview",
     "team": "Meet the Team",
     "resources": "Resources",
-    "terms": "Terms & Contributions",
+    "terms": "Terms & Conditions",
     "account": "Account",
     "research": "Research",
     "contact": "Contact Us",
     "address": "4400 University Dr, Fairfax, VA 22030",
-    "email": "stip@gmu.com"
+    "email": "stip@gmu.com",
+    "repository": "Repository"
   },
   "home": {
     "home_introduction_title": "Chinese Rightist Archives",
@@ -166,19 +168,21 @@
     "home_searchbar_placeholder": "Search for Archives",
     "home_featured_title": "Featured \"Rightists\"",
     "home_history_title": "Brief History",
-    "home_history_body": "The \"Rightist\" Movement was a two year period in China (1957-1959) where the Chinese Communist Party (CCP) reeducated, humiliated, imprisoned, and executed those who were counter-revolutionaries. Many of the victims of this movement were “early advocates of free-market reforms” and also many were chosen based off of participation during a prior campaign to this movement; the Hundred Flowers Campaign (factsanddetails.com, 2016). During the Hundred Flower Campaign (1956-1957), the Communist Party chairman, Mao Zedong, encouraged the citizens of China to speak up about the CCP in a controversial light and allowed “criticism of the government” (factsanddetails.com, 2016). Mao proposed the “idea o 'letting a hundred flowers bloom' in the arts and 'a hundred schools of thought contend' in the sciences\" (factsanddetails.com, 2016). After receiving an overwhelming amount of criticism towards the CCP, Mao turned to punishing those who spoke out claiming it was due to their disloyalty to the CCP which caused disunity in their country, thus starting the \"Rightist\" movement. Although the \"Rightist\" Movement itself only lasted two years, the number of deaths has never been entirely confirmed and many who survived were imprisoned in labor camps years after the movement ended. This database is dedicated to educating the public about this movement and promoting human rights and social justice by showing the \"rightists\" who were victims of it.",
+    "home_history_body": "The Anti-“Rightist” Movement was a two year period in China (1957-1959) where the Chinese Communist Party (CCP) reeducated, humiliated, imprisoned, and executed those who were counter-revolutionaries. Many of the \"rightists\" in this movement were “early advocates of free-market reforms” and also many were chosen based off of participation during a prior campaign to this movement; the Hundred Flowers Campaign (factsanddetails.com, 2016). During the Hundred Flowers Campaign (1956-1957), the Communist Party chairman, Mao Zedong, encouraged the citizens of China to speak up about the CCP in a controversial light and allowed “criticism of the government” (factsanddetails.com, 2016). Mao proposed the “idea of ‘letting a hundred flowers bloom’ in the arts and ‘a hundred schools of thought contend’ in the sciences\" (factsanddetails.com, 2016). After receiving an overwhelming amount of criticism towards the CCP, Mao turned to punishing those who spoke out claiming it was due to their disloyalty to the CCP which caused disunity in their country, thus starting the Anti-\"Rightist\" movement. Although the Anti-\"Rightist\" Movement itself only lasted two years, the number of deaths has never been entirely confirmed and many who survived were imprisoned in labor camps years after the movement ended. This database is dedicated to educating the public about this movement and promoting human rights and social justice by showing the \"rightists\" who were involved with it. Reference:     (2016). HUNDRED FLOWERS CAMPAIGN AND THE ANTI-RIGHTIST MOVEMENT. Retrieved 2022, from https://factsanddetails.com/china/cat2/sub6/item1153.html. ",
     "home_timeline": "Timeline of the Chinese \"Rightist\" Movement",
     "home_learn_movement": "Learn More About this Movement"
   },
   "about_movement": {
     "about_movement_introduction_title": "About the Chinese Anti-Rightists Campaign in the 1950's",
-    "about_movement_introduction_body": "The Anti-“Rightist” Movement was a two year period in China (1957-1959) where the Chinese Communist Party (CCP) reeducated, humiliated, imprisoned, and executed those who were counter-revolutionaries. Many of the victims of this movement were “early advocates of free-market reforms” and also many were chosen based off of participation during a prior campaign to this movement; the Hundred Flowers Campaign (factsanddetails.com, 2016). During the Hundred Flower Campaign (1956-1957), the Communist Party chairman, Mao Zedong, encouraged the citizens of China to speak up about the CCP in a controversial light and allowed “criticism of the government” (factsanddetails.com, 2016). Mao proposed the “idea o ‘letting a hundred flowers bloom’ in the arts and ‘a hundred schools of thought contend’ in the sciences' (factsanddetails.com, 2016). After receiving an overwhelming amount of criticism towards the CCP, Mao turned to punishing those who spoke out claiming it was due to their disloyalty to the CCP which caused disunity in their country, thus starting the Anti-'Rightist' movement. Although the Anti-'Rightist' Movement itself only lasted two years, the number of deaths has never been entirely confirmed and many who survived were imprisoned in labor camps years after the movement ended. This database is dedicated to educating the public about this movement and promoting human rights and social justice by showing the 'rightists' who were victims of it. ",
+    "about_movement_introduction_subheading": "Hundred Flowers Campaign",
+    "about_movement_introduction_body": "During the Hundred Flowers Campaign (1956-1957), the Chinese Communist Party (CCP) chairman, Mao Zedong, encouraged the citizens of China to speak up about the CCP in a controversial light and allowed “criticism of the government” from anyone (factsanddetails.com, 2016). Mao proposed the “idea of ‘letting a hundred flowers bloom’ in the arts and ‘a hundred schools of thought contend’ in the sciences' (factsanddetails.com, 2016). Although the Chinese people were encouraged to write and express their opinions about the government, they were reluctant to speak up for months. Eventually, people began to give feedback. However, this feedback largely became viewed as criticism towards Mao and the CCP. In fact, there became such an overwhelming amount of criticism received by and about the CCP, Mao turned to punishing those who spoke out, claiming it was due to their disloyalty to the CCP which caused disunity in their country. This reversal in acceptance of feedback thus began the Anti-“Rightist” Movement.",
+    "about_movement_introduction_body2": "Those who had spoken up during the Hundred Flowers Campaign between 1956-1957, became labeled as intellectuals or “rightists” and were considered counter-revolutionaries according to the CCP. Some intellectuals included teachers, professors, journalists, artists, writers, and even doctors. After being labeled a rightist many of these people were reeducated, humiliated, imprisoned, or executed during the Anti- “Rightist” Movement, which lasted from 1957-1959. After the movement ended in 1959, many “rightists” were still affected years after, some of which were in labor camps up to 22 years after the movement had ended (factsanddeatils.com, 2016).",
     "about_movement_introduction_button": "View Sources",
-    "about_movement_map_title": "Map",
-    "about_movement_map_body": "Lorem ipsum dolor sit amet...",
+    "about_movement_timeline_title": "Timeline of the Chinese Anti-'Rightist' movement",
     "about_movement_learn_more_button": "Learn More About the Research on this Project"
   },
   "project_overview": {
+    "first_title": "Archive Project Overview",
     "project_overview_top_title": "Archive Project Overview",
     "project_overview_Research_We_Found": "Research and What We Found",
     "project_overview_Gender": "Gender",
@@ -187,7 +191,7 @@
     "project_overview_meet_the_team_button": "Meet the team behind the research"
   },
   "other_resources": {
-    "other_resources_title": "Resources"
+    "other_resources_title": "Other Resources"
   },
   "archive": {
     "GROUPS": [
@@ -275,32 +279,33 @@
 
     "archive_filter_cat_two_checkbox_three": "Unknown",
 
-    "archive_filter_cat_three_textbox_placeholder": "Type to search ethnic groups..",
+    "archive_filter_cat_three_textbox_placeholder": "Type to search ethnic groups...",
+    "archive_filter_profession":"Type to search profession...",
     "archive_filter_cat_four_title": "Occupation",
 
-    "archive_filter_reset_button": "Clear Filters", 
+    "archive_filter_reset_button": "Clear Filters",
     "archive_num_result":"Results",
-    "archive_results_per_page":"Results Per Page", 
+    "archive_results_per_page":"Results Per Page",
     "archive_view":"View",
     "archive_view_list":"List",
     "archive_view_grid":"Grid",
-    "archive_order_by":"Order by", 
+    "archive_order_by":"Order by",
     "archive_read_more":"read more",
-    "archive_page_word_one":"", 
-    "archive_page":"Page", 
-    "archive_page_word_two":"of", 
-    "archive_no_result_title":"No records found.", 
+    "archive_page_word_one":"",
+    "archive_page":"Page",
+    "archive_page_word_two":"of",
+    "archive_no_result_title":"No records found.",
     "archive_no_result_body":"There are no results matching your search.",
-    "archive_no_result_suggest": "Suggestions", 
-    "archive_no_result_suggest_one":"Make sure that all words are spelled correctly.", 
+    "archive_no_result_suggest": "Suggestions",
+    "archive_no_result_suggest_one":"Make sure that all words are spelled correctly.",
     "archive_no_result_suggest_two":"Try different keywords.",
     "archive_no_result_suggest_three":"Click on the “?” button next to the search bar to view “What to search for?”",
-    "archive_no_result_suggest_four":"Target your search to a specific field in the “All Fields” dropdown to the left of the search bar.", 
+    "archive_no_result_suggest_four":"Target your search to a specific field in the “All Fields” dropdown to the left of the search bar.",
     "archive_tooltip_year":"“Rightist Year” is when the individual became a “rightist”.",
     "archive_tooltip_searchbar":"What to search for?\\n - Search for first name and/or last name\\n- Year of birth\\n- Year of death\\n- “Rightist” year\\n- Chinese Ethnic Group\\n- Occupation\\n- Gender",
-    
-    "profile_tooltip":"All account users have the ability to send a request form to Admin for modification of any incorrect or updated information about a specific file. A follow-up email will be sent within 3-5 business days to notify the user if the request has been accepted or rejected.", 
-    "profile_detail_title":"Details", 
+
+    "profile_tooltip":"All account users have the ability to send a request form to Admin for modification of any incorrect or updated information about a specific file. A follow-up email will be sent within 3-5 business days to notify the user if the request has been accepted or rejected.",
+    "profile_detail_title":"Details",
     "profile_detail_name": "Full name",
     "profile_birth_year": "Year of Birth",
     "profile_death_year": "Year of Death",
@@ -460,13 +465,13 @@
     "content": "Contents",
     "upload_photo": "Upload a photo",
     "clear_photo": "Clear photo",
+    "choose_file": "Choose file",
+    "no_file_chosen": "No file chosen",
+    "dropdown_default": "-- Select an option --",
     "title": "Title",
-    "detail": "Details",
+    "detail": "Detail",
+    "source": "Source",
     "image_cat": "Image category",
-    "people": "People",
-    "media": "Media",
-    "camps": "Camps",
-    "other": "Other",
     "include": "Include this image in gallery",
     "add": "Add Another Image",
     "remove": "Remove",
@@ -482,18 +487,50 @@
     "upload": "Upload",
     "detail_edit": "Detailed/Edit Contribution",
     "name": "Name",
-    "occupation": "Occupation",
-    "birth_year": "Birth of Year",
+    "occupation": "Profession",
+    "workplace": "Workplace",
+    "birth_year": "Year Of Birth",
+    "death_year": "Year of Death",
     "rightist_year": "\"Rightist\" Year",
     "ethnicity": "Chinese Ethnic Group",
     "gender": "Gender",
-
-    "gender_male": "Male",
-    "gender_female": "Female",
     "status": "Status",
-    "status_alive": "Alive",
-    "status_death": "Deceased",
+
     "clear": "Clear",
+
+    "placeholder": {
+      "name_placeholder": "Full Name",
+      "other_name_placeholder": "Full Name in Chinese",
+      "profession_placeholder": "Profession",
+      "other_profession_placeholder": "Profession in Chinese",
+      "workplace_placeholder": "Workplace",
+      "other_workplace_placeholder": "Workplace in Chinese",
+
+      "add_content_placeholder": "Add content/description here...",
+      "other_add_content_placeholder": "Content/Description in Chinese",
+
+      "event_content_description_placeholder": "Add Event Details here...",
+      "other_event_content_description_placeholder": "Event Details in Chinese",
+
+      "memoir_title_placeholder": "Add Memoir Title here...",
+      "other_memoir_title_placeholder": "Memoir Title in Chinese",
+
+      "memoir_author_placeholder": "Add author here..",
+      "other_memoir_author_placeholder": "Memoir Author in Chinese",
+
+      "memoir_content_placeholder": "Add Memoir Content here...",
+      "other_memoir_content_placeholder": "Memoir Content in Chinese",
+
+      "image_title_placeholder": "Image Title",
+      "other_image_title_placeholder": "Image Title in Chinese",
+
+      "image_detail_placeholder": "Image Detail",
+      "other_image_detail_placeholder": "Image Detail in Chinese",
+
+      "image_source_placeholder": "Image Source",
+      "other_image_source_placeholder": "Image Source in Chinese"
+    },
+
     "add_content": "Add Content",
     "event_content": "Event year and event content",
     "event_year": " Year of event",
@@ -503,13 +540,44 @@
     "author": "Author",
     "submit": "Submit",
     "content_description": "Content/Discription",
-    "add_memoir": "Add Memoir",
+    "add_memoir": "Add Memoir"
 
-    "name_placeholder": "Full Name",
-    "add_content_placeholder": "Add content/description here...",
-    "event_content_description_placeholder": "Add event details here...",
-    "title_placeholder": "Add title here...",
-    "author_placeholder": "Add author here..",
-    "content_description_placeholder": "Add memoir here..."
-  }
+  }, 
+  "terms":{
+      "privacy":"PRIVACY POLICY",
+      "terms":"Terms & Conditions",
+      "questions":"Frequently Asked Questions", 
+      "overview":"OVERVIEW", 
+      "privacy_para_one":"This Privacy Policy discloses the privacy statement for https://stip-demo.web.app/home, the Chinese Rightists Archive website. We respect your privacy rights and recognize the importance of protecting personal information. This privacy policy describes how we collect, use, share, and secure that information. By visiting and using this website, you are consenting to our collection and use of information in accordance with this Privacy Policy. We may also collect or receive information from third parties, such as Facebook or other third-party social media sites", 
+      "privacy_para_two":"What personal information do we collect?", 
+      "privacy_para_three":"We collect certain information regarding your use of https://stip-demo.web.app/home, such as your IP address and browser. Your session and the pages you visit on https://stip-demo.web.app/home will be tracked including the name of the domain from which the site was accessed, but you will remain anonymous. We may use your IP address to identify the general geographic area from which you are accessing https://stip-demo.web.app/home. We connect data from different systems but do not link IP addresses to any personal information.",
+      "privacy_para_four":"We collect personal information when you voluntarily provide it to us through account creation. Such information includes your full name, username, birth date, and email address. We use the information we gather from you for systems administration purposes, abuse prevention, and to track user trends. If you send us an email, the email address you provide may be used to send you information, respond to inquiries, and/or other requests or questions. We will not share, sell, or authorize any third party to use your email address for commercial purposes without your permission. In addition, we may also use third-party vendors (such as Google Analytics) to evaluate user information to improve web services or other communications to users.",
+      "privacy_para_five":"Have any questions?", 
+      "privacy_para_six":"If you have any comments, questions or concerns about anything you have read on this page or you are concerned how your personal information has been handled by the Chinese Rightists Archive, please contact stip@gmu.com.",
+      "privacy_note":"NOTE: ", 
+      "privacy_note_para":"This Privacy Policy is subject to changes and alterations at any time.", 
+      "questions_one":"Frequently Asked Questions (FAQs) About “Collections” Use", 
+      "questions_two":"May I share any of the “Rightist” files on my website, blog, or social media?",
+      "questions_three":"Yes, as long as you comply with these Terms of Use.", 
+      "questions_four":"May I use the Chinese Rightist Archive's logo on my website?", 
+      "questions_five":"No, you may not use our website's logo or other trademarks without written permission from the head Admin of the Chinese Rightist Archive website. Exceptions may apply if the logo is already integrated into the documents and other content within the Chinese Rightist Archive website which is made available for sharing through embedded links.", 
+      "questions_six":"May I use the “Rightist” documents in a research paper, lesson/lecture plans, or other class work?", 
+      "questions_seven":"Yes, we encourage you to quote, describe, and share the “Rightist” file in your research or other class project as long as you comply with these Terms of Use. Please note that some uses of our documents in class work may be considered fair use under copyright law, and it is your responsibility to determine if your use constitutes fair use. The Chinese Rightist Archive cannot assist you in this determination.", 
+      "questions_eight":"Can I contribute information about a Chinese Rightist to the Chinese Rightist Archive?", 
+      "questions_nine":"The Chinese Rightist Archive allows all account users to contribute content through our “New Rightist Contribution” upload page under Account home. You must create an account first before you upload.", 
+      "questions_ten":" Have any questions?", 
+      "questions_evelen":"If you have questions about the Terms & Conditions or the website, please contact stip@gmu.com", 
+      "terms_one":"The Chinese Rightist Archive created its website to promote awareness of human rights and social justice for the individuals that were involved in the Anti-Rightist Campaign. Our archival collection contains documentation and historic materials that were given by the victims and their descendants affected by this campaign. Visitors are encouraged to use this website for educational and research purposes as well as sharing contributions to the field of digital curation in accordance with these Terms", 
+      "terms_two":"COPYRIGHT AND PERMISSIONS", 
+      "terms_three":"This site currently contains over 40,000 documents which are owned by the Chinese Rightist Archive. The documents provided are for noncommercial teaching and research use. You may not copy, publish, post, distribute, or otherwise make or sell the document available to others. If you wish to make any such use of the documents provided, you must obtain permission from the copyright holder, which may be the Chinese Rightist Archive.",
+      "terms_four":"Some of the text, images, and other content (mainly in the “About Movement” and \"Gallery” page) contains copyrighted material of which has not always been authorized by the copyright owner. Such material is made available in an effort to advance understanding of the country or topic discussed in the article. This constitutes 'fair use' of any such copyrighted material as provided for in section 107 of the US Copyright Law. In accordance with Title 17 U.S.C. Section 107, the material on this site is distributed without profit. If you wish to use copyrighted material from this site for purposes of your own that go beyond 'fair use', you must obtain permission from the copyright owner. If you are the copyright owner and would like this content removed from https://stip-demo.web.app/home, please contact stip@gmu.edu",
+      "terms_five":"TERMS OF USE",
+      "terms_six":"When using documents from the “Collections” page, you agree to:", 
+      "terms_seven":"Cite the “Chinese Rightist Archive' as the source of all the documents, as well as any contributors that may be listed with the document.", 
+      "terms_eight":"Link to the “Chinese Rightist Archive” website as the source of the “Rightist” documents.",
+      "terms_nine":"Ensure that you do not state or imply that the Chinese Rightist Archive endorses you, any third party, or any products, services, or opinions.", 
+      "terms_ten":"Effective date for these legal terms: August 1, 2022"
+
+    
+    }
 }

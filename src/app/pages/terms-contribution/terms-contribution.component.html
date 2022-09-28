@@ -1,0 +1,131 @@
+<div class="container-fluid px-0 text-center bg-image-blue bg-white">
+  <div class="bg-colors">
+    <div class="bg-image-blue-inner bg-image-blue-inner-pb-10">
+      <div class="col-12 col-sm-10 col-md-8 col-lg-6 py-3 m-auto text-white">
+        <h2 class="pt-5">{{ curHeaderTitle }}</h2>
+        <div class="py-5 text-center">
+          <div
+            class="btn-group w-100"
+            role="group"
+            aria-label="Basic radio toggle button group"
+          >
+            <input
+              type="radio"
+              class="btn-check"
+              name="btnradio"
+              id="terms"
+              autocomplete="off"
+              value="T"
+              [(ngModel)]="curView"
+              checked
+            />
+            <label class="btn btn-jade w-100 border-0 fw-bold" for="terms">
+              {{ "terms.terms" | translate }}</label
+            >
+
+            <input
+              type="radio"
+              class="btn-check"
+              name="btnradio"
+              id="privacy"
+              autocomplete="off"
+              value="P"
+              [(ngModel)]="curView"
+            />
+            <label
+              class="btn btn-jade w-100 fw-bold border-end border-start"
+              for="privacy"
+            >
+              {{ "terms.privacy" | translate }}</label
+            >
+
+            <input
+              type="radio"
+              class="btn-check"
+              name="btnradio"
+              id="faq"
+              autocomplete="off"
+              value="F"
+              [(ngModel)]="curView"
+            />
+            <label class="btn btn-jade w-100 border-0 fw-bold" for="faq">{{
+              "terms.questions" | translate
+            }}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container mb-5 border shadow p-4 rounded border-success">
+  <div [ngSwitch]="curView">
+    <div *ngSwitchCase="'P'">
+      <h5 class="py-2 fw-bold">{{ "terms.privacy" | translate }}</h5>
+      <h5 class="fw-bold">{{ "terms.overview" | translate }}</h5>
+      <p class="py-2">{{ "terms.privacy_para_one" | translate }}</p>
+      <h5 class="fw-bold">{{ "terms.privacy_para_two" | translate }}</h5>
+      <p>{{ "terms.privacy_para_three" | translate }}</p>
+      <p class="pb-3">{{ "terms.privacy_para_four" | translate }}</p>
+      <h6 class="fw-bold">{{ "terms.privacy_para_five" | translate }}</h6>
+      <p class="pb-3">{{ "terms.privacy_para_six" | translate }}</p>
+      <p class="text-muted">
+        <strong>{{ "terms.privacy_note" | translate }}</strong>
+        {{ "terms.privacy_note_para" | translate }}
+      </p>
+    </div>
+    <div *ngSwitchCase="'F'">
+      <h5 class="py-2">{{ "terms.questions_one" | translate }}</h5>
+      <ol class="pb-4">
+        <li>
+          <h6 class="fw-bold">{{ "terms.questions_two" | translate }}</h6>
+          <p>{{ "terms.questions_three" | translate }}</p>
+        </li>
+        <li>
+          <h6 class="fw-bold">
+            {{ "terms.questions_four" | translate }}
+          </h6>
+          <p>{{ "terms.questions_five" | translate }}</p>
+        </li>
+        <li>
+          <h6 class="fw-bold">{{ "terms.questions_six" | translate }}</h6>
+          <p>{{ "terms.questions_seven" | translate }}</p>
+        </li>
+        <li>
+          <h6 class="fw-bold">{{ "terms.questions_eight" | translate }}</h6>
+          <p>{{ "terms.questions_nine" | translate }}</p>
+        </li>
+      </ol>
+
+      <h6 class="fw-bold">{{ "terms.questions_ten" | translate }}</h6>
+      <p>{{ "terms.questions_evelen" | translate }}</p>
+    </div>
+    <div *ngSwitchDefault>
+      <p class="pb-3">
+        {{ "terms.terms_one" | translate }}
+      </p>
+      <h5>{{ "terms.terms_two" | translate }}</h5>
+      <p class="pb-3">{{ "terms.terms_three" | translate }}</p>
+      <p class="pb-3">
+        {{ "terms.terms_four" | translate }}
+      </p>
+      <h5>{{ "terms.terms_five" | translate }}</h5>
+      <div class="pb-3">
+        <p>{{ "terms.terms_six" | translate }}</p>
+        <ol>
+          <li>
+            {{ "terms.terms_seven" | translate }}
+          </li>
+          <li>
+            {{ "terms.terms_eight" | translate }}
+          </li>
+          <li>
+            {{ "terms.terms_nine" | translate }}
+          </li>
+        </ol>
+      </div>
+      <p>
+        <small class="text-muted">{{ "terms.terms_ten" | translate }}</small>
+      </p>
+    </div>
+  </div>
+</div>

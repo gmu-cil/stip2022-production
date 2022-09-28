@@ -8,12 +8,12 @@ import { Contribution } from 'src/app/core/types/adminpage.types';
 })
 export class ViewComponent implements OnInit {
   @Input() data: Contribution = {} as Contribution;
-
+  @Input() language?: string
   constructor(private contributionService: ContributionsService) {}
 
   ngOnInit(): void {}
 
   deleteContribution() {
-    this.contributionService.removeContributionById(this.data.contributionId);
+    this.contributionService.removeContributionById(this.language!, this.data.contributionId);
   }
 }

@@ -94,16 +94,19 @@
       <h3 class="text-center">{{ "home.home_timeline" | translate }}</h3>
       <img class="img-fluid" src="assets/homepage/timeline.png" />
     </div>
-    <div class="col-12 col-md-10 mx-auto py-3">
-      <div class="col-12 col-sm-8 col-md-5 col-lg-3 ms-auto">
-        <button class="btn-lg rounded-pill responsive-width btn-orange-red">
+    <div class="col-12 col-md-10 ms-auto py-3">
+      <div class="col-12 col-sm-10 col-md-7 col-lg-5 ms-auto">
+        <a
+          class="btn-lg rounded-pill btn-orange-red"
+          routerLink="/about/movement"
+        >
           {{ "home.home_learn_movement" | translate }}
           <img
             alt="About movement"
             src="assets/homepage/right-orange-arrow.svg"
             width="20"
           />
-        </button>
+        </a>
       </div>
     </div>
   </div>

@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "stip-demo"
+  },
+  "targets": {
+    "stip-demo": {
+      "hosting": {
+        "stip-demo": [
+          "stip-demo"
+        ]
+      }
+    }
   }
 }

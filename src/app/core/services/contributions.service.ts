@@ -9,22 +9,24 @@ import { AuthServiceService } from './auth-service.service';
   providedIn: 'root',
 })
 export class ContributionsService {
-  
   constructor(
     private store: AngularFirestore,
     private auth: AuthServiceService,
     private db: AngularFireDatabase
   ) {}
 
-  private callAPI() {
+  private callAPI(language: string) {
     return this.db.object(
-      `/persons/requestArchieve/contributions/${this.auth.uid}`
+      `/persons/data/${language}/contributions/${this.auth.uid}`
     );
   }
 
-  private callAPI_List() {
-    return this.db.list(`/persons/requestArchieve/contributions/${this.auth.uid}`, ref => ref.orderByChild('contributedAt'));
-    }
+  private callAPI_List(language: string) {
+    return this.db.list(
+      `/persons/data/${language}/contributions/${this.auth.uid}`,
+      (ref) => ref.orderByChild('contributedAt')
+    );
+  }
 
   fetchContributorByContributionId(contId: string) {
     return this.db
@@ -34,16 +36,20 @@ export class ContributionsService {
       .valueChanges();
   }
 
-  fetchUserContributions() {
-    return this.callAPI_List().valueChanges();
+  fetchUserContributions(language: string) {
+    return this.callAPI_List(language).valueChanges();
   }
 
-  editUserContributions(contributionId: string, obj: ContributionSchema) {
-    return this.callAPI().update({ [contributionId]: obj });
+  editUserContributions(
+    language: string,
+    contributionId: string,
+    obj: ContributionSchema
+  ) {
+    return this.callAPI(language).update({ [contributionId]: obj });
   }
 
-  addUserContributions(obj: ContributionSchema) {
-    const st = this.callAPI();
+  addUserContributions(language: string, obj: ContributionSchema) {
+    const st = this.callAPI(language);
     const contributionId = UUID();
     obj.contributionId = contributionId;
     obj.contributedAt = new Date();
@@ -53,46 +59,68 @@ export class ContributionsService {
     });
   }
 
-  contributionsAddEdit(obj: ContributionSchema) {
+  contributionsAddEdit(language: string, obj: ContributionSchema) {
     if (obj.contributionId) {
-      console.log('edit')
-      return this.editUserContributions(obj.contributionId, obj);
+      return this.editUserContributions(language, obj.contributionId, obj);
     } else {
-      console.log('add')
-      return this.addUserContributions(obj);
+      return this.addUserContributions(language, obj);
     }
   }
 
-  removeAllUserContributions() {
-    return this.callAPI().remove();
+  removeAllUserContributions(language: string) {
+    return this.callAPI(language).remove();
   }
 
   // remove method 1
-  removeContributionById(id: string) {
+  removeContributionById(language: string, id: string) {
     return this.db
-      .object(`/persons/requestArchieve/contributions/${this.auth.uid}/${id}`)
+      .object(`/persons/data/${language}/contributions/${this.auth.uid}/${id}`)
       .remove();
   }
 
   // Admin get all contribution
-  fetchAllContributions() {
+  fetchAllContributions(language: string) {
     return this.db
-      .object(`/persons/requestArchieve/contributions`)
+      .object(`/persons/data/${language}/contributions`)
       .valueChanges();
   }
 
   updateUserContribution(
-    contributorId: string,
-    contributionId: string,
+    language: string,
     obj: ContributionSchema
   ) {
     return this.db
-      .object(`/persons/requestArchieve/contributions/${contributorId}`)
-      .update({ [contributionId]: obj });
+      .object(`/persons/data/${language}/contributions/${obj.contributorId}`)
+      .update({ [obj.contributionId]: obj });
+  }
+
+  getUserContribution(
+    language: string,
+    contributorId: string,
+    contributionId: string
+  ) {
+    return this.db
+      .object(
+        `/persons/data/${language}/contributions/${contributorId}/${contributionId}`
+      )
+      .valueChanges();
+  }
+
+  getUserContributionsList(language: string, contributorId: string) {
+    return this.db
+      .list(`/persons/data/${language}/contributions/${contributorId}`)
+      .valueChanges();
   }
 
   fetchContributionsList(language: string) {
-    return this.db
-      .object(`/persons/data/${language}`)
+    return this.db.object(`/persons/data/${language}`);
+  }
+
+  deleteUserContribution(language: string, contributorId: string, contributionId: string) {
+    this.db
+      .object(
+        `/persons/data/${language}/contributions/${contributorId}/${contributionId}`
+      )
+      .remove();
   }
 }

@@ -185,13 +185,18 @@
         </div>
         <div class="text-center col-6 mx-auto">
           {{ "login.component.continue" | translate }}
-          <a routerLink="/" class="link-dark fw-bold">{{
-            "login.component.term_service" | translate
-          }}</a>
+          <a
+            routerLink="/terms-contribution"
+            (click)="modalRef?.hide()"
+            class="link-dark fw-bold"
+            >{{ "login.component.term_service" | translate }}</a
+          >
           {{ "login.component.acknowledge" | translate }}
-          <a routerLink="/" class="link-dark fw-bold">{{
-            "login.component.privacy_police" | translate
-          }}</a
+          <a
+            routerLink="/terms-contribution"
+            (click)="modalRef?.hide()"
+            class="link-dark fw-bold"
+            >{{ "login.component.privacy_police" | translate }}</a
           >{{ "login.component.period" | translate }}
         </div>
       </div>

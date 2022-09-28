@@ -7,6 +7,14 @@ import { MainBrowseComponent } from 'src/app/pages/browse/main-browse/main-brows
 import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker';
 import { TranslateService } from '@ngx-translate/core';
 
+const LIST_OF_GENDER = {
+  en: ['Male', 'Female', 'Unknown'],
+  cn: ['男性', '女性', '未知'],
+};
+const LIST_OF_STATUS = {
+  en: ['Alive', 'Deceased', 'Unknown'],
+  cn: ['在世', '亡故', '未知'],
+};
 @Component({
   selector: 'app-browse-search-filter',
   templateUrl: './browse-search-filter.component.html',
@@ -26,7 +34,9 @@ export class BrowseSearchFilterComponent implements OnInit {
   });
   groups = GROUPS;
   occupations = OCCUPATIONS;
-
+  statusChecked = false;
+  statuses: any;
+  genders: any;
   constructor(
     private formgroup: FormBuilder,
     private translate: TranslateService
@@ -48,11 +58,14 @@ export class BrowseSearchFilterComponent implements OnInit {
   }
   ngOnInit(): void {
     this.translate.onLangChange.subscribe((res) => {
+      this.genders = LIST_OF_GENDER[res.lang];
+      this.statuses = LIST_OF_STATUS[res.lang];
       this.translate.get(['archive.GROUPS']).subscribe((translations) => {
         this.groups = translations['archive.GROUPS'];
       });
     });
   }
+
   ngOnDestroy(): void {
     this.formSub?.unsubscribe();
   }

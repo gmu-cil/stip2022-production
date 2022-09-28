@@ -40,11 +40,11 @@ export class HeaderComponent implements OnInit {
       this.isLoggedIn = isLoggedIn;
     });
 
-    this.annoucement.getAnnounce().subscribe((x) => {
-      this.message = x;
-      this.createCounter();
-      this.outsideScope.run(this.createCounter);
-    });
+    // this.annoucement.getAnnounce().subscribe((x) => {
+    //   this.message = x;
+    //   this.createCounter();
+    //   this.outsideScope.run(this.createCounter);
+    // });
     this.alertService.alerts.subscribe((x) => {
       this.globalErrorMessage = x;
     });

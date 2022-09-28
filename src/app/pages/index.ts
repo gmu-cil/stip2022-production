@@ -21,6 +21,7 @@ import { EditAccountComponent } from './account/edit-account/edit-account.compon
 import { AuthGuard } from '../core/services/auth-guard.service';
 import { RepositoryComponent } from './browse/repository/repository.component';
 import { RequestModifyComponent } from './requestForms/upload/request-modify/request-modify.component';
+import { TermsContributionComponent } from './terms-contribution/terms-contribution.component';
 
 // AuthGuard pipe for admin pages
 const adminOnly = () =>
@@ -59,6 +60,7 @@ export const pagesComponents = [
   UploadComponent,
   RepositoryComponent,
   RequestModifyComponent,
+  TermsContributionComponent,
 ];
 
 // Page routes
@@ -96,6 +98,13 @@ export const pagesRoutes = [
     component: GalleryComponent,
     data: {
       title: 'Gallery',
+    },
+  },
+  {
+    path: 'repository',
+    component: RepositoryComponent,
+    data: {
+      title: 'repository',
     },
   },
   {
@@ -151,7 +160,6 @@ export const pagesRoutes = [
     },
   },
   {
-
     path: 'meetTeam',
     component: AboutTeamComponent,
     canActivate: [AngularFireAuthGuard],
@@ -173,14 +181,20 @@ export const pagesRoutes = [
     canActivate: [AngularFireAuthGuard],
     data: {
       title: 'research',
-      },
+    },
   },
   {
     path: 'request-modify',
     component: RequestModifyComponent,
     data: {
       title: 'request-modify',
-
+    },
+  },
+  {
+    path: 'terms-contribution',
+    component: TermsContributionComponent,
+    data: {
+      title: 'Terms and Conditions of Contribution',
     },
   },
 ];

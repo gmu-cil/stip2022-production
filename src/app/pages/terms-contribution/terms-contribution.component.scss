@@ -1,0 +1,10 @@
+@import "./src/styles/colors.scss";
+
+.btn-check:active + .btn,
+.btn-check:checked + .btn,
+.btn.active,
+.btn.show,
+.btn:active {
+  background-color: $jade !important;
+  color: $dark-blue !important;
+}

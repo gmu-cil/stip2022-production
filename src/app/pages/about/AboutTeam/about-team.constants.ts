@@ -25,7 +25,7 @@ const TEAM_PROFILES: Profile[] = [
     picture: 'default-profile.png',
   },
   {
-    name: 'Kristir Phan',
+    name: 'Kristie Phan',
     team: 'UX/UI Design Team',
     study: 'Graphics Design',
     picture: 'default-profile.png',

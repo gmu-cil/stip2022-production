@@ -32,3 +32,18 @@ npm i firebase@latest
 
 # set environment variable
 firebase functions:config:set someservice.key="THE API KEY" someservice.id="THE CLIENT ID"
+
+## Notes
+Missing/Needed improvde features/functions.
+Here are some functions/features that future developers can be improvded and worked on. 
+
+Browse Page: related files are under /pages/browse/.
+1. Currently, the searching functions in Chinese are not fully implemented as the Chinese data is not available. More debugging and testing are needed. (Related files: src\app\pages\browse\main-browse)
+2. Data Standerdanization for the "Occupations" for both Chinese and English is needed, and ngx-translation for both languages is not implemented. Suggested tool: OpenRefine. (Related files: src\app\pages\browse\main-browse and src\assets\i18n\cn.json)
+3. "Sorted by relevance" is not implemented. This should happends after each search. Currently, the search results are sorted based on the order of the last name. (Related files: src\app\pages\browse\main-browse)
+4. The searching speed/performance can be improved. (Related files: src\app\pages\browse\main-browse)
+
+
+6. Import Chinese json data into Google Firebase database with Firebase API calls, please ask professor Shanshan Cui for the json data. Firebase is giving 'invalid json file' error when trying to upload the json file to Firebase, the one way to import the data is to use the Firebase API to import json data programmically. 
+
+  
