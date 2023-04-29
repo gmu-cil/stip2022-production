@@ -12,3 +12,5 @@ https://dev.to/chideraao/sending-emails-in-your-firebase-app-with-nodemailer-5ff
 # ENV VARIABLE
 
 firebase functions:config:set gmail.useremail="yourgoogleemail@gmail.com" gmail.clientid="yourclientid.apps.googleusercontent.com" gmail.refreshtoken="1//04zKnDTh1mXdLCgYI-yourrefreshtoken" gmail.clientsecret="mbFQnYOurCLienTSecREt" sendgrid.key=""
+
+firebase functions:config:set admin.email="" sendgrid.key=""

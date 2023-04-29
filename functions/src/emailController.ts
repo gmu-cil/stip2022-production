@@ -9,7 +9,7 @@ import {ContactUs, RequestModification} from './types/emails.types';
 import {contactUsTemplate, modifyRequestTemplate} from './email templates/request_template';
 // eslint-disable-next-line camelcase
 const sendGrid_api_key = functions.config().sendgrid.key;
-const formAdminEmail = functions.config().admin.email;
+const formAdminEmail = '';
 sdmail.setApiKey(sendGrid_api_key);
 
 // Fetch admin emails that want notification from firestore.
