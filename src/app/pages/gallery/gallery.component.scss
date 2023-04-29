@@ -1,8 +1,17 @@
+@import "../../../styles/colors.scss";
 $upper-large: 1200px;
 $lower-large: 979px;
 $upper-medium: 768px;
 $lower-medium: 767px;
 $small: 480px;
+:host {
+  // position: relative;
+  background-image: url('./../../../assets/homepage/gold_lines.png'), url('./../../../assets/aboutpage/Group\ 66.png'), url('./../../../assets/aboutpage/Group\ 66.png'), url('./../../../assets/aboutpage/Group\ 66.png');
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+  background-position: bottom, left, right center, top right;
+  display: block;
+}
+
 
 .title{
     text-align: center;
@@ -20,7 +29,7 @@ $small: 480px;
 .hovered-button {
     transition: 1s;
     position: absolute;
-    background-color: #0c1330;
+    background-color: $dark-blue;
     color: white;
     padding: 10px;
     top: 50%;
@@ -28,11 +37,18 @@ $small: 480px;
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     opacity: 0;
+    &:hover,
+    &:focus,
+    &:active,
+    &:checked {
+      background-color: white;
+      color: $dark-blue;
+    }
 }
 
 .responsive-columns {
     @media screen and (min-width: $upper-large) {
-        width: 31%;    
+        width: 31%;
     }
 
     @media screen and (min-width: $lower-medium) and (max-width: $lower-large) {

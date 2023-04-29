@@ -1,21 +1,19 @@
 <div class="container-fluid p-0 profile-bg-image-blue" *ngIf="loaded">
   <div class="profile-bg-colors">
-    <div class="d-flex profile-bg-image-blue-inner">
+    <div class="d-flex profile-bg-image-blue-inner px-4">
       <div class="d-flex flex-column align-items-center flex-shrink-1 my-5">
         <img
-          alt="Image not Found"
+          [alt]="src ? profile?.fullName + ' profile' : 'Image not Found'"
           [src]="src"
-          width="200"
-          height="200"
-          class="img-fluid rounded-circle mx-5 align-self-center"
+          class="user align-self-center"
         />
-        <div class="text-light mx-auto">ID: {{ id || "-" }}</div>
+        <div class="text-light mx-auto" *ngIf="isAdmin">ID: {{ id || "-" }}</div>
       </div>
       <div
         class="d-flex flex-column align-self-center text-light flex-fill"
         style="height: 100%"
       >
-        <div class="fs-1">{{ profile?.fullName || "-" }}</div>
+        <div class="fs-1 px-4">{{ profile?.fullName || "-" }}</div>
       </div>
     </div>
   </div>
@@ -29,9 +27,14 @@
               class="list-group-item border-0"
               style="background-color: #e8e8e8"
             >
-              <label class="border-bottom border-dark fw-bold">
-                Gallery&emsp;</label
+              <div class="border-bottom border-dark fw-bold">
+                Gallery&emsp;</div
               >
+              <div class="row mt-2">
+                <div *ngFor="let image of imagesUrls"[ngClass]="{ 'col d-flex' : image?.imagePath}">
+                  <img *ngIf="image?.imagePath" [src]="image?.imagePath" class="img-fluid my-auto">
+                </div>
+              </div>
             </li>
           </ul>
         </div>
@@ -56,7 +59,7 @@
               type="button"
               [routerLink]="['/upload']"
               [queryParams]="{
-                value: profile.rightistId,
+                value: profile?.rightistId,
                 page: 'profile'
               }"
             >
@@ -181,34 +184,51 @@
               </div>
               <div class="col-12 py-2">
                 {{ "archive.gender_title" | translate }}:
-                {{ profile.gender || "-" | titlecase }}
+                {{ profile?.gender || "-" | titlecase }}
               </div>
               <div class="col-12 py-2">
-                {{ "archive.ethnic_title" | translate }}: {{
-                  profile.ethnicity || "-"
-                }}
+                {{ "archive.ethnic_title" | translate }}:
+                {{ profile?.ethnicity || "-" }}
               </div>
               <div class="col-12 py-2">
                 {{ "archive.profession" | translate }}:
-                {{ profile.job || "-" | titlecase }}
+                {{ profile?.job || "-" | titlecase }}
               </div>
             </div>
             <div class="col-12 col-md-6 row mt-2">
               <div class="col-12 py-2">
                 {{ "archive.rightist_year_title" | translate }}:
-                {{ profile.rightistYear | date: "yyyy" }}
+                {{
+                  profile?.rightistYear
+                    ? profile?.rightistYear?.toString().length === 4
+                      ? profile?.rightistYear
+                      : (profile?.rightistYear | date : "yyyy")
+                    : "-"
+                }}
               </div>
               <div class="col-12 py-2">
                 {{ "archive.profile_birth_year" | translate }}:
-                {{ profile.birthYear | date: "yyyy" }}
+                {{
+                  profile?.birthYear
+                    ? profile?.birthYear?.toString().length === 4
+                      ? profile?.birthYear
+                      : (profile?.birthYear | date : "yyyy")
+                    : "-"
+                }}
               </div>
               <div class="col-12 py-2">
                 {{ "archive.status_title" | translate }}:
-                {{ profile.status || "-" | titlecase }}
+                {{ profile?.status || "-" | titlecase }}
               </div>
               <div class="col-12 py-2">
                 {{ "archive.profile_death_year" | translate }}:
-                {{ profile.deathYear | date: "yyyy" || "-" }}
+                {{
+                  profile?.deathYear
+                    ? profile?.deathYear?.toString().length === 4
+                      ? profile?.deathYear
+                      : (profile?.deathYear | date : "yyyy")
+                    : "-"
+                }}
               </div>
             </div>
           </div>
@@ -217,11 +237,14 @@
             <h5 class="col-12 py-2 fw-bold ms-3 mt-2">
               {{ "archive.description" | translate }}:
             </h5>
-            <div *ngIf="profile.source == 'original'" class="col-12 py-2 ms-3">
-              {{ profile.description | slice:1 || "-"  }}
+            <div *ngIf="profile?.source == 'original'" class="col-12 py-2 ms-3">
+              {{ profile?.description || "" | slice : 1 || "-" }}
             </div>
-            <div *ngIf="profile.source == 'contributed'" class="col-12 py-2 ms-3">
-              {{ profile.description || "-"  }}
+            <div
+              *ngIf="profile?.source == 'contributed'"
+              class="col-12 py-2 ms-3"
+            >
+              {{ profile?.description || "-" }}
             </div>
           </div>
           <div class="row border-bottom">
@@ -232,9 +255,22 @@
               class="col-12 ms-3"
               *ngFor="let event of profile?.events || []"
             >
-              {{ (event.startYear | date: "yyyy") || "common.unknown" | translate }} --
-              {{ (event.endYear | date: "yyyy") || "common.unknown" | translate }},
-              {{ (event.event | titlecase) || "-" }}
+              {{
+                event?.startYear?.toString()?.length === 4
+                  ? event?.startYear
+                  : event?.startYear
+                  ? (event?.startYear | date : "yyyy")
+                  : ("common.unknown" | translate)
+              }}
+              --
+              {{
+                event?.endYear?.toString()?.length === 4
+                  ? event?.endYear ?? 0
+                  : event?.endYear
+                  ? (event?.endYear | date : "yyyy")
+                  : ("common.unknown" | translate)
+              }},
+              {{ (event?.event | titlecase) || "-" }}
               <!-- <span *ngIf="language == 'en'">
                 {{ event.event[0] || u }} {{ event.event.substr(1) || "-" }}
               </span>
@@ -259,19 +295,21 @@
             class="col-12 border px-0 rounded w-100 m-2"
             id="memContent"
             #memContent
-            *ngFor="let memoir of profile.memoirs; let i = index"
+            *ngFor="let memoir of profile?.memoirs || []; let i = index"
           >
             <div class="d-flex ps-2">
               <h6 class="flex-grow-1 bd-highlight pt-2 fw-bold">
                 {{ "archive.additional_title" | translate }}
-                <div ng-if="memoir.memoirTitle">{{ memoir.memoirTitle }}</div>
+                <div ng-if="memoir.memoirTitle">{{ memoir?.memoirTitle }}</div>
                 <div ng-if="!memoir.memoirTitle">
                   {{ "common.unknown" | translate }}
                 </div>
               </h6>
               <h6 class="flex-grow-1 bd-highlight pt-2 fw-bold">
                 {{ "archive.additional_author" | translate }}
-                <div ng-if="memoir.memoirAuthor">{{ memoir.memoirAuthor }}</div>
+                <div ng-if="memoir.memoirAuthor">
+                  {{ memoir?.memoirAuthor }}
+                </div>
                 <div ng-if="!memoir.memoirAuthor">
                   {{ "common.unknown" | translate }}
                 </div>
@@ -299,9 +337,9 @@
             >
               <div class="card scrollable">
                 <div class="card-body">
-                  <p>{{ memoir.memoirTitle }}</p>
-                  <div>by: {{ memoir.memoirAuthor }}</div>
-                  <div>{{ memoir.memoirContent }}</div>
+                  <p>{{ memoir?.memoirTitle }}</p>
+                  <div>by: {{ memoir?.memoirAuthor }}</div>
+                  <div>{{ memoir?.memoirContent }}</div>
                   <!-- <div
                     class="card-text limit-content"
                     *ngFor="let d of memoir.memoirContent; let i = index"
@@ -335,7 +373,7 @@
         </div>
         <span class="ms-2 my-3"
           >{{ "archive.profile_last_modify" | translate }}:
-          {{ profile.lastUpdatedAt }}</span
+          {{ profile?.lastUpdatedAt }}</span
         >
       </div>
     </div>
@@ -343,17 +381,12 @@
 </div>
 <!-- {{profile.memoirs[0].memoirContent}} -->
 
-
 <ng-template #deleteTemplate>
   <div class="m-4">
-    <h1>Are you sure you want to delete this profile?</h1>
+    <p>Are you sure you want to delete this profile?</p>
   </div>
   <div class="m-4 d-flex flex-rows justify-content-center align-items-center">
-    <button (click)="onYes()" class='btn btn-success my-2'>
-      Yes
-    </button>
-    <button (click)="onNo()" class='btn btn-danger mx-2'>
-      No
-    </button>
+    <button (click)="onYes()" class="btn btn-success my-2">Yes</button>
+    <button (click)="onNo()" class="btn btn-danger mx-2">No</button>
   </div>
 </ng-template>

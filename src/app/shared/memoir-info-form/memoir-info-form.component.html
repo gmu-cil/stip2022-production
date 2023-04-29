@@ -1,0 +1,138 @@
+<div class="form-group">
+  <h4>{{ "upload.add_memoir_book" | translate }}</h4>
+  <!-- allows uses to add/remove input boxes -->
+  <section
+    class="my-4"
+    *ngFor="let memoir of controls; let i = index; last as last; first as first"
+  >
+    <div [formGroup]="memoir" class="border p-2 shadow my-4 rounded">
+      <!-- memoir title -->
+      <div>
+        <label [for]="'memoir_title' + i"
+          >{{ "upload.title" | translate }} ({{ language | uppercase }})</label
+        >
+        <input
+          type="text"
+          class="form-control"
+          placeholder="{{ 'upload.placeholder.memoir_title_placeholder' | translate }}"
+          [id]="'memoir_title' + i"
+          formControlName="memoirTitle"
+        />
+      </div>
+
+      <div *ngIf="isAdmin">
+        <label [for]="'other_memoir_title' + i"
+          >{{ "upload.title" | translate }} ({{
+            otherLanguage | uppercase
+          }})</label
+        >
+        <input
+          type="text"
+          class="form-control"
+          placeholder="{{ 'upload.placeholder.other_memoir_title_placeholder' | translate }}"
+          [id]="'other_memoir_title' + i"
+          formControlName="otherMemoirTitle"
+        />
+      </div>
+
+      <!-- memoir author -->
+      <div>
+        <label [for]="'memoir_author' + i"
+          >{{ "upload.author" | translate }} ({{ language | uppercase }})</label
+        >
+        <input
+          type="text"
+          class="form-control"
+          placeholder="{{ 'upload.placeholder.memoir_author_placeholder' | translate }}"
+          [id]="'memoir_author' + i"
+          aria-describedby="basic-addon1"
+          formControlName="memoirAuthor"
+        />
+      </div>
+
+      <div *ngIf="isAdmin">
+        <label [for]="'other_memoir_author' + i"
+          >{{ "upload.author" | translate }} ({{
+            otherLanguage | uppercase
+          }})</label
+        >
+        <input
+          type="text"
+          class="form-control"
+          placeholder="{{ 'upload.placeholder.other_memoir_author_placeholder' | translate }}"
+          [id]="'other_memoir_author' + i"
+          aria-describedby="basic-addon1"
+          formControlName="otherMemoirAuthor"
+        />
+      </div>
+
+      <div>
+        <label [for]="'memoir_content' + i"
+          >{{ "upload.content_description" | translate }} ({{
+            language | uppercase
+          }})</label
+        >
+        <textarea
+          type="text"
+          class="form-control"
+          [id]="'memoir_content' + i"
+          placeholder="{{
+            'upload.placeholder.memoir_content_placeholder' | translate
+          }}"
+          rows="5"
+          formControlName="memoirContent"
+        ></textarea>
+      </div>
+
+      <!-- memoir content -->
+      <div *ngIf="isAdmin">
+        <label [for]="'other_memoir_content' + i"
+          >{{ "upload.content_description" | translate }} ({{
+            otherLanguage | uppercase
+          }})</label
+        >
+        <textarea
+          type="text"
+          class="form-control"
+          [id]="'other_memoir_content' + i"
+          placeholder="{{
+            'upload.placeholder.other_memoir_content_placeholder' | translate
+          }}"
+          rows="5"
+          formControlName="otherMemoirContent"
+        ></textarea>
+      </div>
+    </div>
+    <!-- <div *ngIf="isWarning && last &&page != 'contribution'" class="text-danger h3">
+      Please add {{ title }}
+    </div>
+    <br /> -->
+
+    <!-- removes memoir -->
+    <button
+      type="button"
+      tooltip="Remove this event"
+      placement="auto"
+      *ngIf="!first || !last"
+      class="btn btn-lg btn-outline-danger rounded-pill bg-white text-danger"
+      (click)="remove(i)"
+    >
+      {{ "upload.remove" | translate }}
+
+      <img src="assets/upload/icons-remove.png" class="mx-2" width="30" />
+    </button>
+    <!-- add event button -->
+    <button
+      *ngIf="last"
+      type="button"
+      (click)="addMemior()"
+      tooltip="Add another event"
+      placement="auto"
+      class="btn btn-lg btn-outline-dark rounded-pill bg-white text-dark mx-3"
+    >
+      {{ "upload.add_memoir" | translate }}
+
+      <img src="assets/upload/icons-plus.svg" class="mx-2" width="30" />
+    </button>
+  </section>
+</div>

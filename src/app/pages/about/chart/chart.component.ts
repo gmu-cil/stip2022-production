@@ -106,7 +106,7 @@ export class ChartComponent implements OnInit {
       .attr('y', (d) => y(d.count))
       .attr('width', x.bandwidth())
       .attr('height', (d) => this.height - y(d.count))
-      .attr('fill', '#09363C');
+      .attr('fill', '#a76724');
 
     this.svg
       .selectAll('bars')

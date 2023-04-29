@@ -2,7 +2,7 @@
   "rules": {
     "persons": {
       "data": {
-        "en": {
+        "$other": {
           "contributions": {
             ".read": "auth.token.admin === true",
             ".write": "auth.token.admin === true",
@@ -21,45 +21,16 @@
           "images": {
             ".read": true,
             ".write": true,
-            ".indexOn": "isGallery"
+            ".indexOn": ["isGallery", "isProfile"]
           },
           "rightists": {
             ".read": true,
-            ".write": "auth.token.admin === true"
+            ".write": "auth.token.admin === true",
+            ".indexOn": [".value", "lastName","images/0/isProfile", "images/1/isProfile", "reference", "birthplace", "initial", "fullName", "rightistId"]
           },
           "test": {
             ".read": true,
           	".write": "auth.token.admin === true"
-          }
-        },
-        "cn": {
-          "contributions": {
-            ".read": "auth.token.admin === true",
-            ".write": "auth.token.admin === true",
-            "$user_id": {
-              "$uid": {
-                ".indexOn": "contributedAt",
-                "publish": {
-                  ".write": "auth.token.admin === true",
-                  ".read": "auth.uid === $user_id || auth.token.admin === true"
-                }
-              },
-              ".write": "(auth.uid === $user_id && auth.token.email_verified === true) || auth.token.admin === true",
-              ".read": "auth.uid === $user_id || auth.token.admin === true"
-            }
-          },
-          "images": {
-            ".read": true,
-            ".write": "auth.token.admin === true",
-            ".indexOn": "isGallery"
-          },
-          "rightists": {
-            ".read": true,
-            ".write": "auth.token.admin === true"
-          },
-          "test": {
-            ".read": true,
-            ".write": "auth.token.admin === true"
           }
         }
       },

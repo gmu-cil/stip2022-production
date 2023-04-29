@@ -1,7 +1,10 @@
-<div class="container-fluid px-0 text-center bg-image-blue bg-white">
-  <div class="bg-colors">
-    <div class="bg-image-blue-inner bg-image-blue-inner-pb-10">
-      <div class="col-12 col-sm-10 col-md-8 col-lg-6 py-3 m-auto text-white">
+<div class="container-fluid px-0 text-center bg-image-blue bg-khali pb-1 mb-4">
+  <div class="bg-image-blue bg-medium-blue pb-3">
+    <div class="bg-image-blue-inner">
+      <div class="bg-image-blue-inner-pd-15 bg-dark-blue">
+        <div
+          class="col-11 col-md-8 col-lg-6 py-3 mx-auto text-white container-sm"
+        >
         <h2 class="pt-5">{{ curHeaderTitle }}</h2>
         <div class="py-5 text-center">
           <div
@@ -53,10 +56,12 @@
             }}</label>
           </div>
         </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
 <div class="container mb-5 border shadow p-4 rounded border-success">
   <div [ngSwitch]="curView">
     <div *ngSwitchCase="'P'">

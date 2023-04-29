@@ -12,13 +12,14 @@ import { NgxMasonryComponent, NgxMasonryOptions } from 'ngx-masonry';
 import { Subscription } from 'rxjs';
 
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { Image, ImageSchema } from 'src/app/core/types/adminpage.types';
+import { Image, ImagesSchema } from 'src/app/core/types/adminpage.types';
 
 import { ImagesService } from 'src/app/core/services/images.service';
 import { StorageApIService } from 'src/app/core/services/storage-api.service';
 import { UUID } from 'src/app/core/utils/uuid';
 import { AuthServiceService } from 'src/app/core/services/auth-service.service';
 import { ArchieveApiService } from 'src/app/core/services/archives-api-service';
+import { OverlayComponent } from './overlay/overlay.component';
 
 @Component({
   selector: 'app-gallery',
@@ -26,7 +27,9 @@ import { ArchieveApiService } from 'src/app/core/services/archives-api-service';
   styleUrls: ['./gallery.component.scss'],
 })
 export class GalleryComponent implements OnInit, OnDestroy {
-  selectedCategory?: string;
+  selectedCategory: string = this.translate.currentLang.includes('e')
+    ? 'All'
+    : '所有';
   currentImageIndex?: number;
 
   title?: string;
@@ -35,6 +38,12 @@ export class GalleryComponent implements OnInit, OnDestroy {
 
   public masonryOptions: NgxMasonryOptions = {
     gutter: 20,
+    resize: true,
+    itemSelector: '.masonry-item',
+    // fitWidth: true,
+    // horizontalOrder: true,
+    // percentPosition: true,
+    // columnWidth: 120,
   };
 
   images: Image[] = [];
@@ -55,8 +64,9 @@ export class GalleryComponent implements OnInit, OnDestroy {
   status: string = 'initial';
   type?: string;
 
-  @ViewChild('image') imageRef?: ElementRef;
+  @ViewChild('imagegallery') imageRef?: ElementRef;
   @ViewChild(NgxMasonryComponent) masonry?: NgxMasonryComponent;
+  @ViewChild(OverlayComponent) overlay?: OverlayComponent;
 
   sub: Subscription[] = [];
   searchTerm?: string;
@@ -67,28 +77,48 @@ export class GalleryComponent implements OnInit, OnDestroy {
   isAdmin?: boolean;
   loaded: boolean = false;
 
+  resultCache = {} as { [x: string]: Image[] };
+
+  subAPI: { [x: string]: Subscription } = {} as any;
+  disabled: boolean = false;
+
   constructor(
     private translate: TranslateService,
-    private storageAPI: StorageApIService,
     private imagesAPI: ImagesService,
-    private modalService: BsModalService,
-    private auth: AuthServiceService,
-    private archiveAPI: ArchieveApiService
+    public modalService: BsModalService,
+    private auth: AuthServiceService
   ) {}
 
   ngAfterViewInit(): void {}
 
+  callAPI() {
+    this.subAPI[this.language]?.unsubscribe();
+    this.subAPI[this.language] = this.imagesAPI
+      .getGalleryImages(this.language || this.translate.currentLang)
+      .subscribe((imagesList: any) => {
+        this.categoryImages.length = 0;
+        this.display.length = 0;
+        this.images.length = 0;
+        this.images = imagesList;
+
+        if (this.images.length == 0) {
+          this.loaded = true;
+        } else {
+          this.resultCache[this.selectedCategory] = this.images;
+          this.categoryImages.push(...this.resultCache[this.selectedCategory]);
+
+          setTimeout(() => {
+            this.loaded = true;
+            this.display = this.categoryImages.slice(0, this.itemsPerPage);
+            this.reloadMasonryLayout();
+          }, 50);
+        }
+      });
+  }
+
   ngOnInit(): void {
-    this.language = localStorage.getItem('lang')!;
+    this.language = this.translate.currentLang;
     this.otherLanguage = this.language === 'en' ? 'cn' : 'en';
-
-    this.sub.push(
-      this.translate.onLangChange.subscribe((data: any) => {
-        this.language = data.lang;
-        this.otherLanguage = this.language === 'en' ? 'cn' : 'en';
-      })
-    );
-
     this.sub.push(
       this.auth.isAdmin.subscribe((isAdmin: any) => {
         this.isAdmin = isAdmin;
@@ -98,6 +128,8 @@ export class GalleryComponent implements OnInit, OnDestroy {
     this.sub.push(
       // Translation
       this.translate.stream('gallery').subscribe((data) => {
+        this.language = this.translate.currentLang;
+        this.otherLanguage = this.language === 'en' ? 'cn' : 'en';
         this.galleries.length = 0;
 
         this.galleries.push(data['gallery_top_cat_one_button']);
@@ -107,36 +139,7 @@ export class GalleryComponent implements OnInit, OnDestroy {
         this.galleries.push(data['gallery_top_cat_five_button']);
         this.title = data['gallery_top_title'];
         this.imageButton = data['gallery_image_button'];
-
-        this.sub.push(
-          this.imagesAPI
-            .getGalleryImages(this.language!)
-            .subscribe((imagesList: any) => {
-              this.categoryImages.length = 0;
-              this.display.length = 0;
-              this.images.length = 0;
-              this.images = imagesList;
-
-              if (this.images.length == 0) {
-                this.loaded = true;
-              } else {
-                for (const image of this.images) {
-                  this.categoryImages.push(image);
-                  if (this.display.length < this.itemsPerPage) {
-                    this.display.push(image);
-                  }
-
-                  if (imagesList.length === this.categoryImages.length) {
-                    this.loaded = true;
-                    setTimeout(() => {
-                      this.reloadMasonryLayout();
-                    }, 300);
-                  }
-                }
-              }
-            })
-        );
-
+        this.callAPI();
         this.selectedCategory = this.galleries[0];
         this.currentImageIndex = -1;
       })
@@ -145,7 +148,7 @@ export class GalleryComponent implements OnInit, OnDestroy {
 
   reloadMasonryLayout() {
     if (this.masonry !== undefined) {
-      this.masonry.reloadItems();
+      // this.masonry.reloadItems();
       this.masonry.layout();
     }
   }
@@ -162,23 +165,23 @@ export class GalleryComponent implements OnInit, OnDestroy {
     let result: Image[] = [];
 
     if (gallery == 'All' || gallery == '全部') {
-      result = this.images.slice();
-    } else {
+      result = this.resultCache[gallery];
+    } else if (!this.resultCache[gallery]) {
       for (const image of this.images) {
-        if (image.galleryCategory == gallery) {
+        if (image.category == gallery) {
           result.push(image);
         }
       }
+      this.resultCache[gallery] = result;
     }
 
     this.currentPage = 1;
 
     // issue with ngx pagination (can only update one field at a time)
     setTimeout(() => {
-      this.categoryImages = result;
+      this.categoryImages = this.resultCache[gallery];
       this.display = this.categoryImages.slice(0, this.itemsPerPage);
       this.reloadMasonryLayout();
-      // this.display = this.searchImages.slice(0, this.itemsPerPage)
     }, 100);
   }
 
@@ -200,124 +203,18 @@ export class GalleryComponent implements OnInit, OnDestroy {
   }
 
   onLearnMore(template: TemplateRef<any>, image: Image) {
+    this.disabled = true;
     this.selectedImage = image;
     this.type = 'edit';
     this.status = 'initial';
-    this.modalService.show(template, { class: 'modal-xl', backdrop: 'static' });
-  }
-
-  async onAdd(data: any) {
-    let imageId = `Image-${UUID()}`;
-    let image: ImageSchema = data.value;
-    let otherImage: ImageSchema = data.otherValue;
-
-    image.imageId = imageId;
-    otherImage.imageId = imageId;
-
-    await fetch(data.url).then(async (response) => {
-      const contentType = response.headers.get('content-type');
-      const blob = await response.blob();
-      const file = new File([blob], image.imageId, { type: contentType! });
-      await this.storageAPI.uploadGalleryImage(image.imageId, file).then(() => {
-        this.sub.push(
-          this.storageAPI
-            .getGalleryImageURL(image.imageId)
-            .subscribe((imageUrl: any) => {
-              image.imagePath = imageUrl;
-              otherImage.imagePath = imageUrl;
-
-              Promise.all([
-                this.imagesAPI.addImage(this.language!, image),
-                this.imagesAPI.addImage(this.otherLanguage!, otherImage),
-              ]).then(() => {
-                this.modalService.hide();
-              });
-            })
-        );
-      });
-    });
-  }
-
-  // functionality in modal
-  onSubmit(data: any, template: TemplateRef<any>) {
-    this.modalService.hide();
-
-    setTimeout(() => {
-      this.status = data.status;
-      this.selectedImage = data.image;
-      this.otherImage = data.otherImage;
-      this.modalService.show(template, {
-        class: 'modal-xl',
-        backdrop: 'static',
-      });
-    }, 500);
-  }
-
-  onRemove(data: any, template: TemplateRef<any>) {
-    this.modalService.hide();
-
-    setTimeout(() => {
-      this.status = data.status;
-      this.modalService.show(template, {
-        class: 'modal-xl',
-        backdrop: 'static',
-      });
-    }, 500);
-  }
-
-  async onUpdate(data: any) {
-    let image: Image = data.image;
-    let otherImage: Image = data.otherImage;
-    if (this.selectedImage) {
-      if (data.status == 'update') {
-        this.modalService.hide();
-        let { opacity, ...result } = image;
-
-        await this.imagesAPI.updateImage(this.language!, result);
-      }
-    }
-
-    if (this.otherImage) {
-      if (data.status == 'update') {
-        this.modalService.hide();
-        let { opacity, ...result } = otherImage;
-        await this.imagesAPI.updateImage(this.otherLanguage!, result);
-      }
-    }
-    this.currentPage = 1;
-  }
-
-  onDelete(data: any) {
-    let image = data.image;
-    if (data.status == 'delete') {
-      this.modalService.hide();
-      Promise.all([
-        this.archiveAPI.updateRightistImageId(this.language!, image.rightistId, ''),
-        this.imagesAPI.deleteImage(this.language!, image.imageId),
-        this.imagesAPI.deleteImage(this.otherLanguage!, image.imageId),
-        this.storageAPI.removeGalleryImage(image.imageId),
-      ]).then(() => {
-        this.currentPage = 1;
-      });
-    }
-  }
-
-  onCancel(data: any) {
-    if (data.status == 'cancel') {
-      this.modalService.hide();
-    }
-  }
-
-  onClose(data: any) {
-    if (data.status === 'close') {
-      this.modalService.hide();
-    }
+    this.modalService.show(template, { class: 'modal-xl' });
   }
 
   addImage(template: TemplateRef<any>) {
     this.type = 'add';
     this.status = 'initial';
     this.selectedImage = undefined;
-    this.modalService.show(template, { class: 'modal-xl', backdrop: 'static' });
+    this.disabled = false;
+    this.modalService.show(template, { class: 'modal-xl'});
   }
 }

@@ -8,7 +8,15 @@ service firebase.storage {
       allow read;
       allow write: if request.auth.uid == uid || request.token.admin == true;
     }
-    match /gallery/{uid} {
+    match /images/galleries/{uid} {
+      allow read;
+      allow write: if request.auth.uid == uid || request.token.admin == true;
+    }
+  	match /images/galleries/{imageid} {
+      allow read;
+      allow write;
+    }
+    match /images/contribution/{uid}/{contributionid}/{imageid} {
       allow read;
       allow write: if request.auth.uid == uid || request.token.admin == true;
     }

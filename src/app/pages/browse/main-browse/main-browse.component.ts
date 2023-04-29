@@ -241,6 +241,7 @@ export class MainBrowseComponent implements OnInit, OnDestroy {
             this.db_result = Object.entries(datas).map(([key, value]: any) => {
               return { profileId: key, ...value };
             });
+            // this.db_result = Object.values(datas);
             this.removeInitialForDesciption();
             this.archCacheAPI[archKey] = this.db_result;
 

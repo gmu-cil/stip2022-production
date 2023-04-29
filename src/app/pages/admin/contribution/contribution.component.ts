@@ -36,16 +36,17 @@ export class ContributionComponent implements OnInit {
   @Input() contribution!: Contribution;
   @Input() activeCategory?: Categories;
 
-  @Output() readMore: EventEmitter<Contribution> = new EventEmitter();
+  @Output() readMore: EventEmitter<Contribution | any> = new EventEmitter();
   @Output() rightistNavigation: EventEmitter<Contribution> = new EventEmitter()
+
+  newDate
 
   // character limit
   limit: number = 50;
 
   _loaded: boolean = false
   @Input() set loaded(value: boolean) {
-    this._loaded = value
-    console.log(value)
+    this._loaded = value;
   }
 
   get loaded(): boolean {
@@ -55,8 +56,6 @@ export class ContributionComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    console.log(this.loaded)
-    console.log(this.contribution)
   }
 
   onReadMore() {

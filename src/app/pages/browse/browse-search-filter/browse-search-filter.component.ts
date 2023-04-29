@@ -77,7 +77,6 @@ export class BrowseSearchFilterComponent implements OnInit {
         value.date = [new Date(value.date[0]), new Date(value.date[1])];
       }
       this.filterValues = { ...value, date } as any;
-      console.log(this.filterValues);
       this.filterValuesChange.emit(value);
     });
   }

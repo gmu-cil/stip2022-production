@@ -8,7 +8,10 @@
   border-top-left-radius: 2rem;
 }
 .contribution-scroller {
-  height: 50rem;
-  overflow-y: auto;
-  overflow-x: hidden;
+  max-height: 85vh;
+  overflow-y: scroll;
+}
+
+.bg-image-blue-inner-account {
+  padding-bottom: 15rem;
 }

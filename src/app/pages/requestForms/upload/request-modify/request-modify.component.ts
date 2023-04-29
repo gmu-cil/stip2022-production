@@ -52,7 +52,6 @@ export class RequestModifyComponent implements OnInit, OnDestroy {
     this.func
       .httpsCallable('modifyRightistRequest')(payload)
       .subscribe((res) => {
-        console.log('Function: ', res);
       });
     this.modalRef?.hide();
     this.modForm.reset();

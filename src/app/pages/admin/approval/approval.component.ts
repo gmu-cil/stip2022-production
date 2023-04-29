@@ -6,7 +6,7 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { Component, OnDestroy, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnDestroy, OnInit, Output, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { forkJoin, mergeMap, Subscription, zip } from 'rxjs';
@@ -18,16 +18,18 @@ import {
   Categories,
   CategoryList,
   Contribution,
+  ContributionDetails,
   ContributionJson,
   ContributionSchema,
   Event,
-  ImageSchema,
+  ImagesSchema,
   Memoir,
   Publish,
   Rightist,
   RightistSchema,
 } from 'src/app/core/types/adminpage.types';
 import { UUID } from 'src/app/core/utils/uuid';
+import { UploadComponent } from '../../requestForms/upload/upload.component';
 
 @Component({
   selector: 'app-approval',
@@ -52,9 +54,11 @@ export class ApprovalComponent implements OnInit, OnDestroy {
   selectedContributions: Contribution[] = [];
 
   activeCategory!: Categories;
-  selectedContribution!: Contribution;
+  selectedContribution!: ContributionDetails;
   updatedContribution!: Contribution;
   otherUpdatedContribution!: Contribution;
+
+  @ViewChild('readMoreTemplate') appUpload: TemplateRef<any> | undefined;
 
   categoriesList: Categories[] = [
     'New Contributions',
@@ -73,33 +77,38 @@ export class ApprovalComponent implements OnInit, OnDestroy {
   contributions: any[] = [];
   publish: Publish = 'new';
   isLoaded: boolean = false;
-  limit: number = 3;
+  limit: number = 10;
 
   emptyContributionMessage = 'Nothing Here!';
 
   url: string = '';
-  image: ImageSchema = {
+  image: ImagesSchema = {
     imageId: '',
     rightistId: '',
     isGallery: false,
-    galleryCategory: '',
-    galleryTitle: '',
-    galleryDetail: '',
-    gallerySource: '',
+    category: '',
+    title: '',
+    detail: '',
+    source: '',
+    imageUrl: '',
+    isProfile: undefined
   };
 
-  otherImage: ImageSchema = {
+  otherImage: ImagesSchema = {
     imageId: '',
     rightistId: '',
     isGallery: false,
-    galleryCategory: '',
-    galleryTitle: '',
-    galleryDetail: '',
-    gallerySource: '',
+    category: '',
+    title: '',
+    detail: '',
+    source: '',
+    imageUrl: '',
+    isProfile: undefined
   };
 
   languageSubscription?: Subscription;
   sub: Subscription[] = [];
+  subFetchAll!: Subscription;
 
   language: string = '';
   otherLanguage: string = '';
@@ -113,6 +122,10 @@ export class ApprovalComponent implements OnInit, OnDestroy {
     private translate: TranslateService
   ) {}
 
+  onScroll() {
+    this.initialize();
+  }
+
   ngOnInit(): void {
     this.language = localStorage.getItem('lang')!;
     this.otherLanguage = this.language === 'en' ? 'cn' : 'en';
@@ -120,6 +133,7 @@ export class ApprovalComponent implements OnInit, OnDestroy {
     this.languageSubscription = this.translate.onLangChange.subscribe(
       (langChange: any) => {
         this.sub.forEach((x) => x.unsubscribe());
+        this.subFetchAll?.unsubscribe();
         this.sub.length = 0;
         this.language = langChange.lang;
         this.otherLanguage = this.language === 'en' ? 'cn' : 'en';
@@ -131,16 +145,15 @@ export class ApprovalComponent implements OnInit, OnDestroy {
   }
 
   initialize() {
-    this.sub.push(
-      this.contributionAPI
-        .fetchAllContributions(this.language)
+    this.subFetchAll?.unsubscribe();
+    this.subFetchAll = this.contributionAPI
+        .fetchAllContributionsList(this.language, this.limit)
         .subscribe((data: any) => {
-          console.log(data);
           this.contributions.length = 0;
           this.newContributions.length = 0;
           this.approvedContributions.length = 0;
           this.rejectedContributions.length = 0;
-          const test: ContributionJson[] = Object.values(data);
+          const test: ContributionJson[] = data;
           for (let lol of test) {
             for (const contribution of Object.values(lol)) {
               this.contributions.push(contribution);
@@ -153,8 +166,6 @@ export class ApprovalComponent implements OnInit, OnDestroy {
               new Date(a.lastUpdatedAt).getTime()
             );
           });
-
-          console.log(this.contributions);
 
           for (let contribution of this.contributions) {
             let data: Contribution = {
@@ -172,25 +183,26 @@ export class ApprovalComponent implements OnInit, OnDestroy {
             }
 
             if (contribution.publish == 'new') {
-              console.log(data);
               this.newContributions.push(data);
             }
 
             if (contribution.publish == 'approved') {
+              this.sub.forEach((x) => x.unsubscribe());
               this.sub.push(
                 this.archiveAPI
                   .getRightistById(this.language, data.rightistId)
                   .subscribe((rightist: any) => {
-                    // console.log(rightist);
-                    this.sub.push(
-                      this.imageAPI
-                        .getImage(this.language, rightist.imageId)
-                        .subscribe((image: any) => {
-                          data.rightist = rightist;
-                          data.image = image;
-                          this.loaded = true;
-                        })
-                    );
+                    if (rightist ?.imageId) {
+                      this.sub.push(
+                        this.imageAPI
+                          .getImage(this.language, rightist.imageId)
+                          .subscribe((image: any) => {
+                            data.rightist = rightist;
+                            data.image = image;
+                            this.loaded = true;
+                          })
+                      );
+                    }
                   })
               );
               this.approvedContributions.push(data);
@@ -201,19 +213,21 @@ export class ApprovalComponent implements OnInit, OnDestroy {
             }
           }
 
-          console.log(this.approvedContributions);
-
           this.approvedContributions.sort(function (a, b) {
             return (
               new Date(b.lastUpdatedAt).getTime() -
               new Date(a.lastUpdatedAt).getTime()
             );
           });
-        })
-    );
-
+        });
+    this.limit += 1;
     this.selectedContributions = this.newContributions;
-    this.activeCategory = 'New Contributions';
+    console.log(this.activeCategory)
+    if (!this.activeCategory) {
+      this.activeCategory = 'New Contributions';
+    } else {
+      this.selectedContributions = this.categories[this.activeCategory];
+    }
   }
 
   ngOnDestroy(): void {
@@ -221,45 +235,30 @@ export class ApprovalComponent implements OnInit, OnDestroy {
     this.languageSubscription?.unsubscribe();
   }
 
-  onApprove() {
-    this.modalRef?.hide();
+  onApprove(el: UploadComponent) {
     this.publish = 'approved';
     this.selectedContribution.state = 'removed';
+    el.onSubmit('approved').then(()=> {
+      this.modalRef?.hide();
+    })
   }
 
-  onSave(data: any) {
-    console.log(this.updatedContribution);
-    console.log(this.otherUpdatedContribution);
-
-    this.updatedContribution.image = this.image;
-    this.otherUpdatedContribution.image = this.otherImage;
-
-    if (data.type == 'save') {
-      Promise.all([
-        this.contributionAPI.updateUserContribution(
-          this.language,
-          this.updatedContribution
-        ),
-        this.contributionAPI.updateUserContribution(
-          this.otherLanguage,
-          this.otherUpdatedContribution
-        ),
-      ]).then(() => {
-        this.modalRef?.hide();
-      });
-    }
-  }
-
-  onReject() {
+  onReject(el: UploadComponent) {
     this.modalRef?.hide();
     this.publish = 'rejected';
     this.selectedContribution.state = 'removed';
+    el.onSubmit('rejected').then(()=> {
+      this.modalRef?.hide();
+    })
   }
 
-  onReconsider() {
+  onReconsider(el: UploadComponent) {
     this.modalRef?.hide();
     this.publish = 'approved';
     this.selectedContribution.state = 'removed';
+    el.onSubmit('new').then(()=> {
+      this.modalRef?.hide();
+    })
   }
 
   onEdit() {
@@ -279,274 +278,17 @@ export class ApprovalComponent implements OnInit, OnDestroy {
 
   async animationDone(event: AnimationEvent) {
     this.disabled = false;
-    console.log(this.updatedContribution);
 
     if (
       this.selectedContribution &&
       this.selectedContribution.state === 'removed'
     ) {
-      if (this.publish === 'approved') {
-        this.updatedContribution.publish = this.publish;
-        this.otherUpdatedContribution.publish = this.publish;
-
-        if (this.url) {
-          this.image!.imagePath = this.url;
-        }
-
-        if (this.image!.imagePath!) {
-          let imageId = `Image-${UUID()}`;
-          this.image!.imageId = imageId;
-          this.otherImage!.imageId = imageId;
-          await fetch(this.image?.imagePath!).then(async (response) => {
-            console.log(imageId);
-            const contentType = response.headers.get('content-type');
-            const blob = await response.blob();
-            const file = new File([blob], imageId, { type: contentType! });
-            await this.storageAPI.uploadGalleryImage(imageId, file);
-            this.sub.push(
-              this.storageAPI
-                .getGalleryImageURL(imageId)
-                .subscribe(async (imageUrl: any) => {
-                  console.log(imageUrl);
-                  this.image!.imagePath = imageUrl;
-                  this.otherImage!.imagePath = imageUrl;
-                  this.image!.rightistId = this.updatedContribution.rightistId;
-                  this.otherImage!.rightistId =
-                    this.updatedContribution.rightistId;
-                  // update the current timestamp
-                  this.updatedContribution.lastUpdatedAt = new Date();
-                  this.updatedContribution.rightist!.lastUpdatedAt = new Date();
-
-                  if (this.updatedContribution.rightist) {
-                    this.updatedContribution.publish = this.publish;
-
-                    const { state, ...contribution } = this.updatedContribution;
-                    const { state: otherState, ...otherContribution } =
-                      this.otherUpdatedContribution;
-
-                    let { rightist, image, ...result } = contribution;
-                    let {
-                      rightist: otherRightist,
-                      image: otherImage,
-                      ...otherResult
-                    } = otherContribution;
-
-                    result.rightistId = rightist!.rightistId;
-                    result.approvedAt = new Date();
-
-                    otherResult.rightistId = otherRightist!.rightistId;
-                    otherResult.approvedAt = new Date();
-
-                    rightist!.imageId = imageId;
-                    otherRightist!.imageId = imageId;
-
-                    Promise.all([
-                      this.contributionAPI.updateUserContribution(
-                        this.language,
-                        result
-                      ),
-                      this.contributionAPI.updateUserContribution(
-                        this.otherLanguage,
-                        otherResult
-                      ),
-                      this.archiveAPI.addRightist(this.language, rightist!),
-                      this.archiveAPI.addRightist(
-                        this.otherLanguage,
-                        otherRightist!
-                      ),
-                      this.imageAPI.updateImage(this.language, this.image!),
-                      this.imageAPI.updateImage(
-                        this.otherLanguage,
-                        this.otherImage!
-                      ),
-                    ]);
-                  }
-                })
-            );
-          });
-        } else {
-          this.updatedContribution.lastUpdatedAt = new Date();
-          this.updatedContribution.rightist!.lastUpdatedAt = new Date();
-
-          if (this.updatedContribution.rightist) {
-            this.updatedContribution.publish = this.publish;
-
-            const { state, ...contribution } = this.updatedContribution;
-            const { state: otherState, ...otherContribution } =
-              this.otherUpdatedContribution;
-
-            let { rightist, image, ...result } = contribution;
-            let {
-              rightist: otherRightist,
-              image: otherImage,
-              ...otherResult
-            } = otherContribution;
-
-            result.rightistId = rightist!.rightistId;
-            result.approvedAt = new Date();
-
-            otherResult.rightistId = otherRightist!.rightistId;
-            otherResult.approvedAt = new Date();
-
-            Promise.all([
-              this.contributionAPI.updateUserContribution(
-                this.language,
-                result
-              ),
-              this.contributionAPI.updateUserContribution(
-                this.otherLanguage,
-                otherResult
-              ),
-              this.archiveAPI.addRightist(this.language, rightist!),
-              this.archiveAPI.addRightist(this.otherLanguage, otherRightist!),
-            ]);
-          }
-        }
-      } else {
-        this.updatedContribution.publish = this.publish;
-        this.otherUpdatedContribution.publish = this.publish;
-
-        const { state, ...contribution } = this.updatedContribution;
-        const { state: otherState, ...otherContribution } =
-          this.otherUpdatedContribution;
-        if (this.url) {
-          this.updatedContribution!.image!.imagePath = this.url;
-          this.otherUpdatedContribution!.image!.imagePath = this.url;
-        }
-
-        Promise.all([
-          this.contributionAPI.updateUserContribution(
-            this.language,
-            contribution
-          ),
-          this.contributionAPI.updateUserContribution(
-            this.otherLanguage,
-            otherContribution
-          ),
-        ]);
-      }
       this.selectedContribution.state = 'void';
     }
   }
 
-  onReadMore(template: TemplateRef<any>, contribution: Contribution) {
+  onReadMore(template: TemplateRef<any>, contribution: ContributionDetails) {
     this.selectedContribution = contribution;
-    this.updatedContribution = { ...contribution };
-    this.otherUpdatedContribution = { ...contribution };
-    this.image = { ...contribution.image! };
-    this.modalRef = this.modalService.show(template, { class: 'modal-xl' });
-  }
-
-  onEventChange(source: any) {
-    let events: Event[] = [];
-    let otherEvents: Event[] = [];
-
-    for (let data of source) {
-      let event: Event = {
-        startYear: data.startYear,
-        endYear: data.endYear,
-        event: data.event,
-      };
-
-      let otherEvent: Event = {
-        startYear: data.startYear,
-        endYear: data.endYear,
-        event: data.otherEvent,
-      };
-
-      events.push(event);
-      otherEvents.push(otherEvent);
-    }
-
-    this.updatedContribution.rightist!.events = events;
-    this.otherUpdatedContribution.rightist!.events = otherEvents;
-  }
-
-  onMemoirChange(source: any) {
-    let memoirs: Memoir[] = [];
-    let otherMemoirs: Memoir[] = [];
-
-    for (let data of source) {
-      let memoir: Memoir = {
-        memoirTitle: data.memoirTitle,
-        memoirAuthor: data.memoirAuthor,
-        memoirContent: data.memoirContent,
-      };
-
-      let otherMemoir: Memoir = {
-        memoirTitle: data.otherMemoirTitle,
-        memoirAuthor: data.otherMemoirAuthor,
-        memoirContent: data.otherMemoirContent,
-      };
-
-      memoirs.push(memoir);
-      otherMemoirs.push(otherMemoir);
-    }
-
-    this.updatedContribution.rightist!.memoirs = memoirs;
-    this.otherUpdatedContribution.rightist!.memoirs = otherMemoirs;
-  }
-
-  onFormChange(data: any) {
-    console.log(data);
-    this.updatedContribution = {
-      ...this.updatedContribution,
-      rightist: {
-        ...this.updatedContribution.rightist!,
-        fullName: data.name,
-        gender: data.gender,
-        status: data.status,
-        ethnicity: data.ethnic,
-        job: data.occupation,
-        workplace: data.workplace,
-        rightistYear: data.rightistYear,
-        birthYear: data.birthYear,
-      },
-    };
-
-    this.otherUpdatedContribution = {
-      ...this.otherUpdatedContribution,
-      rightist: {
-        ...this.otherUpdatedContribution.rightist!,
-        fullName: data.otherName,
-        gender: data.otherGender,
-        status: data.otherStatus,
-        ethnicity: data.otherEthnic,
-        job: data.otherOccupation,
-        workplace: data.otherWorkplace,
-        rightistYear: data.rightistYear,
-        birthYear: data.birthYear,
-      },
-    };
-  }
-
-  onImageChange(data: any) {
-    this.url = data.url;
-    console.log(data);
-    this.image = { ...data.image };
-    this.otherImage = { ...data.otherImage };
-  }
-
-  onDescriptionChange(data: any) {
-    if (data.type == 'original') {
-      this.updatedContribution = {
-        ...this.updatedContribution,
-        rightist: {
-          ...this.updatedContribution.rightist!,
-          description: data.value,
-        },
-      };
-    }
-
-    if (data.type == 'other') {
-      console.log(data)
-      this.otherUpdatedContribution = {
-        ...this.otherUpdatedContribution,
-        rightist: {
-          ...this.otherUpdatedContribution.rightist!,
-          description: data.value,
-        },
-      };
-    }
+    this.modalRef = this.modalService.show(template, { class: 'modal-custom-style' });
   }
 }

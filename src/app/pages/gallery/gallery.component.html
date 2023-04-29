@@ -1,14 +1,25 @@
+<div class="container-fluid px-0 text-center bg-image-blue bg-khali pb-1">
+  <div class="bg-image-blue bg-medium-blue pb-3">
+    <div class="bg-image-blue-inner">
+      <div class="bg-image-blue-inner bg-dark-blue">
+        <div class="container w-50">
+          <h2 class="text-center pt-4">
+            Browse {{ title }}
+          </h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="container">
-  <!-- Title -->
-  <h2 class="text-center my-4 fw-bold">{{ title }}</h2>
-
   <!-- Categories -->
   <div class="d-flex justify-content-center flex-wrap">
     <div *ngFor="let gallery of galleries" class="p-2 mx-4">
       <button
-        #image
+        #imagegallery
         [ngClass]="{
-          'border-start-0 border-end-0 border-top-0 border-4 border-warning': selectedCategory == gallery
+          'border-start-0 border-end-0 border-top-0 border-4 border-orange-red text-orange-red':
+            selectedCategory == gallery
         }"
         class="fw-bold btn btn-transparent"
         (click)="setActive(gallery)"
@@ -16,39 +27,45 @@
         <b>{{ gallery }}</b>
       </button>
     </div>
+    <div class="mx-5" *ngIf="isAdmin">
+      <button
+        class="btn-khali rounded-pill mt-3"
+        (click)="addImage(galleryModal)"
+      >
+        Add Image
+      </button>
+    </div>
   </div>
-  <div class="text-end" *ngIf="isAdmin">
-    <button class="btn btn-primary" (click)="addImage(galleryModal)">Add Image</button>
-  </div>
-  <hr class="divider border-orange-red" />
+
+  <hr class="divider border-dark-blue" />
 </div>
 
 <!-- Masonry Columns -->
 <div class="container my-4">
   <ngx-masonry
-    [ordered]="true"
+    [ordered]="false"
     [options]="masonryOptions"
-    [ngStyle]="{ width: '100%' }"
+    class="w-100"
     *ngIf="loaded"
   >
     <div
       ngxMasonryItem
-      class="masonry-item my-2 responsive-columns"
+      class="masonry-item my-2 responsive-columns shadow"
       *ngFor="let image of display; let i = index"
     >
       <div class="images">
         <img
           [src]="image.imagePath"
-          width="100%"
-          class="hovered-img"
+          class="hovered-img rounded-3 img-fluid w-100"
           (mouseleave)="onLeave()"
           (mouseover)="onEnter(i)"
           [ngStyle]="{ opacity: currentImageIndex == i ? '0.4' : '1' }"
         />
         <button
           (focus)="onEnter(i)"
-          class="hovered-button"
+          class="border-0 hovered-button rounded-pill fw-bold btn-lg"
           (mouseover)="onEnter(i)"
+          type="button"
           [ngStyle]="{ opacity: currentImageIndex == i ? '1.0' : '0.0' }"
           (blur)="onLeave()"
           (click)="onLearnMore(galleryModal, image)"
@@ -88,20 +105,70 @@
 
 <!--Modal-->
 <ng-template #galleryModal>
-  <app-overlay
-    [type]="type"
-    [status]="status"
-    [isAdmin]="isAdmin"
-    [image]="selectedImage"
-    [otherImage]="otherImage"
-    [language]="language"
-    [otherLanguage]="otherLanguage"
-    (add)="onAdd($event)"
-    (close)="onClose($event)"
-    (submit)="onSubmit($event, galleryModal)"
-    (remove)="onRemove($event, galleryModal)"
-    (update)="onUpdate($event)"
-    (delete)="onDelete($event)"
-    (cancel)="onCancel($event)"
-  ></app-overlay>
+  <div class="model-title">
+    <h2 class="text-center my-2"></h2>
+  </div>
+  <div class="modal-header text-center">
+    <h4 class="modal-title text-green fw-bold">Upload to {{ title }}</h4>
+    <button
+      type="button"
+      class="btn-close close pull-right"
+      aria-label="Close"
+      (click)="modalService?.hide()"
+    >
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body m-0 p-0">
+    <app-overlay
+      #overlay
+      [type]="type"
+      [status]="status"
+      [isAdmin]="isAdmin"
+      [isDisabled]="disabled"
+      [image]="selectedImage"
+      [language]="language"
+      [otherLanguage]="otherLanguage"
+    ></app-overlay>
+  </div>
+  <div class="model-footer" *ngIf="isAdmin">
+    <div class="d-flex justify-content-center align-items-center">
+      <button
+        *ngIf="!disabled"
+        class="btn btn-success btn-lg rounded-pill m-3p px-2"
+        (click)="
+          overlay.onSubmitGallery(); modalService.hide(); currentPage = 1
+        "
+        [disabled]="!overlay.imagesDetails.value?.[0]?.imageUpload"
+      >
+        Submit
+      </button>
+      <button
+        class="btn btn-danger btn-lg rounded-pill m-3 px-4"
+        *ngIf="disabled && overlay.imagesDetails.value?.[0]?.imageUpload && !selectedImage?.rightistId"
+        (click)="disabled = false"
+      >
+        Edit
+      </button>
+      <a routerLink="/browse/main/memoir/{{ selectedImage?.rightistId }}" *ngIf="selectedImage?.rightistId" (click)="modalService?.hide();">Go to profile</a>
+      <button
+        class="btn btn-danger btn-lg rounded-pill m-3 px-4"
+        *ngIf="!disabled && overlay.imagesDetails.value?.[0]?.imageUpload && !selectedImage?.rightistId"
+        (click)="overlay.onDelete(); currentPage = 1; modalService.hide()"
+        [disabled]="!overlay.imagesDetails.value?.[0]?.imageUpload"
+      >
+        Delete
+      </button>
+      <button
+        class="btn btn-info btn-lg rounded-pill m-3 text-white px-4"
+        (click)="modalService.hide()"
+      >
+        Close
+      </button>
+    </div>
+  </div>
 </ng-template>
+
+<!-- <div class="backImg1">
+
+</div> -->

@@ -37,7 +37,6 @@ export class RepositoryComponent implements OnInit {
     } else {
       link.href = `assets/repositoryData/ChineseData/${folder}/${filename}.pdf`;
     }
-    console.log(link.href);
     link.download = filename;
     document.body.appendChild(link);
     link.click();

@@ -84,6 +84,9 @@ export class ContributionsService {
       .object(`/persons/data/${language}/contributions`)
       .valueChanges();
   }
+  fetchAllContributionsList(language: string, limit: number = 10) {
+    return this.db.list(`/persons/data/${language}/contributions`, (ref)=> ref.limitToLast(limit)).valueChanges();
+  }
 
   updateUserContribution(
     language: string,
@@ -120,6 +123,13 @@ export class ContributionsService {
     this.db
       .object(
         `/persons/data/${language}/contributions/${contributorId}/${contributionId}`
+      )
+      .remove();
+  }
+  deleteUserContributorContent(language: string, contributorId: string) {
+    this.db
+      .object(
+        `/persons/data/${language}/contributions/${contributorId}`
       )
       .remove();
   }

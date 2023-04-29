@@ -1,297 +1,27 @@
-<div *ngIf="!page">
-  <h2 class="text-center pb-5 pt-5 mt-5">
-    {{ "upload.request_form" | translate }}
-  </h2>
-  <h3 class="text-center pt-3 pb-5">{{ "upload.upload" | translate }}</h3>
-</div>
 
-<div *ngIf="page">
-  <h3 class="text-center pb-5 pt-5 mt-5">
-    {{ "upload.detail_edit" | translate }}
-  </h3>
-  <div class="text-center my-4" *ngIf="page == 'contribution'">
-    <button (click)="onSave()" class="btn btn-primary">{{ 'common.save' | translate }}</button>
+<div class="container-fluid p-0 pb-3">
+  <div class="container-fluid px-0 text-center bg-image-blue bg-khali pb-1">
+    <div class="bg-image-blue bg-medium-blue pb-3">
+      <div class="bg-image-blue-inner">
+        <div class="bg-image-blue-inner bg-dark-blue">
+          <div class="container w-50 pt-4">
+            <h2 class="text-center">
+              {{ (!page ? "upload.request_form" : "upload.detail_edit" )| translate }} - {{(!page ? "upload.upload" : "common.save" ) | translate }}
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
 
-<div class="container-fluid">
-  <form
-    [formGroup]="form"
-    class="col-11 mx-auto bg-secondary bg-opacity-10 p-5 rounded shadow mb-4"
-  >
-    <!-- Row for name, ethnic group, occupation, and year of event -->
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 m-3">
-      <!-- col for name selection -->
-      <div class="col">
-        <label for="Name" class="form-label"
-          >{{ "upload.name" | translate }}
-          <span class="text-danger">*</span></label
-        >
-        <input
-          type="text"
-          class="form-control"
-          id="Name"
-          formControlName="name"
-          placeholder="{{ 'upload.placeholder.name_placeholder' | translate }}"
-        />
-
-        <input
-          *ngIf="page == 'contribution'"
-          type="text"
-          class="form-control"
-          id="Name"
-          formControlName="otherName"
-          placeholder="{{
-            'upload.placeholder.other_name_placeholder' | translate
-          }}"
-        />
-      </div>
-
-      <fieldset>
-        <div>
-          <legend class="h6 fw-normal m-0">
-            {{ "upload.gender" | translate }}
-          </legend>
-          <div
-            class="form-check form-check-inline"
-            *ngFor="let gender of genders"
-          >
-            <input
-              class="form-check-input"
-              formControlName="gender"
-              [value]="gender"
-              type="radio"
-              name="gender"
-              [id]="'gender-' + gender"
-            />
-            <label class="form-check-label" [for]="'gender-' + gender"
-              >{{ gender | titlecase }}
-            </label>
-          </div>
-        </div>
-
-        <fieldset disabled *ngIf="page == 'contribution'">
-          <div
-            class="form-check form-check-inline"
-            *ngFor="let gender of otherGenders"
-          >
-            <input
-              class="form-check-input"
-              formControlName="otherGender"
-              [value]="gender"
-              type="radio"
-              name="otherGender"
-              [id]="'gender-' + gender"
-            />
-            <label class="form-check-label" [for]="'gender-' + gender"
-              >{{ gender | titlecase }}
-            </label>
-          </div>
-        </fieldset>
-      </fieldset>
-
-      <div class="col">
-        <label for="occupation" class="form-label"
-          >{{ "upload.occupation" | translate }}
-          <span class="text-danger">*</span></label
-        >
-        <!-- occupation typeahead -->
-        <input
-          placeholder="{{
-            'upload.placeholder.profession_placeholder' | translate
-          }}"
-          class="form-control my-1"
-          formControlName="occupation"
-        />
-
-        <!-- occupation typeahead -->
-        <input
-          placeholder="{{
-            'upload.placeholder.other_profession_placeholder' | translate
-          }}"
-          *ngIf="page == 'contribution'"
-          class="form-control my-1"
-          formControlName="otherOccupation"
-        />
-      </div>
-
-      <div class="col">
-        <label for="workplace" class="form-label"
-          >{{ "upload.workplace" | translate }}
-          <span class="text-danger">*</span></label
-        >
-        <!-- occupation typeahead -->
-        <input
-          placeholder="{{
-            'upload.placeholder.workplace_placeholder' | translate
-          }}"
-          class="form-control my-1"
-          formControlName="workplace"
-        />
-        <!-- occupation typeahead -->
-        <input
-          *ngIf="page == 'contribution'"
-          class="form-control my-1"
-          formControlName="otherWorkplace"
-          placeholder="{{
-            'upload.placeholder.other_workplace_placeholder' | translate
-          }}"
-        />
-      </div>
-    </div>
-
-    <div class="row m-3">
-      <div class="col-3">
-        <label for="workplace" class="form-label"
-          >{{ "upload.ethnicity" | translate }}
-          <span class="text-danger">*</span></label
-        >
-        <select formControlName="ethnic" class="form-select">
-          <option disabled selected value>
-            {{ "upload.dropdown_default" | translate }}
-          </option>
-          <option *ngFor="let ethnic of ethnicGroup">
-            {{ ethnic }}
-          </option>
-        </select>
-
-        <!-- ethnic group typeahead -->
-        <input
-          *ngIf="page == 'contribution'"
-          readonly
-          class="form-control"
-          formControlName="otherEthnic"
-        />
-      </div>
-      <!-- col for gender selection -->
-
-      <!-- col for status -->
-      <fieldset class="col-3">
-        <legend class="h6 fw-normal">{{ "upload.status" | translate }}</legend>
-        <div>
-          <div
-            class="form-check form-check-inline"
-            *ngFor="let status of statuses"
-          >
-            <input
-              class="form-check-input"
-              type="radio"
-              name="status"
-              formControlName="status"
-              [value]="status"
-              [id]="'status-' + status"
-            />
-            <label class="form-check-label" [for]="'status-' + status"
-              >{{ status | titlecase }}
-            </label>
-          </div>
-        </div>
-
-        <fieldset disabled *ngIf="page == 'contribution'">
-          <div
-            class="form-check form-check-inline"
-            *ngFor="let status of otherStatuses"
-          >
-            <input
-              class="form-check-input"
-              type="radio"
-              name="otherStatus"
-              formControlName="otherStatus"
-              [value]="status"
-              [id]="'status-' + status"
-            />
-            <label class="form-check-label" [for]="'status-' + status"
-              >{{ status | titlecase }}
-            </label>
-          </div>
-        </fieldset>
-      </fieldset>
-      <!-- col for birth year -->
-
-      <div class="col-2">
-        <label for="birthYear" class="form-label"
-          >{{ "upload.birth_year" | translate
-          }}<span class="text-danger">*</span></label
-        >
-        <!-- year selector -->
-        <input
-          [bsConfig]="{
-            startView: 'year',
-            minMode: 'year',
-            dateInputFormat: 'YYYY',
-            showClearButton: true
-          }"
-          bsDatepicker
-          class="form-control"
-          placeholder="YYYY"
-          autocomplete="off"
-          formControlName="birthYear"
-          [minDate]="minDate2"
-          [maxDate]="maxDate2"
-        />
-      </div>
-
-      <div class="col-2">
-        <label for="deathYear" class="form-label"
-          >{{ "upload.death_year" | translate
-          }}<span class="text-danger">*</span></label
-        >
-        <!-- year selector -->
-        <input
-          [bsConfig]="{
-            startView: 'year',
-            minMode: 'year',
-            dateInputFormat: 'YYYY',
-            showClearButton: true
-          }"
-          bsDatepicker
-          class="form-control"
-          placeholder="YYYY"
-          autocomplete="off"
-          formControlName="deathYear"
-          [minDate]="minDate2"
-          [maxDate]="maxDate2"
-        />
-      </div>
-
-      <!-- col for year of event -->
-      <div class="col-2">
-        <label for="rightistYear" class="form-label"
-          >{{ "upload.rightist_year" | translate }}
-          <span class="text-danger">*</span></label
-        >
-        <!-- year selector -->
-        <input
-          [bsConfig]="{
-            startView: 'year',
-            minMode: 'year',
-            dateInputFormat: 'YYYY',
-            showClearButton: true
-          }"
-          bsDatepicker
-          class="form-control"
-          placeholder="YYYY"
-          autocomplete="off"
-          formControlName="rightistYear"
-          [minDate]="minDate"
-          [maxDate]="maxDate"
-        />
-      </div>
-    </div>
-  </form>
-
+<form class="container-fluid mt-4" [formGroup]="allForms">
+  <app-rightist-info-form formControlName="rightist"></app-rightist-info-form>
   <div class="row">
-    <div class="col-md-4 ms-5 ps-5 photo">
+    <div class="col-md-4 ms-5 ps-5">
       <!-- photo upload section -->
-      <app-upload-image
-        *ngIf="imageLoaded"
-        [page]="page"
-        [imageDisabled]="imageDisabled"
-        [cleared]="cleared"
-        [imageData]="imageData"
-        [otherImageData]="otherImageData"
-        (imageChange)="onImageChange($event)"
-      ></app-upload-image>
+      <app-upload-images-form
+        formControlName="imagesDetails"
+      ></app-upload-images-form>
     </div>
 
     <!-- col for contents input box -->
@@ -306,228 +36,34 @@
             class="form-control"
             id="add_content"
             rows="5"
-            placeholder="{{ 'upload.placeholder.add_content_placeholder' | translate }}"
-            [(ngModel)]="description"
-            (ngModelChange)="descriptionChanged($event)"
+            placeholder="{{
+              'upload.placeholder.add_content_placeholder' | translate
+            }}"
+            formControlName="content"
+            (input)="descriptionChanged($event.target?.['value'])"
           ></textarea>
           <textarea
-            *ngIf="page == 'contribution'"
+            *ngIf="page == 'contribution' || isAdmin"
             class="form-control"
             id="other_add_content"
             rows="5"
-            placeholder="{{ 'upload.placeholder.other_add_content_placeholder' | translate }}"
-            [(ngModel)]="otherDescription"
-            (ngModelChange)="otherDescriptionChanged($event)"
+            placeholder="{{
+              'upload.placeholder.other_add_content_placeholder' | translate
+            }}"
+            formControlName="otherContent"
+            (input)="otherDescriptionChanged($event.target?.['value'])"
           ></textarea>
         </div>
       </div>
       <!-- event detail and date -->
       <div class="row">
         <div class="col">
-          <div class="form-group">
-            <h4>{{ "upload.event_content" | translate }}</h4>
-            <section
-              class="my-4"
-              *ngFor="
-                let event of eventControls;
-                let i = index;
-                last as last;
-                first as first
-              "
-            >
-              <!-- input fields inside the *ngFor, allows user to add/remove input boxes -->
-              <div [formGroup]="event" class="border p-2 shadow my-4 rounded">
-                <label [for]="'event_year' + i">{{
-                  "upload.event_year" | translate
-                }}</label>
-                <input
-                  [bsConfig]="{
-                    startView: 'year',
-                    minMode: 'year',
-                    dateInputFormat: 'YYYY'
-                  }"
-                  bsDatepicker
-                  class="form-control"
-                  placeholder="YYYY"
-                  [id]="'event_year' + i"
-                  formControlName="startYear"
-                />
-                <label [for]="'event_content' + i"
-                  >{{ "upload.event_content_description" | translate }}
-                </label>
-                <textarea
-                  class="form-control"
-                  [id]="'event_content' + i"
-                  rows="5"
-                  placeholder="{{
-                    'upload.placeholder.event_content_description_placeholder' | translate
-                  }}"
-                  formControlName="event"
-                ></textarea>
-                <textarea
-                  *ngIf="page == 'contribution'"
-                  class="form-control"
-                  [id]="'event_content' + i"
-                  rows="5"
-                  formControlName="otherEvent"
-                  placeholder="{{
-                    'upload.placeholder.other_event_content_description_placeholder' | translate
-                  }}"
-                ></textarea>
-              </div>
-
-              <!-- Remove button -->
-              <button
-                type="button"
-                tooltip="Remove this event"
-                placement="auto"
-                *ngIf="!first || !last"
-                class="btn btn-lg btn-outline-danger rounded-pill bg-white text-danger"
-                (click)="removeEvent(i)"
-              >
-                {{ "upload.remove" | translate }}
-
-                <img
-                  src="assets/upload/icons-remove.png"
-                  class="mx-2"
-                  width="30"
-                />
-              </button>
-              <!-- add event button -->
-              <button
-                *ngIf="last"
-                type="button"
-                (click)="addEvent()"
-                tooltip="Add another event"
-                placement="auto"
-                class="btn btn-lg btn-outline-dark rounded-pill bg-white text-dark mx-3"
-              >
-                {{ "upload.add_event" | translate }}
-
-                <img
-                  src="assets/upload/icons-plus.svg"
-                  class="mx-2"
-                  width="30"
-                />
-              </button>
-            </section>
-          </div>
+          <app-event-info-form formControlName="event"></app-event-info-form>
         </div>
       </div>
       <!-- memoir section -->
       <br />
-      <h4>
-        {{ "upload.add_memoir_book" | translate }}
-      </h4>
-      <!-- allows uses to add/remove input boxes -->
-      <section
-        class="my-4"
-        *ngFor="
-          let memoir of memoirControls;
-          let i = index;
-          last as last;
-          first as first
-        "
-      >
-        <div [formGroup]="memoir" class="border p-2 shadow my-4 rounded">
-          <!-- memoir title -->
-          <div>
-            <label [for]="'memoir_title' + i"
-              >{{ "upload.title" | translate }}
-            </label>
-            <input
-              type="text"
-              class="form-control my-1"
-              placeholder="{{ 'upload.placeholder.memoir_title_placeholder' | translate }}"
-              [id]="'memoir_title' + i"
-              formControlName="memoirTitle"
-            />
-            <input
-              *ngIf="page == 'contribution'"
-              type="text"
-              class="form-control my-1"
-              placeholder="{{ 'upload.placeholder.other_memoir_title_placeholder' | translate }}"
-              [id]="'other_memoir_title' + i"
-              formControlName="otherMemoirTitle"
-            />
-            <br />
-            <!-- memoir author -->
-            <label [for]="'memoir_author' + i">{{
-              "upload.author" | translate
-            }}</label>
-            <input
-              type="text"
-              class="form-control my-1"
-              placeholder="{{ 'upload.placeholder.memoir_author_placeholder' | translate }}"
-              [id]="'memoir_author' + i"
-              aria-describedby="basic-addon1"
-              formControlName="memoirAuthor"
-            />
-            <input
-              *ngIf="page == 'contribution'"
-              type="text"
-              class="form-control my-1"
-              placeholder="{{ 'upload.placeholder.other_memoir_author_placeholder' | translate }}"
-              [id]="'other_memoir_author' + i"
-              aria-describedby="basic-addon1"
-              formControlName="otherMemoirAuthor"
-            />
-            <br />
-            <!-- memoir content -->
-            <label [for]="'memoir_content' + i">{{
-              "upload.content_description" | translate
-            }}</label>
-            <textarea
-              type="text"
-              class="form-control my-1"
-              [id]="'memoir_content' + i"
-              placeholder="{{
-                'upload.placeholder.memoir_content_placeholder' | translate
-              }}"
-              rows="5"
-              formControlName="memoirContent"
-            ></textarea>
-            <textarea
-              *ngIf="page == 'contribution'"
-              type="text"
-              class="form-control my-1"
-              [id]="'other_memoir_content' + i"
-              placeholder="{{
-                'upload.placeholder.other_memoir_content_placeholder' | translate
-              }}"
-              rows="5"
-              formControlName="otherMemoirContent"
-            ></textarea>
-          </div>
-        </div>
-
-        <br />
-        <!-- removes memoir -->
-        <button
-          type="button"
-          tooltip="Remove this Memoir"
-          placement="auto"
-          *ngIf="!first || !last"
-          class="btn btn-lg btn-outline-danger rounded-pill bg-white text-danger"
-          (click)="removeMemoir(i)"
-        >
-          {{ "upload.remove" | translate }}
-
-          <img src="assets/upload/icons-remove.png" class="mx-2" width="30" />
-        </button>
-        <button
-          *ngIf="last"
-          type="button"
-          (click)="addMemoir()"
-          tooltip="Add another Memoir"
-          placement="auto"
-          class="btn btn-lg btn-outline-dark rounded-pill bg-white text-dark mx-3"
-        >
-          {{ "upload.add_memoir" | translate }}
-
-          <img src="assets/upload/icons-plus.svg" class="mx-2" width="30" />
-        </button>
-      </section>
+      <app-memoir-info-form formControlName="memoir"></app-memoir-info-form>
     </div>
   </div>
   <br /><br />
@@ -543,9 +79,10 @@
     <button
       type="button"
       class="btn btn-lg btn-outline-dark me-3 rounded-pill mx-2 px-4"
-      (click)="onSubmit()"
+      [disabled]="allForms.invalid || isLoading"
+      (click)="onSubmit( isAdmin ? 'approved' : 'new')"
     >
       {{ "upload.submit" | translate }}
     </button>
   </div>
-</div>
+</form>

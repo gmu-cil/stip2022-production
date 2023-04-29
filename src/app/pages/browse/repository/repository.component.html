@@ -1,8 +1,17 @@
-<div class="container">
-  <h2 class="text-center my-4 fw-bold">
-    {{ "repository.repository_top_title" | translate }}
-  </h2>
-
+<div class="container-fluid px-0 text-center bg-image-blue bg-khali pb-1">
+  <div class="bg-image-blue bg-medium-blue pb-3">
+    <div class="bg-image-blue-inner">
+      <div class="bg-image-blue-inner bg-dark-blue">
+        <div class="container w-50 pt-4">
+          <h2 class="text-center">
+            {{ "repository.repository_top_title" | translate }}
+          </h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container my-5">
   <div class="d-flex justify-content-center flex-wrap">
     <div
       class="btn-group"
@@ -16,10 +25,10 @@
       <button
         #image
         [ngClass]="{
-          'border-3 btn-bg-color-grey-green ': selectedCategory == i,
+          'border-3 btn border-grey-green bg-white': selectedCategory == i,
           btn: selectedCategory != i
         }"
-        class="fw-bold btn-lg"
+        class="fw-bold btn-lg mt-3"
         (click)="setActive(i)"
       >
         <b> {{ title[0] }} </b>

@@ -5,16 +5,26 @@
 
 /* You can add global styles to this file, and also import other style files */
 
-
 .browse-list-box {
   height: 150px;
   border-radius: 28px;
-  color: black;
+  // color: black;
   text-decoration: none;
-  background-color: #d4e0df;
+  background-color: #d4e0df !important;
+  // on hover shake the box and add a sslow boder
+  &:hover {
+    animation: shake 1s;
+    animation-iteration-count: 1;
+    border: 4px solid $khaki;
+  }
+  // &:hover {
+  //   animation: shake 1s;
+  //   animation-iteration-count: 2;
+  //   ;
+  // }
 }
 .browse-text-color {
-  color: $dark-green
+  color: $dark-blue;
 }
 .browse-text-color-two {
   color: grey
@@ -24,23 +34,147 @@
 }
 
 .bg-image-blue {
-  .bg-colors {
-    background-color: $jade;
-    padding-bottom: 0.5rem;
-    clip-path: polygon(100% 0%, 100% 70%, 50% 90%, 50% 90%, 0 70%, 0 0);
-    .bg-image-blue-inner {
-      clip-path: polygon(100% 0%, 100% 70%, 50% 90%, 50% 90%, 0 70%, 0 0);
-      background-color: $dark-blue;
-      &-pb-10 {
-        padding-bottom: 10rem;
-      }
-      &-pb-15 {
-        padding-bottom: 15rem;
-      }
+  background-color: $medium-blue;
+  clip-path: polygon(0 0, 100% 0, 100% 40%, 50% 100%, 0 40%);
+  padding-bottom: 0.5rem;
+     /* Add bottom padding at 200% zoom */
+     @media screen and (min-resolution: 192dpi), screen and (min-resolution: 2dppx) {
+      padding-bottom: 5rem;
+    }
+
+    /* Add bottom padding at 300% zoom */
+    @media screen and (min-resolution: 288dpi), screen and (min-resolution: 3dppx) {
+      padding-bottom: 10rem;
+    }
+
+  .bg-image-blue-inner {
+    background-color: $dark-blue;
+    clip-path: inherit;
+
+    /* Add bottom padding at 100% zoom */
+    padding-bottom: 2rem;
+
+    /* Add bottom padding at 200% zoom */
+    @media screen and (min-resolution: 192dpi), screen and (min-resolution: 2dppx) {
+      padding-bottom: 10rem;
+    }
+
+    /* Add bottom padding at 300% zoom */
+    @media screen and (min-resolution: 288dpi), screen and (min-resolution: 3dppx) {
+      padding-bottom: 15rem;
     }
   }
-  background-color: $medium-blue;
 }
+
+
+
+// .bg-image-blue {
+//   .bg-colors {
+//     background-color: $jade;
+//     padding-bottom: 0.5rem;
+//     clip-path: polygon(100% 0%, 100% 70%, 50% 90%, 50% 90%, 0 70%, 0 0);
+//     .bg-image-blue-inner {
+//       clip-path: polygon(100% 0%, 100% 70%, 50% 90%, 50% 90%, 0 70%, 0 0);
+//       background-color: $dark-blue;
+//       &-pb-10 {
+//         padding-bottom: 10rem;
+//       }
+//       &-pb-15 {
+//         padding-bottom: 15rem;
+//       }
+//     }
+//   }
+//   background-color: $medium-blue;
+// }
+// body {
+//   display: block;
+//   background: $medium-blue url('./assets/homepage/gold_lines.png') repeat center center;
+//   // background: white url('./assets/homepage/gold_lines.png') no-repeat center center;
+//   // background-size: cover;
+//   z-index: 1;
+
+// }
+.backImg1 {
+  // position: relative;
+  background-image: url('./assets/homepage/gold_lines.png'), url('./assets/aboutpage/Group\ 66.png'), url('./assets/aboutpage/Group\ 66.png'), linear-gradient(to right, rgba(30, 75, 115, 1), rgba(255, 255, 255, 0));
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+  background-position: bottom, left, top right, right;
+}
+.backImgChinaSign {
+  // position: relative;
+  background-image: url('./assets/homepage/china_sign.png');
+  background-repeat: no-repeat;
+  background-position: bottom right;
+  background-size: 11rem;
+  background-position-x: right;
+}
+.backImgChinaSign-left {
+  // position: relative;
+  background-image: url('./assets/homepage/china_sign.png');
+  background-repeat: no-repeat;
+  // background-position: bottom right;
+  background-size: 12rem;
+  background-position-x: left;
+}
+
+
+.layer1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  background: url('./assets/homepage/globe-animated.gif') no-repeat center center;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.layer2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  background: url('./assets/homepage/homepage-bg.png') no-repeat center center;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.layer3 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 4;
+  background: url('./assets/aboutpage/flower.jpeg') no-repeat center center;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.timeline-img {
+  display: inline-block;
+  width: 100rem;
+  height: 40rem;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+.user {
+  display: inline-block;
+  width: 15rem;
+  height: 15rem;
+  border-radius: 50%;
+  // overflow: hidden;
+  // display: flex;
+  justify-content: center;
+  align-items: center;
+  // background-repeat: no-repeat;
+  // background-position: center center;
+  // background-size: cover;
+  object-fit: cover;
+}
+
 
 .profile-bg-image-blue {
   .profile-bg-colors {
@@ -68,6 +202,9 @@
 .text-green {
   color: $medium-blue;
 }
+.text-jade {
+  color: $jade;
+}
 
 .text-dark-green {
   color: $dark-blue;
@@ -94,8 +231,22 @@ dl {
 }
 
 body {
-  font-family: "Times New Roman", Times, serif !important;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
 }
+
+@media only screen and (max-width: 767px) {
+  body {
+    font-size: 14px;
+  }
+}
+
+@media only screen and (max-width: 479px) {
+  body {
+    font-size: 12px;
+  }
+}
+
 .outer-bg {
   position: relative;
   background-color: $dark-blue !important;
@@ -128,10 +279,25 @@ body {
   border-color: $khaki !important;
   border: 2px solid $khaki !important;
 }
+.text-khaki {
+  color: $khaki !important;
+}
+
+.text-orange-red {
+  color: $orange-red !important;
+}
 
 .border-orange-red {
-  border-color: $orange-red;
-  border: 2px solid $orange-red;
+  border-color: $orange-red !important;
+  border: 2px solid $orange-red !important;
+}
+.border-orange-red {
+  border-color: $orange-red !important;
+  border: 2px solid $orange-red !important;
+}
+.border-grey-green {
+  border-color: $grey-green;
+  border: 2px solid $grey-green;
 }
 
 .btn-bg-color-grey-green {
@@ -162,6 +328,14 @@ body {
     background-color: $khaki;
     color: white;
   }
+}
+
+.bg-khali {
+  background-color: $khaki-dark;
+}
+
+.bg-medium-blue {
+  background-color: $medium-blue;
 }
 
 .btn-jade {
@@ -242,6 +416,10 @@ body {
   }
 
   &-khaki {
+    color: white !important;
+    background-color: $khaki;
+  }
+  &-khaki-light {
     color: white !important;
     background-color: $khaki;
   }

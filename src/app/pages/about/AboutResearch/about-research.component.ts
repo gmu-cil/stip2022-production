@@ -1,9 +1,10 @@
 import { Component, OnDestroy, OnInit, VERSION } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, firstValueFrom, lastValueFrom } from 'rxjs';
 import { ArchieveApiService } from 'src/app/core/services/archives-api-service';
 import { RightistSchema } from 'src/app/core/types/adminpage.types';
 import * as d3 from 'd3';
 import { Arc, DefaultArcObject } from 'd3';
+import { TranslateService } from '@ngx-translate/core';
 
 interface FilterData {
   filter: string;
@@ -28,12 +29,27 @@ export class AboutResearchComponent implements OnInit, OnDestroy {
   rightistYearData: FilterData[] = [];
   genderData: FilterData[] = [];
 
-  constructor(private archiveAPI: ArchieveApiService) {}
+  constructor(private archiveAPI: ArchieveApiService,     private translate: TranslateService,) {}
 
   ngOnInit(): void {
+    // this.translate.onLangChange.subscribe( async (event) => {
+    //   this.maleRightistList = []
+    //   this.femaleRightistList = [];
+    //   const unknown = (await firstValueFrom(this.archiveAPI.getGenderList(event.lang, 'unknown')));
+    //   // const male = (await lastValueFrom(this.archiveAPI.getGenderList(event.lang, 'male')));
+    //   // const female = (await lastValueFrom(this.archiveAPI.getGenderList(event.lang, 'female')));
+
+    //   console.log(unknown);
+    //   console.log(male)
+    //   console.log(female)
+
+    //   // console.log(v);
+    //   // console.log(v);
+    //   console.log(event);
+    // });
     this.rightistSubscription = this.archiveAPI
       .getArchiveList()
-      .subscribe((data: any) => {
+      .subscribe(async (data: any) => {
         this.total = data.length;
         this.maleRightistList = data.filter((x) => x.gender == 'male');
         this.femaleRightistList = data.filter((x) => x.gender == 'female');
@@ -87,13 +103,13 @@ export class AboutResearchComponent implements OnInit, OnDestroy {
         value: ((this.femaleRightistList.length / this.total!) * 100).toFixed(
           2
         ),
-        color: '#266461',
+        color: '#a76724',
       },
 
       {
         name: 'Male',
         value: ((this.maleRightistList.length / this.total!) * 100).toFixed(2),
-        color: '#D2D497',
+        color: 'gray',
       },
 
       {
@@ -105,7 +121,7 @@ export class AboutResearchComponent implements OnInit, OnDestroy {
             this.total!) *
           100
         ).toFixed(2),
-        color: '#61AF87',
+        color: '#df4008',
       },
     ];
     var width = 300,
@@ -135,7 +151,7 @@ export class AboutResearchComponent implements OnInit, OnDestroy {
       .attr('width', width)
       .attr('height', height)
       .append('g')
-      .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
+      .attr('transform', 'translate(' + (width )/ 2 + ',' + height / 2 + ')');
 
     svg.append('g').attr('class', 'slices');
     svg.append('g').attr('class', 'labelName');
@@ -190,7 +206,7 @@ export class AboutResearchComponent implements OnInit, OnDestroy {
         .attr('class', 'legend')
         .attr('transform', (d, i) => {
           //Just a calculation for x & y position
-          return 'translate(-50,' + (i * legendHeight - 55) + ')';
+          return 'translate(-78,' + (i * legendHeight - 55) + ')';
         });
       legend
         .append('rect')
@@ -223,7 +239,7 @@ export class AboutResearchComponent implements OnInit, OnDestroy {
       if (svg) {
         svg.setAttribute(
           'class',
-          'shadow rounded-circle border border-opacity-25 border-success bg-info bg-opacity-10'
+          'shadow rounded-circle border border-opacity-25 border-success bg-info bg-opacity-10 pl-5'
         );
       }
     }

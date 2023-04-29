@@ -1,0 +1,92 @@
+<div class="form-group">
+  <h4>{{ "upload.event_content" | translate }}</h4>
+  <section
+    class="my-4"
+    *ngFor="let event of controls; let i = index; last as last; first as first"
+  >
+    <!-- input fields inside the *ngFor, allows user to add/remove input boxes -->
+    <div [formGroup]="event" class="border p-2 shadow my-4 rounded">
+      <label [for]="'event_year' + i">{{
+        "upload.event_year" | translate
+      }}</label>
+      <input
+        [bsConfig]="{
+          startView: 'year',
+          minMode: 'year',
+          dateInputFormat: 'YYYY'
+        }"
+        bsDatepicker
+        class="form-control"
+        placeholder="Year"
+        [id]="'event_year' + i"
+        formControlName="startYear"
+      />
+      <!-- <label [for]="'event_year' + i">Year of event</label>
+      <input
+        [bsConfig]="{
+          startView: 'year',
+          minMode: 'year',
+          dateInputFormat: 'YYYY'
+        }"
+        bsDatepicker
+        class="form-control"
+        placeholder="Year"
+        [id]="'event_end_year' + i"
+        formControlName="endYear"
+      /> -->
+      <label [for]="'event_content' + i">{{ "upload.event_content_description" | translate }} ({{language | uppercase }})</label>
+      <textarea
+        class="form-control"
+        [id]="'event_content' + i"
+        rows="5"
+        placeholder="{{
+          'upload.placeholder.event_content_description_placeholder' | translate
+        }}"
+        formControlName="event"
+      ></textarea>
+
+      <div *ngIf="isAdmin">
+        <label [for]="'other_event_content' + i">{{ "upload.event_content_description" | translate }} ({{otherLanguage | uppercase }})</label>
+        <textarea
+          class="form-control"
+          [id]="'other_event_content' + i"
+          rows="5"
+          placeholder="{{
+            'upload.placeholder.other_event_content_description_placeholder' | translate
+          }}"
+          formControlName="otherEvent"
+        ></textarea>
+      </div>
+    </div>
+
+    <!-- <div *ngIf="isWarning && last && page != 'contribution'" class="text-danger h3">
+      Please add {{ title }}
+    </div> -->
+    <!-- Remove button -->
+    <button
+      type="button"
+      tooltip="Remove this event"
+      placement="auto"
+      *ngIf="!first || !last"
+      class="btn btn-lg btn-outline-danger rounded-pill bg-white text-danger"
+      (click)="remove(i)"
+    >
+      {{ "upload.remove" | translate }}
+
+      <img src="assets/upload/icons-remove.png" class="mx-2" width="30" />
+    </button>
+    <!-- add event button -->
+    <button
+      *ngIf="last"
+      type="button"
+      (click)="addEvent()"
+      tooltip="Add another event"
+      placement="auto"
+      class="btn btn-lg btn-outline-dark rounded-pill bg-white text-dark mx-3"
+    >
+      {{ "upload.add_event" | translate }}
+
+      <img src="assets/upload/icons-plus.svg" class="mx-2" width="30" />
+    </button>
+  </section>
+</div>

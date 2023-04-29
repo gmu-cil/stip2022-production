@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { EmailPassword, Profile } from '../types/auth.types';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { AlertService } from './alert.service';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
 
 @Injectable({
   providedIn: 'root',
@@ -52,6 +53,7 @@ export class AuthServiceService {
   constructor(
     private store: AngularFirestore,
     private auth: AngularFireAuth,
+    private db: AngularFireDatabase,
     private router: Router,
     private outsideScope: NgZone,
     private alertService: AlertService
@@ -204,7 +206,14 @@ export class AuthServiceService {
           .then(() => {
             user
               .delete()
-              .then(() => {})
+              .then(() => {
+                ['en', 'cn'].forEach((language) => {
+                  // delete db linked to the user
+                  // this.db.object(
+                  //   `/persons/data/${language}/contributions/${this.uid}`
+                  // ).remove().then(() => {});
+                });
+              })
               .catch((e) => {
                 this.alertService.emitAlert(e.message);
               });

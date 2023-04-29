@@ -1,60 +1,59 @@
-.check-icon {
-    font-size: 2rem;
-    color: green;
+.check-icon, .cross-icon {
+  font-size: 1.5rem;
+  // color: green;
 }
 
-.pencil-icon {
-    font-size: 2rem;
-}
-
-.cross-icon {
-    font-size: 2rem;
-    color: red;
+::ng-deep .modal-custom-style {
+  max-width: 100% !important;
+  width: 95%;
 }
 
 .arrow-icon {
-   font-size: 2rem;
+  font-size: 2rem;
 }
 
 .merge-icon {
-    font-size: 2rem;
-    color: green;
+  font-size: 2rem;
+  color: green;
 }
 
 .contribution-container {
-    border-radius: 2rem;
+  border-radius: 2rem;
 }
-
-.category-button {
-    border-radius: 2rem;
-    border-color: #0c1330;
-    color: #0c1330;
-    font-size: 1rem;
-    font-weight: 10rem;
+.search-results {
+  height: 20rem;
+  overflow: scroll;
 }
+// .category-button {
+//   border-radius: 2rem;
+//   border-color: #0c1330;
+//   color: #0c1330;
+//   font-size: 1rem;
+//   font-weight: 10rem;
+// }
 
 @keyframes contributionAnimation {
-    0%{
-        opacity: 1;
-        transform: rotateX(90deg);
-    }
-    50%{
-        opacity: 0.5;
-        transform: rotateX(0deg);
-    }
-    100%{
-        display: none;
-        opacity: 0;
-        transform: rotateX(90deg);
-    }
+  0% {
+    opacity: 1;
+    transform: rotateX(90deg);
+  }
+  50% {
+    opacity: 0.5;
+    transform: rotateX(0deg);
+  }
+  100% {
+    display: none;
+    opacity: 0;
+    transform: rotateX(90deg);
+  }
 }
 
 .contribution-scroller {
-    height: 50rem;
-    overflow-y: auto;
-    overflow-x: hidden;
+  height: 50rem;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .background {
-    filter: brightness(0.85);
+  filter: brightness(0.85);
 }

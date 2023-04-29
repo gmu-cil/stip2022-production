@@ -1,3 +1,4 @@
+@import './../../../../styles/colors.scss';
 .container-fluid {
   margin: 0rem;
   padding: 0rem;
@@ -12,11 +13,11 @@
 
 @media (min-width: 62.5rem) {
   #firstbg {
-    clip-path: polygon(100% 0%, 100% 70%, 50% 90%, 50% 90%, 0 70%, 0 0);
+    clip-path: polygon(100% 0%, 100% 70%, 50% 90%, 50% 90%, 0 70%, 0 0)
   }
 
   .outerdiv {
-    background-color: #266461;
+    background-color: $medium-blue;
     padding-bottom: 1.25rem;
     //clip-path: polygon(100% 0%, 100% 70%, 50% 90%, 50% 90%, 0 70%, 0 0);
   }
@@ -25,15 +26,15 @@
 }
 
 .view_source {
-  background-color: #09363C;
-  border-color: #D34238;
+  background-color: $medium-blue;
+  border-color: $orange-red;
 }
 
 .pbox{
-  background-color: #09363c;
+  background-color: $medium-blue;
   width: 50%;
   border-style: solid;
-  border-color: #cea374;
+  border-color: $khaki;
   padding-left: 6%;
   padding-right: 6%;
   font-size: 1.3rem;
@@ -44,69 +45,69 @@
 }
 
 .timeline{
-  background-color: #266461;
+  background-color: $medium-blue;
 }
 
 .flower_div{
-  width: 6.25rem; 
-  height: 6.25rem; 
+  width: 6.25rem;
+  height: 6.25rem;
   left: 8%
 }
 
 .flower{
-  width: 6.25rem; 
+  width: 6.25rem;
   height: 6.25rem
 }
 
 .red_flower_div{
-  width: 6.25rem; 
-  height: 6.25rem; 
-  top: 40%; 
+  width: 6.25rem;
+  height: 6.25rem;
+  top: 40%;
   left: 82%
 }
 
 .red_flower{
-  width: 6.25rem; 
+  width: 6.25rem;
   height: 6.25rem
 }
 
 .red_flower_div_2{
-  width: 6.25rem; 
-  height: 6.25rem; 
-  top: 60%; 
+  width: 6.25rem;
+  height: 6.25rem;
+  top: 60%;
   left: 4%
 }
 
 .red_flower_2{
-  width: 6.25rem; 
+  width: 6.25rem;
   height: 6.25rem
 }
 
 .line_div{
-  width: 100%; 
-  height: 15.938rem; 
-  top: 20%; 
+  width: 100%;
+  height: 15.938rem;
+  top: 20%;
   z-index: -1
 }
 
 .line_img{
-  width: 100%; 
+  width: 100%;
   height: 9.688rem
 }
 
 .line_div2{
-  width: 100%; 
-  height: 15.938rem; 
-  top: 50%; 
+  width: 100%;
+  height: 15.938rem;
+  top: 50%;
   z-index: -1
 }
 
 .line2{
-  width: 100%; 
+  width: 100%;
   height: 9.688rem
 }
 
 .firstbg{
-  padding-top: 6.25rem; 
+  padding-top: 6.25rem;
   padding-bottom: 17.5rem
 }

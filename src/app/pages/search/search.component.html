@@ -1,0 +1,266 @@
+<div class="bg-khaki bg-opacity-25">
+  <!-- search bar -->
+  <div class="col-10 m-auto py-5">
+    <div class="input-group">
+      <select class="form-select border-0 rounded-end rounded-pill" aria-label="Search by the following values"  [(ngModel)]="searchBy" (change)="search()" >
+        <option value ="fullName" selected>Full Name</option>
+        <option value="firstName">First Name</option>
+        <option value="lastName">Last Name</option>
+        <option value="birthYear">Birth Date</option>
+        <option value="deathYear">Death Date</option>
+        <option value="rightistYear">Joined Rightist Year</option>
+        <option value="rightistId">Rightist Id</option>
+      </select>
+      <input
+        type="search"
+        class="form-control border-start-0"
+        style="width: 70% !important"
+        placeholder="{{ 'archive.archive_searchbar_placeholder' | translate }}"
+        translate
+        [(ngModel)]="searchInput"
+        (search)="search()"
+        aria-label="Search for ... "
+        aria-describedby="button-addon2"
+      />
+      <button
+        class="btn border border-start-0 bg-white rounded-start rounded-pill"
+        type="button"
+        (click)="search()"
+      >
+        <img src="assets/global/search.svg" alt="" width="20" />
+      </button>
+
+      <a
+        class="align-self-center mx-2"
+        tooltip="{{ 'archive.archive_tooltip_searchbar' | translate }}"
+        placement="left"
+        data-bs-title="Tooltip on left"
+      >
+        <img
+          src="assets/browsepage/question-mark-color-brown.svg"
+          fill="#cca474"
+          alt=""
+          width="20"
+        />
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="outer-bg justify-content-center text-dark " >
+  <div class="row m-0">
+    <div class="image"></div>
+    <div class="col-10 border text-dark inner-bg mx-auto rounded shadow my-4">
+      <div class="filter">
+        <h3 class="border-bottom fw-bold text-light my-3">
+          {{ "archive.archive_top_title" | translate }}
+        </h3>
+
+        <!-- search result -->
+        <div class="container-fluid">
+          <div class="row row-cols-lg-auto">
+            <h4 class="col-12 me-auto p-2 text-light text-nowrap my-2">
+              {{ "archive.archive_num_result" | translate }} {{ this.display.length }} of
+              {{
+                this.display.length !== limit - 50
+                  ? this.display.length
+                  : "more than " + this.display.length
+              }}
+
+            </h4>
+            <div class="col-12 flex-shrink-0 my-2">
+              <label for="viewSelect" class="text-white">{{
+                "archive.archive_view" | translate
+              }}</label>
+              <select
+                class="mx-2 text-light display-select"
+                id="viewSelect"
+                aria-label="View select"
+                [(ngModel)]="curView"
+              >
+                <option value="List" selected>
+                  {{ "archive.archive_view_list" | translate }}
+                </option>
+                <option value="Grid">
+                  {{ "archive.archive_view_grid" | translate }}
+                </option>
+              </select>
+            </div>
+
+            <div class="col-12 mb-1 text-light text-nowrap my-2">
+              |&emsp;{{ "archive.archive_order_by" | translate }}: A-Z
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between">
+            <div class="btn-group d-inline-block btn-group-sm">
+              <button
+                class="btn button-no-outline"
+                *ngFor="let letter of letters"
+                [ngClass]="
+                  currentLetter === letter
+                    ? 'btn-outline-light text-danger text-decoration-underline'
+                    : 'text-light'
+                "
+                (click)="lettersBtnClickOrReset(letter)"
+              >
+                {{ letter }}
+              </button>
+            </div>
+          </div>
+
+          <!-- display search results -->
+          <app-stip-spinner [isLoading]="isloading"></app-stip-spinner>
+          <div>
+            <div
+            class="search-results"
+            infiniteScroll
+            (scrolled)="onScroll()"
+            [infiniteScrollDistance]="1"
+            [scrollWindow]="false"
+          >
+            <div *ngIf="curView === 'List'; else elseBlock">
+              <div *ngIf="display.length; else elseEmptyBlock">
+                <a
+                  class="d-flex m-3 list-searchprofile browse-list-box"
+                  name="searchLayout"
+                  routerLink="/browse/main/memoir/{{ result.rightistId }}"
+                  routerLinkActive="active"
+                  ariaCurrentWhenActive="page"
+                  [id]="'local_id_' + i"
+                  *ngFor="let result of display; let i = index"
+                >
+                  <div class="col ms-4 mt-3">
+                    {{ i + 1 }}
+                  </div>
+                  <div class="m-4 col-3 text-capitalize browse-text-color">
+                    <h2 class="text-start fw-bold">
+                      {{ result.fullName }}
+                    </h2>
+                  </div>
+                  <div
+                    class="text-start col-6 m-3 list-searchprofile browse-text-color-two"
+                  >
+                    {{ result.description }}
+                  </div>
+                  <div
+                    class="align-self-end mb-3 me-5 pe-5 arrow list-box link-decor"
+                  >
+                    {{ "archive.archive_read_more" | translate }}
+                    <img
+                      src="/assets/browsepage/arrow-right.svg"
+                      alt="Bootstrap"
+                      width="15"
+                      height="15"
+                      class="me-5 pb-1 arrow"
+                    />
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #elseEmptyBlock>
+  <div *ngIf="isloading == false" class="text-white d-flex flex-column m-2">
+    <p>{{ "archive.archive_no_result_title" | translate }}</p>
+    <h4>
+      {{ "archive.archive_no_result_body" | translate }} "{{ searchInput }}".
+    </h4>
+    <p>{{ "archive.archive_no_result_suggest" | translate }}:</p>
+    <ul>
+      <li>
+        {{ "archive.archive_no_result_suggest_one" | translate }}
+      </li>
+      <li>
+        {{ "archive.archive_no_result_suggest_two" | translate }}
+      </li>
+      <li>
+        {{ "archive.archive_no_result_suggest_three" | translate }}
+      </li>
+      <li>
+        {{ "archive.archive_no_result_suggest_four" | translate }}
+      </li>
+    </ul>
+  </div>
+</ng-template>
+
+<ng-template #elseBlock>
+  <div *ngIf="display.length; else elseEmptyBlock">
+    <div
+      class="d-flex justify-content-between p-2 flex-nowrap mb-3 box-height"
+      name=" searchLayout"
+      *ngFor="let results of display | UpdateRows : 3; let i = index"
+    >
+      <div class="grid-box" *ngFor="let result of results; let j = index">
+        <a
+          class="d-flex flex-column h-100 link-decor"
+          routerLink="/browse/main/memoir/{{ result.rightistId }}"
+          routerLinkActive="active"
+          ariaCurrentWhenActive="page"
+          [id]="'local_id_' + (3 * i + (j + 1))"
+        >
+          <div class="ms-4 mt-2">
+            {{ 3 * i + (j + 1) }}
+          </div>
+          <div class="fw-bold ms-4 h4 browse-text-color">
+            {{ result.fullName }}
+          </div>
+          <div
+            class="grid-searchprofile ms-4 flex-grow-1 browse-text-color-two"
+          >
+            {{ result.description }}
+          </div>
+
+          <div
+            class="align-self-end ms-auto arrow mt-auto list-box-inner-layout"
+          >
+            <span class="p-3 pb-5 mb-1">
+              {{ "archive.archive_read_more" | translate }}
+              <img
+                src="/assets/browsepage/arrow-right.svg"
+                alt="Bootstrap"
+                width="20"
+                height="20"
+              />
+            </span>
+          </div>
+        </a>
+      </div>
+      <div
+        *ngIf="(i + 1) * 3 == display.length + 1"
+        class="text-primary flex-column h-100 style"
+      ></div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #elseEmptyBlock>
+  <div *ngIf="isloading == false" class="text-white d-flex flex-column m-2">
+    <p>{{ "archive.archive_no_result_title" | translate }}</p>
+    <h4>
+      {{ "archive.archive_no_result_body" | translate }} "{{ searchInput }}".
+    </h4>
+    <p>{{ "archive.archive_no_result_suggest" | translate }}:</p>
+    <ul>
+      <li>
+        {{ "archive.archive_no_result_suggest_one" | translate }}
+      </li>
+      <li>
+        {{ "archive.archive_no_result_suggest_two" | translate }}
+      </li>
+      <li>
+        {{ "archive.archive_no_result_suggest_three" | translate }}
+      </li>
+      <li>
+        {{ "archive.archive_no_result_suggest_four" | translate }}
+      </li>
+    </ul>
+  </div>
+</ng-template>

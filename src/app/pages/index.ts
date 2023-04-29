@@ -22,6 +22,7 @@ import { AuthGuard } from '../core/services/auth-guard.service';
 import { RepositoryComponent } from './browse/repository/repository.component';
 import { RequestModifyComponent } from './requestForms/upload/request-modify/request-modify.component';
 import { TermsContributionComponent } from './terms-contribution/terms-contribution.component';
+import { SearchComponent } from './search/search.component';
 
 // AuthGuard pipe for admin pages
 const adminOnly = () =>
@@ -115,8 +116,15 @@ export const pagesRoutes = [
     },
   },
   {
-    path: 'browse/main',
+    path: 'browse/mainv1',
     component: MainBrowseComponent,
+    data: {
+      title: 'Archive',
+    },
+  },
+  {
+    path: 'browse/main',
+    component: SearchComponent,
     data: {
       title: 'Archive',
     },

@@ -84,6 +84,42 @@ export interface Memoir {
   memoirAuthor: string;
 }
 
+export type UploadImagesType = {
+  file: File;
+  image: string;
+  imageId: string;
+  imageCategory: string;
+  imageDes: string;
+  imageDetails: string;
+  imageSource: string;
+  imageTitle: string;
+  imageUpload: string;
+  isProfile?: boolean;
+  imageUrl: string;
+  // other fields
+  otherImage: string;
+  otherImageCategory: string;
+  otherImageDes: string;
+  otherImageDetails: string;
+  otherImageSource: string;
+  otherImageTitle: string;
+  otherImageUpload: string;
+  otherImageUrl: string;
+};
+
+export interface ImagesSchema {
+  imageId: string;
+  rightistId: string;
+  imagePath?: string;
+  imageUrl: string;
+  isProfile: any;
+  isGallery: any;
+  category: string;
+  title: string;
+  detail: string;
+  source: string;
+}
+
 export interface RightistSchema {
   rightistId: string;
   contributorId: string;
@@ -109,10 +145,18 @@ export interface RightistSchema {
   reference: string;
   description: string;
   source: Source;
+  images?: ImagesSchema[];
   lastUpdatedAt: Date; // set from the service when updating a contribution
 }
 
 export interface Rightist extends RightistSchema {}
+
+export type langType = {
+  en: Contribution;
+  cn: Contribution;
+};
+
+export type ContributionDetails = Contribution & RightistSchema;
 
 export interface RightistJson {
   [rightistId: string]: RightistSchema;
@@ -122,12 +166,14 @@ export interface ContributionSchema {
   contributionId: string; // set from the service when creating a new contribution
   contributorId: string; // set from the service when creating a new contribution
   rightist?: RightistSchema;
-  image?: ImageSchema;
+  image?: ImagesSchema;
   rightistId: string;
   publish: Publish;
+  fullName: string;
   lastUpdatedAt: Date;
   contributedAt: Date; // set from the service when creating a new contribution
   approvedAt: Date; // set from the service when approving a contribution
+  rejectedAt?: Date; // set from the service when rejecting a contribution
   notificationMessage?: string; // set from the service when approving a contribution
 }
 
@@ -143,21 +189,23 @@ export interface OuterContributionJson {
   [contributorId: string]: ContributionJson;
 }
 
-export interface ImageSchema {
-  imageId: string;
-  rightistId: string;
-  imagePath?: string;
-  isGallery: boolean;
-  galleryCategory: string;
-  galleryTitle: string;
-  galleryDetail: string;
-  gallerySource: string;
-}
 
-export interface Image extends ImageSchema {
+
+// export interface ImagesSchema {
+//   imageId: string;
+//   rightistId: string;
+//   imagePath?: string;
+//   isGallery: boolean;
+//   category: string;
+//   title: string;
+//   detail: string;
+//   source: string;
+// }
+
+export interface Image extends ImagesSchema {
   opacity: number;
 }
 
 export interface ImageJson {
-  [imageId: string]: ImageSchema;
+  [imageId: string]: ImagesSchema;
 }

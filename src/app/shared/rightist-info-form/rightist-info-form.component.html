@@ -1,0 +1,279 @@
+<form
+  [formGroup]="form"
+  class="col-11 mx-auto bg-secondary bg-opacity-10 p-5 rounded shadow mb-4"
+>
+  <!-- Row for name, ethnic group, occupation, and year of event -->
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 m-3">
+    <!-- col for name selection -->
+    <div class="col">
+      <div>
+        <label for="Name" class="form-label"
+          >{{ "upload.name" | translate }} ({{ language | uppercase }})<span
+            class="text-danger"
+            >*</span
+          ></label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="Name"
+          formControlName="name"
+          placeholder="{{ 'upload.placeholder.name_placeholder' | translate }}"
+        />
+      </div>
+      <div class="my-2" *ngIf="isAdmin">
+        <label for="otherName" class="form-label"
+          >{{ "upload.name" | translate }} ({{ otherLanguage | uppercase }})
+          <span class="text-danger">*</span></label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="otherName"
+          formControlName="otherName"
+          placeholder="{{
+            'upload.placeholder.other_name_placeholder' | translate
+          }}"
+        />
+      </div>
+    </div>
+
+    <!-- col for occupation -->
+    <div class="col">
+      <div>
+        <label for="occupation" class="form-label"
+          >{{ "upload.occupation" | translate }} ({{
+            language | uppercase
+          }})<span class="text-danger">*</span></label
+        >
+        <!-- occupation typeahead -->
+        <input
+          type="text"
+          class="form-control"
+          id="occupation"
+          formControlName="occupation"
+          placeholder="{{
+            'upload.placeholder.profession_placeholder' | translate
+          }}"
+        />
+      </div>
+
+      <div class="my-2" *ngIf="isAdmin">
+        <label for="otherOccupation" class="form-label"
+          >{{ "upload.occupation" | translate }} ({{
+            otherLanguage | uppercase
+          }})<span class="text-danger">*</span></label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="otherOccupation"
+          formControlName="otherOccupation"
+          placeholder="{{
+            'upload.placeholder.other_profession_placeholder' | translate
+          }}"
+        />
+      </div>
+    </div>
+    <!-- col for ethnic group -->
+    <div class="col">
+      <label for="ethnicGroup" class="form-label"
+        >{{ "upload.ethnicity" | translate }} ({{ language | uppercase }})<span
+          class="text-danger"
+          >*</span
+        ></label
+      >
+      <!-- ethnic group dropdown -->
+      <select
+        formControlName="ethnic"
+        class="form-select"
+        id="ethnicGroup"
+        (change)="patchChange('ethnic', 'otherEthnic')"
+      >
+        <option disabled selected value>
+          {{ "upload.dropdown_default" | translate }}
+        </option>
+        <option [value]="ethnic" *ngFor="let ethnic of ethnicGroup">
+          {{ ethnic }}
+        </option>
+      </select>
+      <div *ngIf="isAdmin">
+        <label for="ethnicGroup" class="form-label"
+          >{{ "upload.ethnicity" | translate }} ({{
+            otherLanguage | uppercase
+          }})<span class="text-danger">*</span></label
+        >
+        <input
+          id="ethnicGroup"
+          readonly
+          formControlName="otherEthnic"
+          [value]="allEn_CnEnthic[form.value?.ethnic]"
+          [placeholder]="'upload.dropdown_default' | translate"
+          class="form-control"
+        />
+      </div>
+    </div>
+    <!-- col for gender selection -->
+    <fieldset class="col">
+      <legend class="h6 fw-normal">
+        {{ "upload.gender" | translate }} <span class="text-danger">*</span>
+      </legend>
+
+      <div class="form-check form-check-inline" *ngFor="let gender of genders">
+        <input
+          class="form-check-input"
+          formControlName="gender"
+          [value]="gender"
+          (change)="radioChange('gender', 'otherGender', Obj_Genders)"
+          type="radio"
+          name="gender"
+          [id]="gender"
+        />
+        <label class="form-check-label" [for]="gender">{{
+          gender | titlecase
+        }}</label>
+      </div>
+      <fieldset *ngIf="isAdmin" disabled class="col">
+        <div
+          class="form-check form-check-inline my-2"
+          *ngFor="let gender of otherGenders; let i = index"
+        >
+          <input
+            class="form-check-input"
+            formControlName="otherGender"
+            [value]="gender"
+            type="radio"
+            name="otherGender"
+            [id]="gender"
+          />
+          <label class="form-check-label" [for]="gender">{{
+            gender | titlecase
+          }}</label>
+        </div>
+      </fieldset>
+    </fieldset>
+  </div>
+
+  <!-- Row containing gender, status, and clear buttons -->
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 m-3">
+    <!-- Status -->
+    <fieldset class="col">
+      <legend class="h6 fw-normal">
+        {{ "upload.status" | translate }} <span class="text-danger">*</span>
+      </legend>
+
+      <div
+        class="form-check form-check-inline"
+        *ngFor="let status of statuses; let i = index"
+      >
+        <input
+          (change)="radioChange('status', 'otherStatus', Obj_Status)"
+          class="form-check-input"
+          formControlName="status"
+          [value]="status"
+          type="radio"
+          name="status"
+          [id]="status + i"
+        />
+        <label class="form-check-label" [for]="status + i">{{
+          status | titlecase
+        }}</label>
+      </div>
+      <fieldset *ngIf="isAdmin" disabled class="col">
+        <div
+          class="form-check form-check-inline my-2"
+          *ngFor="let status of otherStatuses; let i = index"
+        >
+          <input
+            class="form-check-input"
+            formControlName="otherStatus"
+            [value]="status"
+            type="radio"
+            name="otherStatus"
+            [id]="status + '-other' + i"
+          />
+          <label class="form-check-label" [for]="status + '-other' + i">{{
+            status | titlecase
+          }}</label>
+        </div>
+      </fieldset>
+    </fieldset>
+    <!-- col for birth year -->
+    <div class="col">
+      <label for="birthYear" class="form-label"
+        >{{ "upload.birth_year" | translate }}
+        <span class="text-danger">*</span></label
+      >
+      <!-- year selector -->
+      <input
+        [bsConfig]="{
+          startView: 'year',
+          minMode: 'year',
+          dateInputFormat: 'YYYY',
+          showClearButton: true
+        }"
+        bsDatepicker
+        class="form-control"
+        placeholder="YYYY"
+        autocomplete="off"
+        formControlName="birthYear"
+        [minDate]="minDate2"
+        [maxDate]="maxDate2"
+      />
+    </div>
+    <!-- col for death year -->
+    <div class="col">
+      <label for="deathYear" class="form-label"
+        >{{ "upload.death_year" | translate }}
+      </label>
+      <!-- year selector -->
+      <input
+        [bsConfig]="{
+          startView: 'year',
+          minMode: 'year',
+          dateInputFormat: 'YYYY',
+          showClearButton: true
+        }"
+        bsDatepicker
+        class="form-control"
+        placeholder="YYYY"
+        autocomplete="off"
+        formControlName="deathYear"
+        [minDate]="minDate2"
+        [maxDate]="maxDate2"
+      />
+    </div>
+    <!-- col for year of event -->
+    <div class="col">
+      <label for="Year" class="form-label"
+        >{{ "upload.rightist_year" | translate }}
+      </label>
+      <!-- year selector -->
+      <input
+        [bsConfig]="{
+          startView: 'year',
+          minMode: 'year',
+          dateInputFormat: 'YYYY',
+          showClearButton: true
+        }"
+        bsDatepicker
+        class="form-control"
+        placeholder="YYYY"
+        autocomplete="off"
+        formControlName="rightistYear"
+        [minDate]="minDate"
+        [maxDate]="maxDate"
+      />
+    </div>
+  </div>
+  <div class="d-flex">
+    <button
+      type="button"
+      class="btn btn-lg btn-outline-dark rounded-pill ms-auto px-4"
+      (click)="clear()"
+      [ngClass]="{ invisible: isAdmin }"
+    >
+      {{ "upload.clear" | translate }}
+    </button>
+  </div>
+</form>

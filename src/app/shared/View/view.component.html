@@ -18,20 +18,22 @@
       <span class="visually-hidden">contribution Status</span>
     </span>
     <div class="row">
-      <div class="col-12 col-md-2 text-center">
+      <div class="col-12 col-md-2 text-center m-auto">
         <img
-          src="/assets/homepage/default-profile.png"
-          class="img-fluid rounded-circle"
-          alt=""
+          [alt]="data?.rightist?.images?.[0]?.imageUrl ? data?.rightist?.fullName + ' profile' : 'Image not Found'"
+          [src]="data?.rightist?.images?.[0]?.imageUrl ?? '/assets/homepage/default-profile.png'"
+          class="user align-self-center"
         />
       </div>
       <div class="col-12 col-md-3">
         <dl>
           <dt>Full Name</dt>
           <dd>
-            {{ data?.rightist?.firstName || "" }}
-            {{ data?.rightist?.lastName || "" }}
-            {{ data?.rightist?.fullName || "" }}
+            {{
+              (data?.rightist?.fullName ??
+                data?.rightist?.firstName + " " + data?.rightist?.fullName) ||
+                ""
+            }}
           </dd>
           <dt>ID</dt>
           <dd class="text-unwrap">
@@ -39,7 +41,16 @@
           </dd>
           <dt>Occupation</dt>
           <dd>
-            {{ data?.rightist?.job || data?.rightist?.workplaceCombined || "" }}
+            {{
+              ((data?.rightist?.job ?? data?.rightist?.workplaceCombined)
+                ?.length || 0) > 15
+                ? (
+                    (data?.rightist?.job ??
+                      data?.rightist?.workplaceCombined) || ""
+                  ).substring(0, 15) + "..."
+                : (data?.rightist?.job ?? data?.rightist?.workplaceCombined) ||
+                  "-"
+            }}
           </dd>
           <dt>Gender</dt>
           <dd>{{ data?.rightist?.gender || "" }}</dd>
@@ -48,7 +59,7 @@
           <dt>Ethnicity</dt>
           <dd>{{ data?.rightist?.ethnicity || "" }}</dd>
           <dt>Year of birth</dt>
-          <dd>{{ data?.rightist?.birthYear | date: "YYYY" }}</dd>
+          <dd>{{ data?.rightist?.birthYear | date : "YYYY" }}</dd>
         </dl>
       </div>
       <div class="col-12 col-md-5">
@@ -64,7 +75,7 @@
             <dl>
               <dt class="col-12">Date & Time</dt>
               <dd class="col-12">
-                {{ data?.contributedAt | date: "short" }}
+                {{ data?.contributedAt | date : "short" }}
               </dd>
             </dl>
           </div>

@@ -1,9 +1,11 @@
+@import './../../../../styles/colors.scss';
+
 .main {
-  background-color: #09363c;
+  background-color: $dark-blue;
 }
 
 .contact {
-  background-color: #09363c;
+  background-color: $dark-blue;
 }
 
 .contact_us {
@@ -45,16 +47,16 @@
 }
 
 .divMain{
-  padding-top: 80px; 
+  padding-top: 80px;
   padding-bottom: 80px
 }
 
 .secondaryDiv{
-  padding-left: 25%; 
+  padding-left: 25%;
   padding-right: 25%
 }
 
 .contact{
-  padding-top: 80px; 
+  padding-top: 80px;
   padding-bottom: 80px
 }

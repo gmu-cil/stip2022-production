@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AngularFireFunctions } from '@angular/fire/compat/functions';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { firstValueFrom, Subscription } from 'rxjs';
+import { AnnouncementService } from 'src/app/core/services/announcement.service';
 import { RequestModification } from 'src/app/core/types/emails.types';
 
 @Component({
@@ -8,11 +11,22 @@ import { RequestModification } from 'src/app/core/types/emails.types';
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.scss'],
 })
-export class HomepageComponent implements OnInit {
+export class HomepageComponent implements OnInit, OnDestroy {
   data$: any;
-  constructor(private router: Router, private func: AngularFireFunctions) {}
+  randomProfile: any[] = [];
+  constructor(
+    private router: Router,
+    private func: AngularFireFunctions,
+    private announceProfile: AnnouncementService,
+    private translateService: TranslateService
+  ) {}
+  ngOnDestroy(): void {
+    // this.subs.forEach((sub) => sub?.unsubscribe());
+  }
   searchTerm: string = '';
   transPath = 'homepage.component.';
+  subs: Subscription[] = [];
+  searchBy: string = 'fullName';
 
   fakeProfile = [
     {
@@ -24,7 +38,7 @@ export class HomepageComponent implements OnInit {
       name: 'Jane Doe',
       email: 'JaneDoe@aol.com',
       profile: 'default-profile.png',
-      desc: `In 1957, he was accused of “setting fire`
+      desc: `In 1957, he was accused of “setting fire`,
     },
     {
       name: 'John Smith',
@@ -33,11 +47,45 @@ export class HomepageComponent implements OnInit {
     },
   ];
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.randomProfile);
+    this.subs.push(
+      this.translateService.onLangChange.subscribe(async (res) => {
+        this.getRandomProfile(res.lang);
+      })
+    );
+    if (this.randomProfile.length === 0) {
+      this.getRandomProfile();
+    }
+  }
+
+  async getRandomProfile(lang = this.translateService.currentLang) {
+    this.randomProfile = [];
+    let randomProfile = await firstValueFrom<any>(
+      this.announceProfile.getRandomProfile(lang)
+    ) ?? [];
+    if (randomProfile.length < 3) {
+      randomProfile.push(...(await firstValueFrom<any>(
+        this.announceProfile.getRandomProfile(lang, false)
+      ) ?? []));
+    }
+    console.log(randomProfile);
+    while (this.randomProfile.length < 3 && randomProfile.length >= 3) {
+      const random = Math.floor(Math.random() * randomProfile.length);
+      if (!this.randomProfile.includes(randomProfile[random])) {
+        this.randomProfile.push(randomProfile[random]);
+      }
+    }
+  }
+
   searchArchives() {
-    this.router.navigate(['/browse/main'], {
-      queryParams: { searchTerm: this.searchTerm },
-    });
+    if (this.searchTerm) {
+      this.router.navigate(['/browse/main'], {
+        queryParams: { searchTerm: this.searchTerm, searchBy: this.searchBy },
+      });
+    } else {
+      this.router.navigate(['/browse/main']);
+    }
   }
 
   sendRequestForm() {
@@ -51,8 +99,6 @@ export class HomepageComponent implements OnInit {
     };
     this.func
       .httpsCallable('modifyRightistRequest')(payload)
-      .subscribe((res) => {
-        console.log('Function: ', res);
-      });
+      .subscribe((res) => {});
   }
 }

@@ -17,10 +17,8 @@ import { AuthServiceService } from 'src/app/core/services/auth-service.service';
 import { ImagesService } from 'src/app/core/services/images.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
-import { Rightist } from 'src/app/core/types/adminpage.types';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ContributionsService } from 'src/app/core/services/contributions.service';
-import { TypeaheadOptions } from 'ngx-bootstrap/typeahead';
 import { StorageApIService } from 'src/app/core/services/storage-api.service';
 
 @Component({
@@ -33,6 +31,7 @@ export class BrowseArchiveComponent implements OnInit, OnDestroy {
   @ViewChild('infoContent') infoContent!: ElementRef;
 
   [x: string]: any;
+  imagesUrls: any[] = [];
   id = this.route.snapshot.paramMap.get('id') as string;
   profile = {} as any;
   url = location.href;
@@ -70,24 +69,23 @@ export class BrowseArchiveComponent implements OnInit, OnDestroy {
       this.arch
         .getRightistById(this.language!, this.id)
         .subscribe((res: any) => {
+          if (!res) {
+             this.router.navigate(['../../../','account']);
+            return
+          }
           this.profile = res;
-          console.log(res);
-
-          if (res.imageId) {
-            this.sub.push(
-              this.images
-                .getImage(this.language!, this.profile.imageId)
-                .subscribe((image: any) => {
-                  this.src = image.imagePath;
-                  this.loaded = true;
-                })
-            );
-          } else {
-            this.loaded = true;
+          this.loaded = true;
+          if (res?.images) {
+            this.imagesUrls = res?.images;
+            res.images.forEach(o => {
+              if (o.imagePath && o.isProfile) {
+                this.src = o.imagePath
+              }
+            });
           }
 
           //sorting event based on starting year
-          if (this.profile.events) {
+          if (this.profile?.events) {
             this.profile.events.sort(function (a, b) {
               return (
                 new Date(a.start_year).getTime() -
@@ -105,10 +103,9 @@ export class BrowseArchiveComponent implements OnInit, OnDestroy {
     this.loaded = false;
     this.language = localStorage.getItem('lang')!
     this.otherLanguage = this.language === 'en' ? 'cn' : 'en';
-
+    this.initialize();
     this.languageSubscription = this.translate.onLangChange.subscribe(
       (langChange: any) => {
-        console.log(langChange.lang);
         this.language = langChange.lang;
         this.otherLanguage = this.language === 'en' ? 'cn' : 'en';
         this.sub.forEach((x) => x.unsubscribe());
@@ -116,7 +113,7 @@ export class BrowseArchiveComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.initialize();
+
   }
 
   ngOnDestroy(): void {
@@ -131,7 +128,7 @@ export class BrowseArchiveComponent implements OnInit, OnDestroy {
   }
 
   replaceNewline() {
-    if (this.profile.memoirs) {
+    if (this.profile?.memoirs) {
       this.profile.memoirs.forEach((element: any, index: number) => {
         this.profile.memoirs[index].memoirContent =
           element.memoirContent.split('\\n');
@@ -200,25 +197,20 @@ export class BrowseArchiveComponent implements OnInit, OnDestroy {
 
   onYes() {
     this.loaded = false;
-    console.log(this.profile);
     this.modalService.hide();
     this.sub.push(
       this.contributionAPI
         .getUserContributionsList(this.language!, this.profile.contributorId)
         .subscribe((data: any) => {
           let contributions = [...data];
-          console.log(contributions);
 
           for (let contribution of contributions) {
             if (this.profile.rightistId === contribution.rightistId) {
-              console.log(contribution);
-              console.log(this.profile);
               if (this.profile.imageId) {
-                console.log('Has Image');
                 Promise.all([
                   this.contributionAPI.deleteUserContribution(
                     this.language!,
-                    this.profile.contributorId,
+                    this.profile?.contributorId,
                     contribution.contributionId
                   ),
                   this.contributionAPI.deleteUserContribution(
