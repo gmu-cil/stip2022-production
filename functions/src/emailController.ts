@@ -9,6 +9,7 @@ import {ContactUs, RequestModification} from './types/emails.types';
 import {contactUsTemplate, modifyRequestTemplate} from './email templates/request_template';
 // eslint-disable-next-line camelcase
 const sendGrid_api_key = functions.config().sendgrid.key;
+const formAdminEmail = functions.config().admin.email;
 sdmail.setApiKey(sendGrid_api_key);
 
 // Fetch admin emails that want notification from firestore.
@@ -35,7 +36,7 @@ export const contactUs = functions.https.onCall(
       const to = await adminEmails();
       const msg = {
         to,
-        from: 'joeladeniji123@gmail.com',
+        from: formAdminEmail ?? 'no-reply@gmail.com',
         subject: `${name || 'User'} Contact Us (${email || 'User'})`,
         html: contactUsTemplate(data),
       };
@@ -67,7 +68,7 @@ export const modifyRightistRequest = functions.https.onCall(
       const to = await adminEmails();
       const msg = {
         to,
-        from: 'joeladeniji123@gmail.com',
+        from: formAdminEmail ?? 'no-reply@gmail.com',
         subject: `New Request to Modify Rightist ${email || 'User'} (${
           rightistId || 'User'
         })`,
@@ -107,7 +108,7 @@ export const sendMailApprovedRejectNotificationContribution = functions.database
       ) {
         try {
           const result = await sdmail.send({
-            from: 'joeladeniji123@gmail.com',
+            from: formAdminEmail ?? 'no-reply@gmail.com',
             to: [context.auth.email, contributorDetails.get('email')],
             subject: `You have a notification from STIP ${contributorDetails.get(
                 'uid'
