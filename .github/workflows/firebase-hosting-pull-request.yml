@@ -15,3 +15,12 @@ jobs:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_STIP_DEMO }}'
           projectId: stip-demo
+      # functions deployment (Custom API)
+      - uses: actions/checkout@v2
+      - run: cd functions/ && npm install
+      - name: deploy to production
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only functions
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
