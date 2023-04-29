@@ -10,7 +10,6 @@ import {contactUsTemplate, modifyRequestTemplate} from './email templates/reques
 // eslint-disable-next-line camelcase
 const sendGrid_api_key = functions.config().sendgrid.key;
 const formAdminEmail = functions.config().admin.email;
-console.log('sendGrid_api_key', sendGrid_api_key);
 sdmail.setApiKey(sendGrid_api_key);
 
 // Fetch admin emails that want notification from firestore.
@@ -67,9 +66,11 @@ export const modifyRightistRequest = functions.https.onCall(
         reasonRequest: reasonRequest = '',
       } = data;
       const to = await adminEmails();
+      console.log('[log modifyRightistRequest] to', to);
+      console.log('[log modifyRightistRequest]', formAdminEmail ?? 'no-reply@gmail.com');
       const msg = {
         to,
-        from: formAdminEmail ?? 'no-reply@gmail.com',
+        from: formAdminEmail,
         subject: `New Request to Modify Rightist ${email || 'User'} (${
           rightistId || 'User'
         })`,
@@ -86,6 +87,7 @@ export const modifyRightistRequest = functions.https.onCall(
           data: 'Email sent successfully',
         };
       } catch (error) {
+        console.log('Error (modifyRightistRequest):', error);
         return {
           message: 'sendGridMail',
           status: 'error',
