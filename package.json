@@ -12,7 +12,8 @@
     "firebase:geberate:token": "firebase login:ci",
     "test": "ng test",
     "firebase-admin install": "npm -g install firebase-admin",
-    "firebase-tools install": "npm -g install firebase-tools"
+    "firebase-tools install": "npm -g install firebase-tools",
+    "set:env": "firebase functions:config"
   },
   "private": true,
   "dependencies": {
