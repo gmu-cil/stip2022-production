@@ -1,0 +1,16 @@
+functions> npm i -s express
+# auto fix format
+npm run lint -- --fix
+
+#Install emulator for local test case
+firebase init emulators
+
+
+# Email Setup
+https://dev.to/chideraao/sending-emails-in-your-firebase-app-with-nodemailer-5ff9
+
+# ENV VARIABLE
+
+firebase functions:config:set gmail.useremail="yourgoogleemail@gmail.com" gmail.clientid="yourclientid.apps.googleusercontent.com" gmail.refreshtoken="1//04zKnDTh1mXdLCgYI-yourrefreshtoken" gmail.clientsecret="mbFQnYOurCLienTSecREt" sendgrid.key=""
+# Env this are the only two we are using
+firebase functions:config:set admin.email="" sendgrid.key=""
