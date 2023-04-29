@@ -9,8 +9,10 @@
     "deploy:firestore": "firebase deploy --only firestore:rules",
     "deploy:fireStorage": "firebase deploy --only storage:rules",
     "deploy:database": "firebase deploy --only database:rules",
+    "firebase:geberate:token": "firebase login:ci",
     "test": "ng test",
-    "firebase-admin install": "npm -g install firebase-admin"
+    "firebase-admin install": "npm -g install firebase-admin",
+    "firebase-tools install": "npm -g install firebase-tools"
   },
   "private": true,
   "dependencies": {
