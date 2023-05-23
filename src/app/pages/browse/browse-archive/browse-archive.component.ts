@@ -67,7 +67,7 @@ export class BrowseArchiveComponent implements OnInit, OnDestroy {
   initialize() {
     this.sub.push(
       this.arch
-        .getRightistById(this.language!, this.id)
+        .getRightistById(this.language ?? window.navigator.language.split('-')?.[0], this.id)
         .subscribe((res: any) => {
           if (!res) {
              this.router.navigate(['../../../','account']);
